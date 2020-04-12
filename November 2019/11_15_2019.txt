@@ -1,0 +1,20 @@
+November 15th, 2019
+
+Q: Who was the last Dodgers position player before Cody Bellinger to win an MVP Award?
+
+Code:
+
+SELECT People.nameFirst & " " & nameLast AS fullName, AwardsPlayers.yearID
+FROM (((People 
+INNER JOIN Fielding 
+ON People.playerID = Fielding.playerID) 
+INNER JOIN Batting 
+ON (Fielding.playerID = Batting.playerID) AND (Fielding.yearID = Batting.yearID)) 
+INNER JOIN Teams 
+ON (Batting.yearID = Teams.yearID) AND (Batting.teamID = Teams.teamID)) 
+INNER JOIN AwardsPlayers 
+ON (Teams.yearID = AwardsPlayers.yearID) AND (AwardsPlayers.playerID = Batting.playerID)
+WHERE AwardsPlayers.awardID = "Most Valuable Player" AND Teams.name = "Los Angeles Dodgers" AND Fielding.POS <>"P"
+ORDER BY AwardsPlayers.yearID DESC;
+
+A: Kirk Gibson (1988)

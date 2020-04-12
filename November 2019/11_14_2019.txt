@@ -1,0 +1,19 @@
+November 14th, 2019
+
+Q: Who are the three pitchers to win Rookie of the Year and multiple Cy Young Awards?
+
+Code:
+
+SELECT ROY.nameFirst & " " & ROY.nameLast AS fullName
+FROM (SELECT People.nameFirst, People.nameLast, People.playerID 
+FROM People 
+INNER JOIN AwardsPlayers 
+ON People.playerID=AwardsPlayers.playerID 
+WHERE awardID = "Rookie of the Year")  AS ROY 
+INNER JOIN (SELECT AwardsPlayers.playerID, COUNT(*) AS TotalCYs 
+FROM AwardsPlayers 
+WHERE AwardsPlayers.awardID = "Cy Young Award" 
+GROUP BY AwardsPlayers.playerID HAVING COUNT(*) >= 2)  AS CY 
+ON ROY.playerID = CY.playerID;
+
+A: Jacob deGrom, Justin Verlander and Tom Seaver

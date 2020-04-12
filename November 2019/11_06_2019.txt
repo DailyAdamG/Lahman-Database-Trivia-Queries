@@ -1,0 +1,19 @@
+November 6th, 2019
+
+Q: Which catcher is second to Yogi Berra in RBIs with 1,389 since the stat became officially recognized in 1920?
+
+Code:
+
+SELECT RBI.nameFirst & " " & RBI.nameLast AS fullName
+FROM (SELECT Fielding.playerID, Fielding.POS, SUM(Fielding.G) AS GP 
+FROM Fielding WHERE POS = "C" 
+GROUP BY Fielding.playerID, Fielding.POS)  AS Catchers 
+LEFT JOIN (SELECT Batting.playerID, People.nameFirst, People.nameLast, SUM(Batting.RBI) AS CareerRBI 
+FROM Batting 
+INNER JOIN People 
+ON Batting.playerID = People.playerID 
+GROUP BY Batting.playerID, People.nameFirst, People.nameLast)  AS RBI 
+ON Catchers.playerID = RBI.playerID
+WHERE RBI.CareerRBI = 1389;
+
+A: Ted Simmons

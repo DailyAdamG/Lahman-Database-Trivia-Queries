@@ -1,0 +1,23 @@
+November 4th, 2019
+
+Q: Who won the most consecutive Gold Glove Awards to start a career?
+
+Code:
+
+SELECT TotalGG.fullName, TotalGG.yearID
+FROM (SELECT GG.yearID, GG.playerID 
+FROM (SELECT Batting.playerID, MIN(Batting.yearID) AS RookieYear 
+FROM Batting GROUP BY Batting.playerID)  AS RY 
+INNER JOIN (SELECT AwardsPlayers.playerID, AwardsPlayers.yearID, AwardsPlayers.awardID 
+FROM AwardsPlayers 
+WHERE awardID = "Gold Glove")  AS GG 
+ON (RY.RookieYear = GG.yearID) AND (RY.playerID = GG.playerID))  AS Rookies 
+LEFT JOIN (SELECT AwardsPlayers.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID, AwardsPlayers.awardID 
+FROM AwardsPlayers 
+INNER JOIN People 
+ON AwardsPlayers.playerID = People.playerID 
+WHERE AwardsPlayers.awardID = "Gold Glove")  AS TotalGG 
+ON Rookies.playerID = TotalGG.playerID
+ORDER BY TotalGG.fullName, TotalGG.yearID;
+
+A: Ichiro Suzuki (10) 

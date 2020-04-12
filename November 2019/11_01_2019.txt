@@ -1,0 +1,25 @@
+November 1st, 2019
+
+Q: Who is the only manager other than Mike Matheny to manage both the Cardinals and Royals?
+
+Code:
+
+SELECT KC.fullName
+FROM (SELECT DISTINCT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Teams.name
+FROM (People
+INNER JOIN Managers 
+ON People.playerID = Managers.playerID) 
+INNER JOIN Teams 
+ON Managers.teamID = Teams.teamID 
+WHERE Teams.name = "Kansas City Royals")  AS KC 
+INNER JOIN 
+(SELECT DISTINCT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Teams.name 
+FROM (People 
+INNER JOIN Managers 
+ON People.playerID = Managers.playerID) 
+INNER JOIN Teams 
+ON Managers.teamID = Teams.teamID 
+WHERE Teams.name = "St. Louis Cardinals")  AS STL ON KC.playerID=STL.playerID;
+
+A: Whitey Herzog
+

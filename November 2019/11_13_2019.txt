@@ -1,0 +1,16 @@
+November 13th, 2019
+
+Q: Who was the last American League pitcher to win back-to-back Cy Young Awards?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, FirstCYA.yearID, SecondCYA.yearID
+FROM (AwardsPlayers AS FirstCYA 
+INNER JOIN AwardsPlayers AS SecondCYA 
+ON (FirstCYA.awardID = SecondCYA.awardID) AND (FirstCYA.playerID = SecondCYA.playerID) AND (FirstCYA.yearID = SecondCYA.yearID - 1)) 
+INNER JOIN People 
+ON FirstCYA.playerID=People.playerID
+WHERE SecondCYA.awardID = "Cy Young Award" AND SecondCYA.lgID = "AL"
+ORDER BY FirstCYA.yearID DESC;
+
+A: Pedro Martinez (1999-2000)

@@ -1,0 +1,19 @@
+November 30th, 2019
+
+Q: Before Stephen Strasburg this year, who was the most recent pitcher to be named World Series MVP?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID, Teams.name
+FROM (((People 
+INNER JOIN Pitching 
+ON People.playerID = Pitching.playerID)
+INNER JOIN Teams
+ON Pitching.teamID = Teams.teamID AND Pitching.yearID = Teams.yearID) 
+INNER JOIN AwardsPlayers 
+ON (Pitching.playerID = AwardsPlayers.playerID) AND (Pitching.yearID = AwardsPlayers.yearID))
+WHERE AwardsPlayers.awardID = "World Series MVP"
+ORDER BY AwardsPlayers.yearID DESC;
+
+
+A: Madison Bumgarner, Giants (2014)

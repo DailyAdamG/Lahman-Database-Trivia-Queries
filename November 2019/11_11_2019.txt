@@ -1,0 +1,18 @@
+November 11th, 2019
+
+Q: Who was the last Astros player to win a Rookie of the Year Award?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM ((People 
+INNER JOIN AwardsPlayers 
+ON People.playerID = AwardsPlayers.playerID) 
+INNER JOIN Batting 
+ON (AwardsPlayers.playerID = Batting.playerID) AND (AwardsPlayers.yearID = Batting.yearID)) 
+INNER JOIN Teams 
+ON (Batting.teamID = Teams.teamID) AND (Batting.yearID = Teams.yearID)
+WHERE AwardsPlayers.awardID = "Rookie of the Year" AND Teams.name = "Houston Astros"
+ORDER BY AwardsPlayers.yearID DESC;
+
+A: Carlos Correa (2015)

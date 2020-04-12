@@ -1,0 +1,17 @@
+November 2nd, 2019
+
+Q: Which five players had over 100 HRs and 100 SBs as a Met?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.HR) AS MetsHR, SUM(Batting.SB) AS MetsSB
+FROM (People 
+INNER JOIN Batting 
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams 
+ON (Batting.teamID = Teams.teamID) AND (Batting.yearID=Teams.yearID)
+WHERE Teams.name = "New York Mets"
+GROUP BY People.nameFirst, People.nameLast
+HAVING SUM(Batting.HR)>=100 AND SUM(Batting.SB)>=100;
+
+A: Jose Reyes, Howard Johnson, David Wright, Darryl Strawberry, Carlos Beltran 

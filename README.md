@@ -1,2 +1,2 @@
 # Lahman-Database-Trivia-Queries
-MLB Trivia Queries using Microsoft Access
+Repository for MLB Trivia using the Lahman Database

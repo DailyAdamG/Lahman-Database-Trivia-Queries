@@ -1,0 +1,36 @@
+November 20th, 2019
+
+Q: How many Major Leaguers were elected to the Hall of Fame in their final year of eligibility?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast as fullName, HallOfFame.yearid
+FROM People
+INNER JOIN HallOfFame
+ON People.playerID = HallOfFame.playerID
+WHERE YEAR(People.finalGame) < 1931 AND HallOfFame.yearid = 1951 AND HallOfFame.inducted = "Y"
+UNION
+SELECT People.playerID, People.nameFirst & " " & People.nameLast as fullName, HallOfFame.yearid
+FROM People
+INNER JOIN HallOfFame
+ON People.playerID = HallOfFame.playerID
+WHERE YEAR(People.finalGame) BETWEEN 1931 AND 1935 AND YEAR(People.finalGame) + 22 =HallOfFame.yearID AND HallOfFame.inducted = "Y"
+UNION
+SELECT People.playerID, People.nameFirst & " " & People.nameLast as fullName, HallOfFame.yearid
+FROM People
+INNER JOIN HallOfFame
+ON People.playerID = HallOfFame.playerID
+WHERE YEAR(People.finalGame) BETWEEN 1936 AND 1937 AND YEAR(People.finalGame) + 21 =HallOfFame.yearID AND HallOfFame.inducted = "Y"
+UNION
+SELECT People.playerID, People.nameFirst & " " & People.nameLast as fullName, HallOfFame.yearid
+FROM People
+INNER JOIN HallOfFame
+ON People.playerID = HallOfFame.playerID
+WHERE YEAR(People.finalGame) >= 1938 AND YEAR(People.finalGame) + 20 =HallOfFame.yearID AND HallOfFame.inducted = "Y" AND HallOfFame.yearid < 2015
+UNION SELECT People.playerID, People.nameFirst & " " & People.nameLast as fullName, HallOfFame.yearid
+FROM People
+INNER JOIN HallOfFame
+ON People.playerID = HallOfFame.playerID
+WHERE YEAR(People.finalGame) >= 1938 AND YEAR(People.finalGame) + 15 =HallOfFame.yearid AND HallOfFame.inducted = "Y" AND HallOfFame.yearid>= 2015;
+
+A: Edgar Martinez, Tim Raines, Jim Rice, Ralph Kiner, Joe Medwick and Red Ruffing

@@ -1,0 +1,13 @@
+November 8th, 2019
+
+Q: Which outfielders have won a Silver Slugger Award at age 21 or younger?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM People 
+INNER JOIN AwardsPlayers 
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.awardID = "Silver Slugger" AND AwardsPlayers.notes = "OF" AND AwardsPlayers.yearID - People.birthYear <22;
+
+A: Mike Trout

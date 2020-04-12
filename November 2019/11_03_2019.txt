@@ -1,0 +1,18 @@
+November 3rd, 2019
+
+Q: Who was the last Nationals player to win a Gold Glove Award?
+
+Code:
+
+SELECT nameFirst & " " & nameLast AS fullName, AwardsPlayers.yearID
+FROM ((People
+INNER JOIN Fielding 
+ON People.playerID = Fielding.playerID) 
+INNER JOIN AwardsPlayers 
+ON (Fielding.playerID = AwardsPlayers.playerID) AND (Fielding.yearID = AwardsPlayers.yearID)) 
+INNER JOIN Teams 
+ON (Fielding.teamID = Teams.teamID) AND (Fielding.yearID = Teams.yearID)
+WHERE Teams.name = "Washington Nationals" AND AwardsPlayers.awardID = "Gold Glove"
+ORDER BY AwardsPlayers.yearID DESC
+
+A: Adam Laroche 2012 

@@ -1,0 +1,15 @@
+November 12th, 2019
+
+Q: Who has won the most Manager of the Year Awards in MLB history?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, COUNT(*) AS TotalMoY
+FROM People 
+INNER JOIN AwardsManagers 
+ON People.playerID = AwardsManagers.playerID
+WHERE awardID = "BBWAA Manager of the Year"
+GROUP BY People.nameFirst, People.nameLast
+ORDER BY COUNT(*) DESC;
+
+A: Bobby Cox and Tony La Russa (4)

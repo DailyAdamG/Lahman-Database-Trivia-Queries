@@ -1,0 +1,29 @@
+November 5th, 2019
+
+Q: Which team was the last to win the American League MVP and Cy Young Awards in the same season?
+
+Code:
+
+SELECT MVP.yearID, MVP.fullName, CY.fullName, MVP.name
+FROM (SELECT AwardsPlayers.yearID, AwardsPlayers.playerID, AwardsPlayers.awardID, People.nameFirst & " " &  People.nameLast AS fullName, Teams.name 
+FROM ((AwardsPlayers 
+INNER JOIN Batting 
+ON (AwardsPlayers.playerID = Batting.playerID) AND (AwardsPlayers.yearID=Batting.yearID)) 
+INNER JOIN People 
+ON Batting.playerID = People.playerID) 
+INNER JOIN Teams 
+ON (Teams.teamID=Batting.teamID) AND (Teams.yearID=Batting.yearID) 
+WHERE AwardsPlayers.awardID = "Most Valuable Player" AND AwardsPlayers.lgID = "AL")  AS MVP 
+INNER JOIN 
+(SELECT AwardsPlayers.yearID, AwardsPlayers.playerID, AwardsPlayers.awardID, People.nameFirst & " " &  People.nameLast AS fullName, Teams.name 
+FROM ((AwardsPlayers 
+INNER JOIN Pitching 
+ON (AwardsPlayers.playerID = Pitching.playerID) AND (AwardsPlayers.yearID=Pitching.yearID)) 
+INNER JOIN People ON Pitching.playerID = People.playerID) 
+INNER JOIN Teams 
+ON (Teams.teamID=Pitching.teamID) AND (Teams.yearID=Pitching.yearID) 
+WHERE AwardsPlayers.awardID = "Cy Young Award" AND AwardsPlayers.lgID = "AL")  AS CY 
+ON (MVP.playerID <> CY.playerID) AND (MVP.name=CY.name) AND (MVP.yearID=CY.yearID)
+ORDER BY MVP.yearID DESC;
+
+A: Tigers (Miguel Cabrera and Max Scherzer in 2013)

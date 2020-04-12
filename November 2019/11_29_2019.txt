@@ -1,0 +1,13 @@
+November 29th, 2019
+
+Q: Save the date: Which Hall of Famer was born on this date 50 years ago?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName
+FROM People 
+INNER JOIN HallOfFame 
+ON People.playerID = HallOfFame.playerID
+WHERE HallOfFame.inducted = "Y" AND People.birthMonth = 11 AND People.birthDay = 29 AND People.birthYear = 1969;
+
+A: Mariano Rivera

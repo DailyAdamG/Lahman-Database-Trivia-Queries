@@ -1,0 +1,16 @@
+November 18th, 2019
+
+Q: David Ortiz's highest finish in MVP voting was second in 2005. Who finished ahead of him?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, AwardsSharePlayers.pointsWon
+FROM (People 
+INNER JOIN Batting 
+ON People.playerID = Batting.playerID) 
+INNER JOIN AwardsSharePlayers 
+ON (Batting.playerID = AwardsSharePlayers.playerID) AND (Batting.yearID = AwardsSharePlayers.yearID)
+WHERE AwardsSharePlayers.awardID = "MVP" AND AwardsSharePlayers.yearID = 2005
+ORDER BY AwardsSharePlayers.lgID, AwardsSharePlayers.pointsWon DESC;
+
+A: Alex Rodriguez
