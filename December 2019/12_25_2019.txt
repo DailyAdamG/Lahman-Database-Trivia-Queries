@@ -1,0 +1,14 @@
+December 25th, 2019
+
+Q: Who was the first batter to strike out 200 times in a season?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.SO
+FROM People 
+INNER JOIN Batting 
+ON People.playerID = Batting.playerID
+WHERE Batting.SO >= 200
+ORDER BY Batting.yearID;
+
+A: The Diamondbacks' Mark Reynolds (2008)

@@ -1,0 +1,16 @@
+December 29th, 2019
+
+Q: What is the highest ERA for a pitcher who won the Cy Young Award that season?
+
+Code:
+
+SELECT AwardsPlayers.yearID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.ERA
+FROM (People 
+INNER JOIN Pitching 
+ON People.playerID = Pitching.playerID) 
+INNER JOIN AwardsPlayers 
+ON (Pitching.playerID = AwardsPlayers.playerID) AND (Pitching.yearID = AwardsPlayers.yearID)
+WHERE AwardsPlayers.awardID = "Cy Young Award" AND Pitching.lgID = AwardsPlayers.lgID
+ORDER BY Pitching.ERA DESC;
+
+A: 3.66 by the Padres' LaMarr Hoyt in 1983

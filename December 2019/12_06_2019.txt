@@ -1,0 +1,15 @@
+December 6th, 2019
+
+Q: What is the record for career home runs by a switch-hitter?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.HR) AS HR
+FROM People 
+INNER JOIN Batting 
+ON People.playerID = Batting.playerID
+WHERE People.bats = "B"
+GROUP BY People.playerID, People.nameFirst & " " & People.nameLast
+ORDER BY SUM(Batting.HR) DESC;
+
+A: 536 by Mickey Mantle

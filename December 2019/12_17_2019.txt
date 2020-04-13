@@ -1,0 +1,16 @@
+December 17th, 2019
+
+Q: Which three sluggers hit 300 or more home runs in the 2010s?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, SUM (Batting.HR) AS totalHR
+FROM People 
+INNER JOIN Batting 
+ON People.playerID = Batting.playerID
+WHERE Batting.yearID >= 2010
+GROUP BY People.playerID, People.nameFirst & " " & People.nameLast
+HAVING SUM (Batting.HR) >= 300
+ORDER BY SUM (Batting.HR) DESC;
+
+A: Nelson Cruz (346), Edwin Encarnacion (335), Giancarlo Stanton (308)

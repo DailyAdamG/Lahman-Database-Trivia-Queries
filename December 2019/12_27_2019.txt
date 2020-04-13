@@ -1,0 +1,19 @@
+December 27th, 2019
+
+Q: Eight players have won league MVP from a losing team. Which winner's team had the lowest winning percentage?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID, Teams.name, ROUND((Teams.W / Teams.G),3) AS WPCT
+FROM ((People 
+INNER JOIN BATTING 
+ON People.playerID = Batting.playerID) 
+INNER JOIN AwardsPlayers 
+ON (Batting.playerID = AwardsPlayers.playerID) AND (Batting.yearID = AwardsPlayers.yearID)) 
+INNER JOIN Teams 
+ON (Batting.yearID = Teams.yearID) AND (Batting.teamID = Teams.teamID)
+WHERE AwardsPlayers.awardID = "Most Valuable Player" AND (Teams.W / Teams.G) < .500
+ORDER BY (Teams.W / Teams.G);
+
+
+A: Cal Ripken Jr.'s 1991 Orioles (.414)

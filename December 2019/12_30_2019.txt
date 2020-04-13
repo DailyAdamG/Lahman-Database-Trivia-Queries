@@ -1,0 +1,12 @@
+December 30th, 2019
+
+Q: Which team holds the record for most home runs in a season in which it won the World Series?
+
+Code:
+
+SELECT Teams.yearID, Teams.name, Teams.HR
+FROM Teams
+WHERE WSWin = "Y"
+ORDER BY Teams.HR DESC;
+
+A: The 2009 Yankees (244 home runs, 21st all time)

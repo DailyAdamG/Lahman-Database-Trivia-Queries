@@ -1,0 +1,31 @@
+December 10th, 2019
+
+Q: Since the start of his rookie season in 2010, Madison Bumgarner has made 285 starts for the Giants,
+second among pitchers in that time who have only played for one team. Who is first?
+
+Code:
+
+SELECT Table1.fullName, Table2.TotalGS
+FROM(
+SELECT NumTeams.playerID, fullName, COUNT(NumTeams.teamID) AS Teams
+FROM(
+SELECT DISTINCT People.playerID, People.nameFirst & " " & People.nameLast as fullName, Pitching.teamID
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+WHERE Pitching.yearID >= 2010) AS NumTeams
+GROUP BY NumTeams.playerID, fullName
+HAVING COUNT(NumTeams.teamID)) AS Table1
+INNER JOIN(
+SELECT People.playerID, SUM(Pitching.GS) AS TotalGS
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+WHERE Pitching.yearID >= 2010
+GROUP BY People.playerID
+HAVING SUM(Pitching.GS)) AS Table2
+ON Table1.playerID = Table2.playerID
+WHERE Table1.Teams=1
+ORDER BY Table2.TotalGS DESC
+
+A: The Dodgers' Clayton Kershaw (293 starts)

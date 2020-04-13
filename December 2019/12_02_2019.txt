@@ -1,0 +1,20 @@
+December 2nd, 2019
+
+Q: On this date in 1981, which pitcher became the third of eventual four consecutive Dodgers players to win NL Rookie of the Year?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM (((People 
+INNER JOIN Batting 
+ON People.playerID = Batting.playerID) 
+INNER JOIN Teams 
+ON (Batting.teamID = Teams.teamID) AND (Batting.yearID = Teams.yearID)) 
+INNER JOIN TeamsFranchises 
+ON Teams.franchID = TeamsFranchises.franchID) 
+INNER JOIN AwardsPlayers 
+ON (Batting.yearID = AwardsPlayers.yearID) AND (Batting.playerID = AwardsPlayers.playerID)
+WHERE AwardsPlayers.awardID = "Rookie of the Year" AND TeamsFranchises.franchName = "Los Angeles Dodgers"
+ORDER BY AwardsPlayers.yearID DESC;
+
+A: Fernando Valenzuela

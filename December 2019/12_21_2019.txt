@@ -1,0 +1,17 @@
+December 21st, 2019
+
+Q: Ian Kinsler's 1,145 hits for the Rangers from 2006-13 were the second-most for the franchise during that period. Who had the most?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.H) AS totalHits
+FROM (People 
+INNER JOIN Batting 
+ON People.playerID = Batting.playerID) 
+INNER JOIN Teams 
+ON (Batting.teamID = Teams.teamID) AND (Batting.yearID = Teams.yearID)
+WHERE Batting.yearID BETWEEN 2006 AND 2013 AND Teams.name = "Texas Rangers"
+GROUP BY People.playerID, People.nameFirst & " " & People.nameLast
+ORDER BY SUM(Batting.H) DESC;
+
+A: Michael Young (1,343 hits)

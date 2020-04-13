@@ -1,0 +1,18 @@
+December 22nd, 2019
+
+Q: What is the fewest number of games by a position player in the season he won Rookie of the Year?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.G
+FROM ((People 
+INNER JOIN Batting 
+ON People.playerID = Batting.playerID) 
+INNER JOIN AwardsPlayers 
+ON (Batting.yearID = AwardsPlayers.yearID) AND (Batting.playerID = AwardsPlayers.playerID)) 
+LEFT JOIN Pitching 
+ON Batting.playerID = Pitching.playerID AND Batting.yearID = Pitching.yearID
+WHERE AwardsPlayers.awardID = "Rookie of the Year" AND Pitching.G IS NULL
+ORDER BY Batting.G;
+
+A: 52 by Willie McCovey in 1959

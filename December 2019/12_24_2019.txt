@@ -1,0 +1,17 @@
+December 24th, 2019
+
+Q: There were 10 players with 40 or more home runs in 2019, seven short of the record. When was that set?
+
+Code:
+
+SELECT IndHR.yearID, COUNT(IndHR.HR) AS Forty_Homers
+FROM(
+SELECT Batting.playerID, Batting.yearID, SUM(Batting.HR) AS HR
+FROM Batting
+GROUP BY Batting.playerID, Batting.yearID
+HAVING SUM(Batting.HR) >= 40) AS IndHR
+GROUP BY IndHR.yearID
+ORDER BY COUNT(IndHR.HR) DESC
+
+
+A: 1996
