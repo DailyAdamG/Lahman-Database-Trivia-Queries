@@ -1,0 +1,12 @@
+January 3rd, 2020
+
+Q: Which team holds the record for worst regular-season winning percentage in the year it won the World Series?
+
+Code:
+
+SELECT Teams.yearID, Teams.name, ROUND(Teams.W / (Teams.W + Teams.L),3) AS WPCT
+FROM Teams
+WHERE WSWin = "Y"
+ORDER BY ROUND(Teams.W / (Teams.W + Teams.L),3) ASC;
+
+A: The 2006 Cardinals (.516)

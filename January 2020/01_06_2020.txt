@@ -1,0 +1,11 @@
+January 6th, 2020
+
+Q: Mike Leake's 41 home runs allowed in 2019 were tied for 10th all time. Who holds the single-season record for HR allowed?
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, Pitching.HR
+FROM People 
+INNER JOIN Pitching 
+ON People.playerID = Pitching.playerID
+ORDER BY Pitching.HR DESC;
+
+A: Bert Blyleven, MIN (50 in 1986)

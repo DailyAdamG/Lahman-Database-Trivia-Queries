@@ -1,0 +1,14 @@
+January 13th, 2020
+
+Q: On this date in 1982, two of baseball's all-time great sluggers were voted into the Hall of Fame on their first try, 
+the only two to be inducted that year via the regular ballot. Who were they?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+INNER JOIN HallOfFame
+ON People.playerID = HallOfFame.playerID
+WHERE HallOfFame.votedBy = "BBWAA" AND HallOfFame.Inducted = "Y" AND HallOfFame.yearID = 1982
+
+A: Hank Aaron and Frank Robinson

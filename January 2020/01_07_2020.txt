@@ -1,0 +1,10 @@
+January 7th, 2020
+
+Q: Who was the first Japanese player in the Major Leagues?
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, People.debut
+FROM People
+WHERE People.birthCountry = "Japan"
+ORDER BY People.debut;
+
+A: Masanori Murakami (1964 San Francisco Giants)

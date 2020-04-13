@@ -1,0 +1,19 @@
+January 25th, 2020
+
+Q: Ryan Zimmerman became the Nationals' franchise RBIs leader in 2017. Which player did he pass? 
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.RBI) AS FranchiseRBI
+FROM (((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.teamID = Teams.teamID AND Batting.yearID = Teams.yearID)
+INNER JOIN TeamsFranchises
+ON Teams.franchID = TeamsFranchises.franchID)
+WHERE TeamsFranchises.franchName = "Washington Nationals" AND Batting.yearID <= 2017
+GROUP BY People.nameFirst, People.nameLast
+ORDER BY SUM(Batting.RBI) DESC
+
+A: Tim Wallach (Expos, 1980-1992)

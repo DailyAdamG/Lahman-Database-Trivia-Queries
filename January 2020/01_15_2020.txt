@@ -1,0 +1,15 @@
+January 15th, 2020
+
+Q: Who did winner Josh Donaldson best by 81 votes in balloting for the 2015 AL Most Valuable Player? 
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, AwardsSharePlayers.pointsWon
+FROM People
+INNER JOIN AwardsSharePlayers
+ON People.playerID = AwardsSharePlayers.playerID
+WHERE AwardsSharePlayers.awardID = "MVP" AND lgID = "AL" AND AwardsSharePlayers.yearID = 2015
+ORDER BY AwardsSharePlayers.pointsWon DESC
+
+
+A: Mike Trout (385 votes to 304)

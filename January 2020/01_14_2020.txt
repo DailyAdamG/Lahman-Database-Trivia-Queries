@@ -1,0 +1,21 @@
+January 14th, 2020
+
+Q: Not including the inaugural year (1936), what is the record for first-ballot players voted into the Hall of Fame in one year? 
+
+Code:
+
+SELECT Induction.yearID, COUNT(Induction.playerID) AS TotalFirstBallotHOFers
+FROM(
+SELECT HallOfFame.playerID, MIN(HallOfFame.yearid) AS FirstBallotYear
+FROM HallOfFame
+WHERE HallofFame.votedBy = "BBWAA"
+GROUP BY HallOfFame.playerID) AS FirstYear
+INNER JOIN(
+SELECT HallOfFame.playerID, HallOfFame.yearid
+FROM HallOfFame
+WHERE HallOfFame.inducted = "Y" AND HallOfFame.yearID >= 1937) AS Induction
+ON FirstYear.playerID = Induction.playerID AND FirstYear.FirstBallotYear = Induction.yearid
+GROUP BY Induction.yearID
+ORDER BY COUNT(Induction.playerID) DESC
+
+A: Three (1999, 2014, 2015)

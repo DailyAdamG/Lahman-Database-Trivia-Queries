@@ -1,0 +1,19 @@
+January 10th, 2020
+
+Q: Who is the most recent Rookie of the Year to be inducted into the Hall of Fame?
+
+SELECT HOF.nameFirst & " " & HOF.nameLast AS fullName, HOF.yearID AS Year_Inducted, ROY.yearID AS ROY_Year
+FROM (SELECT People.playerID, People.nameFirst, People.nameLast, HallOfFame.yearID 
+FROM People 
+INNER JOIN HallOfFame 
+ON People.playerID = HallOfFame.playerID 
+WHERE HallOfFame.inducted = "Y")  AS HOF 
+INNER JOIN (SELECT People.playerID, AwardsPlayers.yearID 
+FROM People 
+INNER JOIN AwardsPlayers 
+ON People.playerID = AwardsPlayers.playerID 
+WHERE AwardsPlayers.awardID = "Rookie of the Year")  AS ROY 
+ON HOF.playerID = ROY.playerID
+ORDER BY ROY.yearID DESC;
+
+A: Mike Piazza (1993 NL ROY for the Dodgers)

@@ -1,0 +1,14 @@
+January 22nd, 2020
+
+Q: Which Hall of Famer received the most total votes in the year he was elected by the BBWAA? 
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, HallOfFame.yearID, HallOfFame.votes
+FROM People
+INNER JOIN HallOfFame
+ON People.playerID = HallOfFame.playerID
+WHERE HallOfFame.inducted = "Y" AND HAllOfFame.votedBy = "BBWAA"
+ORDER BY HallOfFame.votes DESC
+
+A: Greg Maddux (555 votes in 2014)

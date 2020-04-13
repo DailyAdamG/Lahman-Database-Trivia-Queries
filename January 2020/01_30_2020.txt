@@ -1,0 +1,17 @@
+January 30th, 2020
+
+Q: The Astros are Dusty Baker's fifth team as a manager, one shy of the modern MLB record (post-1900). Which four managers hold the record? 
+
+Code:
+
+SELECT ManagerTeamList.fullName, COUNT(ManagerTeamList.teamID) AS TeamsManaged
+FROM(
+SELECT DISTINCT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Managers.teamID
+FROM People
+INNER JOIN Managers
+ON People.playerID = Managers.playerID
+WHERE Managers.yearID >= 1900) AS ManagerTeamList
+GROUP BY ManagerTeamList.fullName
+ORDER BY COUNT(ManagerTeamList.teamID) DESC
+
+A: Rogers Hornsby, Jimmy Dykes, Dick Williams and John McNamara, 6 teams each.

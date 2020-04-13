@@ -1,0 +1,17 @@
+January 8th, 2020
+
+Q: Which former Phillies player, born today, shares the name of a popular beer?
+
+SELECT PlayerList.fullName
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+WHERE People.birthMonth = 1 AND People.birthDay = 8) AS PlayerList
+INNER JOIN( SELECT DISTINCT Batting.playerID
+FROM Batting
+INNER JOIN Teams
+ON Batting.teamID = Teams.teamID
+WHERE Teams.name = "Philadelphia Phillies") AS Phillies
+ON Playerlist.playerID = Phillies.playerID
+
+A: Bud Weiser (1915-16)

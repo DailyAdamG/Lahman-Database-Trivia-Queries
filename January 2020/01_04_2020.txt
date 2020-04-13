@@ -1,0 +1,18 @@
+January 4th, 2020
+
+Q: Of the 329 individuals in the Hall of Fame, 232 are players. How many of those players were elected on their first ballot?
+
+SELECT COUNT(*) AS FirstBallotHOF
+FROM(
+SELECT FirstBallot.playerID, FirstBallot.nameFirst & " " & FirstBallot.nameLast AS fullName, YearInducted.yearid AS YearInducted
+FROM (SELECT People.playerID, People.nameFirst, People.nameLast, MIN(HallOfFame.yearid) AS FirstBallotYear 
+FROM People 
+INNER JOIN HallOfFame 
+ON People.playerID = HallOfFame.playerID 
+WHERE HallOfFame.category = "Player" AND HallofFame.votedBy = "BBWAA" 
+GROUP BY People.playerID, People.nameFirst, People.nameLast)  AS FirstBallot 
+INNER JOIN (SELECT HallOfFame.playerID, HallOfFame.yearid 
+FROM HallOfFame WHERE inducted = "Y")  AS YearInducted 
+ON FirstBallot.FirstBallotYear= YearInducted.yearid AND FirstBallot.playerID = YearInducted.playerID)
+
+A: 56

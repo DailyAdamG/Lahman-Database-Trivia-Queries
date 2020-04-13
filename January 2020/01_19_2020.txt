@@ -1,0 +1,14 @@
+January 19th, 2020
+
+Q: Who was the last NL third baseman not named Nolan Arenado to win the Gold Glove Award? 
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.awardID = "Gold Glove" AND lgID = "NL" AND AwardsPlayers.notes = "3B" AND People.nameFirst <> "Nolan" AND People.nameLast <> "Arenado"
+ORDER BY AwardsPlayers.yearID DESC
+
+A: Chase Headley in 2012

@@ -1,0 +1,28 @@
+January 11th, 2020
+
+Q: Who played in the most games among Hall of Famers who spent their entire careers with one team?
+
+Code:
+
+SELECT PlayerList.fullName, PlayerList.GamesPlayed
+FROM (SELECT SingleTeam.playerID, SingleTeam.fullName, TotalGames.GamesPlayed
+FROM(
+SELECT NumTeams.playerID, NumTeams.fullName, COUNT(NumTeams.teamID) AS Teams
+FROM(
+SELECT DISTINCT People.playerID, People.nameFirst & " " & People.nameLast as fullName, Batting.teamID
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID) AS NumTeams
+GROUP BY NumTeams.playerID, fullName
+HAVING COUNT(NumTeams.teamID) = 1) AS SingleTeam
+INNER JOIN(
+SELECT Batting.playerID, SUM(Batting.G) AS GamesPlayed
+FROM Batting
+GROUP BY Batting.playerID
+HAVING SUM(Batting.G)) AS TotalGames
+ON SingleTeam.playerID = TotalGames.playerID)  AS PlayerList INNER JOIN (SELECT HallOfFame.playerID
+FROM HallOfFame
+WHERE HallOfFame.Inducted = "Y")  AS HOF ON PlayerList.playerID = HOF.playerID
+ORDER BY PlayerList.GamesPlayed DESC;
+
+A: Carl Yastrzemski (3,308 games with the Red Sox)

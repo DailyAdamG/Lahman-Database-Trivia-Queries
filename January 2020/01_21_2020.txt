@@ -1,0 +1,13 @@
+January 21st, 2020
+
+Q: What catcher snapped Yadier Molina's run of eight consecutive NL Gold Glove Awards in 2016? 
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.awardID = "Gold Glove" AND AwardsPlayers.notes = "C" AND AwardsPlayers.yearID = 2016 AND AwardsPlayers.lgID = "NL"
+
+A: Buster Posey of the Giants

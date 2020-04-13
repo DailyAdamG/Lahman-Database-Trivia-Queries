@@ -1,0 +1,18 @@
+January 2nd, 2020
+
+Q: What is the lowest batting average by a position player who won his league's MVP Award?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID, ROUND((Batting.H / Batting.AB), 3) AS BA
+FROM (((People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID)
+INNER JOIN Batting
+ON AwardsPlayers.playerID = Batting.playerID AND AwardsPlayers.yearID = Batting.yearID)
+LEFT JOIN Pitching
+ON AwardsPlayers.playerID = Pitching.playerID)
+WHERE AwardsPlayers.awardID = "Most Valuable Player" AND Pitching.G IS NULL
+ORDER BY ROUND((Batting.H / Batting.AB), 3) ASC
+
+A: .267 (The Cardinals' Marty Marion in 1944)
