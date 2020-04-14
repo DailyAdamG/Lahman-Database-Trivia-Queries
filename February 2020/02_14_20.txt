@@ -1,0 +1,19 @@
+February 14th, 2020
+
+Q: 14 players with the last name Hart have played in the Major Leagues. Only one of them has made an All-Star team more than once. Who was he?
+
+Code:
+
+SELECT HartList.fullName, AllStarList.AllstarGames
+FROM
+(SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+WHERE People.nameLast = "Hart") AS HartList
+INNER JOIN
+(SELECT AllstarFull.playerID, COUNT(AllstarFull.GP) AS AllstarGames
+FROM AllstarFull
+GROUP BY AllstarFull.playerID
+HAVING COUNT(AllstarFull.GP) >= 2) AS AllStarList
+ON HartList.playerID = AllStarList.playerID
+
+A: Corey Hart of the Brewers

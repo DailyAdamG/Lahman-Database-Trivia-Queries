@@ -1,0 +1,18 @@
+February 29th, 2020
+
+Q: Which 1950s MVP winner was born on Feb. 29, 1924?
+
+Code:
+
+SELECT Birthday.fullName, MVP.yearID
+FROM
+(SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+WHERE People.birthYear = 1924 AND People.birthMonth = 2 AND People.birthDay = 29) AS Birthday
+INNER JOIN
+(SELECT AwardsPlayers.playerID, AwardsPlayers.yearID
+FROM AwardsPlayers
+WHERE AwardsPlayers.yearID >=1950 AND AwardsPlayers.yearID < 1960 AND AwardsPlayers.awardID = "Most Valuable Player") AS MVP
+ON Birthday.playerID = MVP.playerID
+
+A: Al Rosen (1953 AL MVP with Cleveland)

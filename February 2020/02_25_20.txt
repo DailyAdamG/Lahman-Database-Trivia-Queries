@@ -1,0 +1,15 @@
+February 25th, 2020
+
+Q: Which player had the most seasons with 200 or more hits and 20 or more home runs?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, COUNT(Batting.yearID) AS Seasons
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.H >= 200 AND Batting.HR >= 20
+GROUP BY People.nameFirst, People.nameLast
+ORDER BY COUNT(Batting.yearID) DESC
+
+A: Lou Gehrig (8 such seasons)

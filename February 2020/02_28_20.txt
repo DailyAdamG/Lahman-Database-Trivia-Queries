@@ -1,0 +1,14 @@
+February 28th, 2020
+
+Q: Which two players share the record for most stolen bases in a season in which they hit 50 or more homers?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.HR, Batting.SB
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.HR >= 50
+ORDER BY Batting.SB DESC
+
+A: Willie Mays (1955, 51 HR/24 SB) and Alex Rodriguez (2007, 54 HR/24 SB)

@@ -1,0 +1,14 @@
+February 26th, 2020
+
+Q: Who was the last player with 150 or more RBIs in a season?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.RBI
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.RBI >= 150
+ORDER BY Batting.yearID DESC
+
+A: Alex Rodriguez (156 RBIs for the Yankees in 2007)

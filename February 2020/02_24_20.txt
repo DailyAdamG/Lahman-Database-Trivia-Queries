@@ -1,0 +1,17 @@
+February 24th, 2020
+
+Q: In 2018, Miguel Andújar tied the AL rookie record with 47 doubles. Who holds the overall record for most doubles by a rookie? 
+
+Code:
+
+SELECT Doubles.fullName, Doubles.yearID, Doubles.[2B]
+FROM (SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.[2B] 
+FROM People 
+INNER JOIN Batting 
+ON People.playerID = Batting.playerID)  AS Doubles 
+INNER JOIN (SELECT Batting.playerID, MIN(Batting.yearID) AS RookieYear 
+FROM Batting GROUP BY Batting.playerID)  AS Rookies 
+ON (Doubles.playerID = Rookies.playerID) AND (Doubles.yearID = Rookies.RookieYear)
+ORDER BY Doubles.[2B] DESC;
+
+A: Johnny Frederick (52 for the Brooklyn Robins in 1929)

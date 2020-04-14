@@ -1,0 +1,15 @@
+February 1st, 2020
+
+Q: Curtis Granderson is one of three players in the Live Ball Era (since 1920) to have 20 or more triples, home runs and stolen bases in one season (2007). 
+Who are the other two? 
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.[3B] >= 20 AND Batting.HR >= 20 AND Batting.SB >= 20 AND Batting.yearID >= 1920
+ORDER BY Batting.yearID ASC
+
+A: Jimmy Rollins (2007) and Willie Mays (1957)

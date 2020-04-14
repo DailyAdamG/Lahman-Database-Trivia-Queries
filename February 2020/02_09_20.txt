@@ -1,0 +1,20 @@
+February 9th, 2020
+
+Q: Mariano Rivera is the Majors' career saves leader with 652. How many seasons did the former Yankee lead MLB in saves?
+
+Code:
+
+SELECT RiveraInfo.fullName, RiveraInfo.yearID, RiveraInfo.SV
+FROM(
+SELECT People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, Pitching.SV
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+WHERE People.nameFirst = "Mariano" AND People.nameLast = "Rivera") AS RiveraInfo
+INNER JOIN
+(SELECT Pitching.yearID, MAX(Pitching.SV) AS SavesLeader
+FROM Pitching
+GROUP BY Pitching.yearID) AS SaveLeaderTotals
+ON RiveraInfo.yearID = SaveLeaderTotals.yearID AND RiveraInfo.SV = SaveLeaderTotals.SavesLeader
+
+A: Three -- 1999 (with 45), 2001 (50) and 2004 (53)

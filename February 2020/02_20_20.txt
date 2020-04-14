@@ -1,0 +1,16 @@
+February 20th, 2020
+
+Q: Last year's Dodgers had a team OPS of .810, fourth-best in franchise history and the best since they moved to Los Angeles. Which year's club holds the top spot? 
+
+Code:
+
+SELECT Teams.yearID, Teams.name, ROUND(((Teams.H + Teams.BB + IIF(ISNULL([Teams.HBP]), 0, [Teams.HBP])) / (Teams.AB + Teams.BB + IIF(ISNULL([Teams.HBP]), 0, [Teams.HBP]) + IIF(ISNULL([Teams.SF]), 0, [Teams.SF])) +
+(((Teams.H - Teams.[2B] - Teams.[3B] - Teams.HR) + 2 * Teams.[2B] + 3 * Teams.[3B] + 4 * Teams.HR) / Teams.AB)),3) AS OPS
+FROM Teams
+INNER JOIN TeamsFranchises
+ON Teams.franchID = TeamsFranchises.franchID
+WHERE franchName = "Los Angeles Dodgers"
+ORDER BY ROUND(((Teams.H + Teams.BB + IIF(ISNULL([Teams.HBP]), 0, [Teams.HBP])) / (Teams.AB + Teams.BB + IIF(ISNULL([Teams.HBP]), 0, [Teams.HBP]) + IIF(ISNULL([Teams.SF]), 0, [Teams.SF])) +
+(((Teams.H - Teams.[2B] - Teams.[3B] - Teams.HR) + 2 * Teams.[2B] + 3 * Teams.[3B] + 4 * Teams.HR) / Teams.AB)),3) DESC
+
+A: The 1953 Dodgers had a team OPS of .840
