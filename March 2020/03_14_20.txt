@@ -1,0 +1,49 @@
+March 14th, 2020
+
+Q: Jack McKeon is one of four managers who managed in every decade from the 1970s to the 2010s (though not necessarily uninterrupted). Who are the other three?
+
+Code:
+
+SELECT DISTINCT FourDecades.fullName
+FROM(
+SELECT DISTINCT ThreeDecades.playerID, ThreeDecades.fullName
+FROM(
+SELECT DISTINCT TwoDecades.playerID, TwoDecades.fullName
+FROM(
+SELECT DISTINCT Seventies.playerID, Seventies.fullName
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+INNER JOIN Managers
+ON People.playerID = Managers.playerID
+WHERE Managers.yearID >= 1970 AND Managers.yearID < 1980) AS Seventies
+INNER JOIN
+(SELECT People.playerID
+FROM People
+INNER JOIN Managers
+ON People.playerID = Managers.playerID
+WHERE Managers.yearID >= 1980 AND Managers.yearID < 1990) AS Eighties
+ON Seventies.playerID = Eighties.playerID) AS TwoDecades
+INNER JOIN
+(SELECT People.playerID
+FROM People
+INNER JOIN Managers
+ON People.playerID = Managers.playerID
+WHERE Managers.yearID >= 1990 AND Managers.yearID < 2000) AS Nineties
+ON TwoDecades.playerID = Nineties.playerID) AS ThreeDecades
+INNER JOIN
+(SELECT People.playerID
+FROM People
+INNER JOIN Managers
+ON People.playerID = Managers.playerID
+WHERE Managers.yearID >= 2000 AND Managers.yearID < 2010) AS Aughts
+ON ThreeDecades.playerID = Aughts.playerID) AS FourDecades
+INNER JOIN
+(SELECT People.playerID
+FROM People
+INNER JOIN Managers
+ON People.playerID = Managers.playerID
+WHERE Managers.yearID >= 2010) AS Tens
+ON FourDecades.playerID = Tens.playerID
+
+A: Bobby Cox, Tony La Russa and Joe Torre

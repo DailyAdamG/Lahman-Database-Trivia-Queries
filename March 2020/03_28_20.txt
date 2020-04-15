@@ -1,0 +1,22 @@
+March 28th, 2020
+
+Q: Which four Hall of Famers were in uniform for the 1986 World Series?
+
+Code:
+
+SELECT WSPlayers.fullName, WSPlayers.name AS Team
+FROM
+(SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Teams.name
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+WHERE Batting.yearID = 1986 AND (Teams.name = "Boston Red Sox" OR Teams.name = "New York Mets")) AS WSPlayers
+INNER JOIN
+(SELECT HallOfFame.playerID
+FROM HallOfFame
+WHERE HallOfFame.inducted = "Y") AS HOF
+ON WSPlayers.playerID = HOF.playerID
+
+A: Mets: Gary Carter; Red Sox: Wade Boggs, Jim Rice, Tom Seaver

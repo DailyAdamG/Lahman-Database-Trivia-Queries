@@ -1,0 +1,22 @@
+March 4th, 2020
+
+Q: Which Hall of Famer is the only player to lead a league in triples, home runs and RBIs in the same season?
+
+Code:
+
+SELECT HOFList.fullName, Leaders.yearID
+FROM
+(SELECT People.playerID, Batting.yearID, People.nameFirst & " " & People.nameLast AS fullName, Batting.[3B], Batting.HR, Batting.RBI
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN HallOfFame
+ON Batting.playerID = HallOfFame.playerID)
+WHERE HallOfFame.inducted = "Y") AS HOFList
+INNER JOIN
+(SELECT Batting.yearID, MAX(Batting.[3B]) AS Triples, MAX(Batting.HR) AS HR, MAX(Batting.RBI) AS RBI
+FROM Batting
+GROUP BY Batting.yearID) AS Leaders
+ON HOFList.yearID = Leaders.yearID AND HOFList.[3B] = Leaders.Triples AND HOFList.HR = Leaders.HR AND HOFList.RBI = Leaders.RBI
+
+A: Jim Rice (15 triples, 46 home runs, 139 RBIs for the Red Sox in 1978)

@@ -1,0 +1,25 @@
+March 25th, 2020
+
+Q: Who leads Major League catchers in all-time RBIs?
+
+Code:
+
+SELECT Catchers.fullName, RBITotals.CareerRBI
+FROM
+(SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+INNER JOIN Fielding
+ON People.playerID = Fielding.playerID
+WHERE Fielding.POS = "C"
+GROUP BY People.playerID, People.nameFirst, People.nameLast, Fielding.POS
+HAVING SUM(Fielding.G) >= 500) AS Catchers
+INNER JOIN
+(SELECT People.playerID, SUM(Batting.RBI) AS CareerRBI
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+GROUP BY People.playerID) AS RBITotals
+ON Catchers.playerID = RBITotals.playerID
+ORDER BY RBITotals.CareerRBI DESC
+
+A: Yogi Berra (1,430)

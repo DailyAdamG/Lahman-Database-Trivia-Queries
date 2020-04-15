@@ -1,0 +1,20 @@
+March 1st, 2020
+
+Q: Who are the four players to hit at least 50 home runs and win a Gold Glove Award in the same season?
+
+Code:
+
+SELECT Homers.fullName, Homers.yearID, Homers.HR
+FROM
+(SELECT Batting.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.HR >= 50) AS Homers
+INNER JOIN
+(SELECT AwardsPlayers.playerID, AwardsPlayers.yearID
+FROM AwardsPlayers
+WHERE AwardsPlayers.awardID = "Gold Glove") AS GoldGloves
+ON Homers.playerID = GoldGloves.playerID AND Homers.yearID = GoldGloves.yearID
+
+A: Willie Mays, SF (1965), Ken Griffey Jr., SEA (1997 and '98), Alex Rodriguez, TEX (2002) and Andruw Jones, ATL (2005)

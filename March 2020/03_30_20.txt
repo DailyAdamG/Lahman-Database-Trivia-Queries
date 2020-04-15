@@ -1,0 +1,14 @@
+March 30th, 2020
+
+Q: Who was the first NL player to hit at least 50 home runs in a season?
+
+Code:
+
+SELECT Batting.yearID, People.nameFirst & " " & People.nameLast AS fullName, Batting.HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.HR >= 50 AND Batting.lgID = "NL"
+ORDER BY Batting.yearID ASC
+
+A: The Cubs' Hack Wilson (56 in 1930)

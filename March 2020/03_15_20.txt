@@ -1,0 +1,37 @@
+March 15th, 2020
+
+Q: Who was the last player to lead the American League in homers in back-to-back seasons?
+
+Code:
+
+SELECT YearOne.fullName, YearOne.yearID AS FirstYear, YearOne.HR AS FirstYearHR,YearTwo.yearID AS SecondYear, YearTwo.HR AS SecondYearHR
+FROM
+(SELECT PlayerList.yearID, PlayerList.playerID, PlayerList.fullName, PlayerList.HR
+FROM
+(SELECT Batting.yearID, People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID) AS PlayerList
+INNER JOIN
+(SELECT Batting.yearID, MAX(Batting.HR) AS HR
+FROM Batting
+WHERE Batting.lgID = "AL"
+GROUP BY Batting.yearID) AS HRLeaders
+ON PlayerList.yearID = HRLeaders.yearID AND PlayerList.HR = HRLeaders.HR) AS YearOne
+INNER JOIN
+(SELECT PlayerList.yearID, PlayerList.playerID, PlayerList.fullName, PlayerList.HR
+FROM
+(SELECT Batting.yearID, People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID) AS PlayerList
+INNER JOIN
+(SELECT Batting.yearID, MAX(Batting.HR) AS HR
+FROM Batting
+WHERE Batting.lgID = "AL"
+GROUP BY Batting.yearID) AS HRLeaders
+ON PlayerList.yearID = HRLeaders.yearID AND PlayerList.HR = HRLeaders.HR) AS YearTwo
+ON YearOne.playerID = YearTwo.playerID AND YearOne.yearID = YearTwo.yearID - 1
+ORDER BY YearOne.yearID DESC
+
+A: José Bautista, with 43 in 2011 and 54 in 2010

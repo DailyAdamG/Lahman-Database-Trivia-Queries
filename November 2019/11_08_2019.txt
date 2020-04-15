@@ -4,10 +4,10 @@ Q: Which outfielders have won a Silver Slugger Award at age 21 or younger?
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+SELECT People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID, IIF(People.birthMonth <7, (AwardsPlayers.yearID - People.birthYear), (AwardsPlayers.yearID - People.birthYear - 1)) AS Age
 FROM People 
 INNER JOIN AwardsPlayers 
 ON People.playerID = AwardsPlayers.playerID
-WHERE AwardsPlayers.awardID = "Silver Slugger" AND AwardsPlayers.notes = "OF" AND AwardsPlayers.yearID - People.birthYear <22;
+WHERE AwardsPlayers.awardID = "Silver Slugger" AND AwardsPlayers.notes = "OF" AND IIF(People.birthMonth <7, (AwardsPlayers.yearID - People.birthYear), (AwardsPlayers.yearID - People.birthYear - 1))  <22;
 
-A: Mike Trout
+A: Ken Griffey Jr. and Mike Trout

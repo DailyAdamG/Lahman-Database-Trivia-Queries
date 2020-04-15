@@ -1,0 +1,16 @@
+March 8th, 2020
+
+Q: Who are the three Mets pitchers to strike out 250 or more batters in a season?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, Pitching.SO
+FROM ((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN Teams
+ON Pitching.yearID = Teams.yearID AND Pitching.teamID = Teams.teamID)
+WHERE Pitching.SO >= 250 AND Teams.name = "New York Mets"
+ORDER BY Pitching.yearID DESC
+
+A: Jacob deGrom (2018, '19), Dwight Gooden (1984, '85) and Tom Seaver (1970, '71, '73)
