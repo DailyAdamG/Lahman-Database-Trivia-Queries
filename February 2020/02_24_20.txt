@@ -4,7 +4,7 @@ Q: In 2018, Miguel Andújar tied the AL rookie record with 47 doubles. Who holds
 
 Code:
 
-SELECT Doubles.fullName, Doubles.yearID, Doubles.[2B]
+SELECT Doubles.playerID, Doubles.fullName, Doubles.yearID, Doubles.[2B]
 FROM (SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.[2B] 
 FROM People 
 INNER JOIN Batting 

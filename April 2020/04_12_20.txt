@@ -1,0 +1,15 @@
+April 12th, 2020
+
+Q: Which pitcher holds the record for most all-time appearances?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Pitching.G) AS Appearances
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast 
+ORDER BY SUM(Pitching.G) DESC
+
+
+A: Jesse Orosco (1,252 games)

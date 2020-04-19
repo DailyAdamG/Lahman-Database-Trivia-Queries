@@ -1,0 +1,11 @@
+April 1st, 2020
+
+Q: Which team was the only club to hit 250 home runs while notching fewer than 1,000 strikeouts?
+
+Code:
+
+SELECT Teams.yearID, Teams.name, Teams.HR, Teams.SO
+FROM Teams
+WHERE Teams.HR >= 250 AND Teams.SO < 1000
+
+A: 1996 Baltimore Orioles (257 HRs, 915 Ks)

@@ -2,7 +2,7 @@ January 8th, 2020
 
 Q: Which former Phillies player, born today, shares the name of a popular beer?
 
-SELECT PlayerList.fullName
+SELECT People.playerID, PlayerList.fullName
 FROM(
 SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
 FROM People

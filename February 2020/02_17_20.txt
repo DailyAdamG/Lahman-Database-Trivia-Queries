@@ -4,12 +4,12 @@ Q: Which player sports a Majors' best 81.7 percent success rate on stolen bases 
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.SB) AS SB, SUM(Batting.CS) AS CS, ROUND((SUM(Batting.SB) / (SUM(Batting.SB) + SUM(Batting.CS)) * 100),1) AS SB_PCT
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.SB) AS SB, SUM(Batting.CS) AS CS, ROUND((SUM(Batting.SB) / (SUM(Batting.SB) + SUM(Batting.CS)) * 100),1) AS SB_PCT
 FROM People
 INNER JOIN Batting
 ON People.playerID = Batting.playerID
 WHERE Batting.yearID >= 2017
-GROUP BY People.nameFirst, People.nameLast
+GROUP BY People.playerID, People.nameFirst, People.nameLast
 HAVING SUM(Batting.SB) >= 50 AND ROUND((SUM(Batting.SB) / (SUM(Batting.SB) + SUM(Batting.CS)) * 100),1) = 81.7
 
 A: The Marlins' Jonathan Villar

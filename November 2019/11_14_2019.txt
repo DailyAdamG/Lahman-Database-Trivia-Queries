@@ -4,7 +4,7 @@ Q: Who are the three pitchers to win Rookie of the Year and multiple Cy Young Aw
 
 Code:
 
-SELECT ROY.nameFirst & " " & ROY.nameLast AS fullName
+SELECT ROY.playerID, ROY.nameFirst & " " & ROY.nameLast AS fullName
 FROM (SELECT People.nameFirst, People.nameLast, People.playerID 
 FROM People 
 INNER JOIN AwardsPlayers 

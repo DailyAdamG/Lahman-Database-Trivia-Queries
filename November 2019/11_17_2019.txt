@@ -4,7 +4,7 @@ Q: Today is Hall of Famer Tom Seaver's birthday. Which team did he make his fina
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, Pitching.stint, Teams.name
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, Pitching.stint, Teams.name
 FROM (People INNER JOIN Pitching 
 ON People.playerID = Pitching.playerID) 
 INNER JOIN Teams 

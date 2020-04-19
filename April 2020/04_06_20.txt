@@ -1,0 +1,16 @@
+April 6th, 2020
+
+Q: Who became the first pitcher to win the NL MVP since Bob Gibson did so in 1968?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM ((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN AwardsPlayers
+ON Pitching.playerID = AwardsPlayers.playerID AND Pitching.yearID = AwardsPlayers.yearID)
+WHERE AwardsPlayers.awardID = "Most Valuable Player" AND AwardsPlayers.lgID = "NL"
+ORDER BY AwardsPlayers.yearID DESC
+
+A: Dodgers lefty Clayton Kershaw (2014)

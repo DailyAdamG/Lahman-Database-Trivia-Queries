@@ -4,7 +4,7 @@ Q: Who was the last Astros player to win a Rookie of the Year Award?
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
 FROM ((People 
 INNER JOIN AwardsPlayers 
 ON People.playerID = AwardsPlayers.playerID) 

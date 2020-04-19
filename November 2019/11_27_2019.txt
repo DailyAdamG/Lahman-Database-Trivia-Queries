@@ -4,7 +4,7 @@ Q: Who was the last A's player to be selected to back-to-back All-Star Games?
 
 Code:
 
-SELECT People.nameFirst & " " & nameLast AS fullName, FirstAS.yearID, SecondAS.yearID
+SELECT People.playerID, People.nameFirst & " " & nameLast AS fullName, FirstAS.yearID, SecondAS.yearID
 FROM (AllstarFull AS FirstAS 
 INNER JOIN AllstarFull AS SecondAS 
 ON (FirstAS.yearID = SecondAS.yearID - 1) AND (FirstAS.playerID = SecondAS.playerID)) 

@@ -2,7 +2,7 @@ January 10th, 2020
 
 Q: Who is the most recent Rookie of the Year to be inducted into the Hall of Fame?
 
-SELECT HOF.nameFirst & " " & HOF.nameLast AS fullName, HOF.yearID AS Year_Inducted, ROY.yearID AS ROY_Year
+SELECT HOF.playerID, HOF.nameFirst & " " & HOF.nameLast AS fullName, HOF.yearID AS Year_Inducted, ROY.yearID AS ROY_Year
 FROM (SELECT People.playerID, People.nameFirst, People.nameLast, HallOfFame.yearID 
 FROM People 
 INNER JOIN HallOfFame 

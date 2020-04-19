@@ -4,7 +4,7 @@ Q: Ian Kinsler's 1,145 hits for the Rangers from 2006-13 were the second-most fo
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.H) AS totalHits
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.H) AS totalHits
 FROM (People 
 INNER JOIN Batting 
 ON People.playerID = Batting.playerID) 

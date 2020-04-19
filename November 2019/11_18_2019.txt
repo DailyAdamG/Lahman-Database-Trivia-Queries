@@ -4,7 +4,7 @@ Q: David Ortiz's highest finish in MVP voting was second in 2005. Who finished a
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, AwardsSharePlayers.pointsWon
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsSharePlayers.pointsWon
 FROM (People 
 INNER JOIN Batting 
 ON People.playerID = Batting.playerID) 

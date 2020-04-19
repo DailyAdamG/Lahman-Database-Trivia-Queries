@@ -4,7 +4,7 @@ Q: Who are the four players to hit at least 50 home runs and win a Gold Glove Aw
 
 Code:
 
-SELECT Homers.fullName, Homers.yearID, Homers.HR
+SELECT Homers.playerID, Homers.fullName, Homers.yearID, Homers.HR
 FROM
 (SELECT Batting.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.HR
 FROM People

@@ -4,7 +4,7 @@ Q: Who is the first Angels shortstop to win a Gold Glove Award?
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
 FROM (((People 
 INNER JOIN Batting 
 ON People.playerID = Batting.playerID) 

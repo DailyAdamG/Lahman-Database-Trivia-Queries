@@ -4,7 +4,7 @@ Q: Which three sluggers hit 300 or more home runs in the 2010s?
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, SUM (Batting.HR) AS totalHR
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM (Batting.HR) AS totalHR
 FROM People 
 INNER JOIN Batting 
 ON People.playerID = Batting.playerID

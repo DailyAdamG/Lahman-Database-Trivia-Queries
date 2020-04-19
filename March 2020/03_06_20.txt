@@ -4,14 +4,14 @@ Q: Yoán Moncada's 50 home runs are already third-most by a switch-hitter in Whi
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.HR) AS CHW_HR
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.HR) AS CHW_HR
 FROM ((People
 INNER JOIN Batting
 ON People.playerID = Batting.playerID)
 INNER JOIN Teams
 ON Batting.teamID = Teams.teamID AND Batting.yearID = Teams.yearID)
 WHERE People.bats = "B" AND Teams.name = "Chicago White Sox"
-GROUP BY People.nameFirst, People.nameLast
+GROUP BY People.playerID, People.nameFirst, People.nameLast
 ORDER BY SUM(Batting.HR) DESC
 
 A: José Valentín (136 home runs from 2000-04)

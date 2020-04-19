@@ -4,14 +4,14 @@ Q: Who is the Padres' career home run leader?
 
 Code:
 
-SELECT People.nameFirst & " " &  People.nameLast AS fullName, SUM(Batting.HR) AS PadresHR
+SELECT People.playerID, People.nameFirst & " " &  People.nameLast AS fullName, SUM(Batting.HR) AS PadresHR
 FROM (People 
 INNER JOIN Batting 
 ON Batting.playerID = People.playerID) 
 INNER JOIN Teams 
 ON (Batting.yearID = Teams.yearID) AND (Batting.teamID = Teams.teamID)
 WHERE Teams.name = "San Diego Padres"
-GROUP BY Batting.playerID, People.nameFirst & " " &  People.nameLast
+GROUP BY People.playerID, Batting.playerID, People.nameFirst & " " &  People.nameLast
 ORDER BY SUM(Batting.HR) DESC;
 
 

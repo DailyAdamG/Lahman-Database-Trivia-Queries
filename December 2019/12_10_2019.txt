@@ -5,7 +5,7 @@ second among pitchers in that time who have only played for one team. Who is fir
 
 Code:
 
-SELECT Table1.fullName, Table2.TotalGS
+SELECT Table1.playerID, Table1.fullName, Table2.TotalGS
 FROM(
 SELECT NumTeams.playerID, fullName, COUNT(NumTeams.teamID) AS Teams
 FROM(

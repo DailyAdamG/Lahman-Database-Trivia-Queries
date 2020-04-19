@@ -4,7 +4,7 @@ Q: Who was the last NL third baseman not named Nolan Arenado to win the Gold Glo
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
 FROM People
 INNER JOIN AwardsPlayers
 ON People.playerID = AwardsPlayers.playerID

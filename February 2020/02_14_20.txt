@@ -4,7 +4,7 @@ Q: 14 players with the last name Hart have played in the Major Leagues. Only one
 
 Code:
 
-SELECT HartList.fullName, AllStarList.AllstarGames
+SELECT AllStarList.playerID, HartList.fullName, AllStarList.AllstarGames
 FROM
 (SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
 FROM People

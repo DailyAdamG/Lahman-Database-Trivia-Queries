@@ -4,7 +4,7 @@ Q: Which 1950s MVP winner was born on Feb. 29, 1924?
 
 Code:
 
-SELECT Birthday.fullName, MVP.yearID
+SELECT Birthday.playerID, Birthday.fullName, MVP.yearID
 FROM
 (SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
 FROM People

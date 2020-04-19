@@ -4,7 +4,7 @@ Q: Which four Hall of Famers were in uniform for the 1986 World Series?
 
 Code:
 
-SELECT WSPlayers.fullName, WSPlayers.name AS Team
+SELECT WSPlayers.playerID, WSPlayers.fullName, WSPlayers.name AS Team
 FROM
 (SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Teams.name
 FROM ((People

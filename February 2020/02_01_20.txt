@@ -5,7 +5,7 @@ Who are the other two?
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID
 FROM People
 INNER JOIN Batting
 ON People.playerID = Batting.playerID

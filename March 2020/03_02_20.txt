@@ -4,7 +4,7 @@ Q: Who was the last player to win back-to-back NL MVP Awards?
 
 Code:
 
-SELECT FirstTable.fullName, FirstTable.yearID AS FirstMVP, SecondTable.yearID AS SecondMVP
+SELECT FirstTable.playerID, FirstTable.fullName, FirstTable.yearID AS FirstMVP, SecondTable.yearID AS SecondMVP
 FROM(
 SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
 FROM People

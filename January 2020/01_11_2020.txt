@@ -4,7 +4,7 @@ Q: Who played in the most games among Hall of Famers who spent their entire care
 
 Code:
 
-SELECT PlayerList.fullName, PlayerList.GamesPlayed
+SELECT SingleTeam.playerID, PlayerList.fullName, PlayerList.GamesPlayed
 FROM (SELECT SingleTeam.playerID, SingleTeam.fullName, TotalGames.GamesPlayed
 FROM(
 SELECT NumTeams.playerID, NumTeams.fullName, COUNT(NumTeams.teamID) AS Teams

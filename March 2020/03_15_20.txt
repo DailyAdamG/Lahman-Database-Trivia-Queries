@@ -4,7 +4,7 @@ Q: Who was the last player to lead the American League in homers in back-to-back
 
 Code:
 
-SELECT YearOne.fullName, YearOne.yearID AS FirstYear, YearOne.HR AS FirstYearHR,YearTwo.yearID AS SecondYear, YearTwo.HR AS SecondYearHR
+SELECT YearOne.playerID, YearOne.fullName, YearOne.yearID AS FirstYear, YearOne.HR AS FirstYearHR,YearTwo.yearID AS SecondYear, YearTwo.HR AS SecondYearHR
 FROM
 (SELECT PlayerList.yearID, PlayerList.playerID, PlayerList.fullName, PlayerList.HR
 FROM

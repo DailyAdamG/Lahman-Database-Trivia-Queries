@@ -4,17 +4,16 @@ Q: Which player tied for the Majors' lead in triples last season, despite playin
 
 Code:
 
-SELECT PlayerList.fullName, PlayerList.Triples
-FROM
-(SELECT People.nameFirst & " " & People.nameLast AS fullName, Batting.G, Batting.[3B] AS Triples
-FROM People
-INNER JOIN Batting
-ON People.playerID = Batting.playerID
-WHERE yearID = 2019 AND Batting.G = 102) AS PlayerList
-INNER JOIN
-(SELECT MAX(Batting.[3B]) AS TriplesLeader
-FROM Batting
-WHERE Batting.yearID = 2019) AS TriplesTable
-ON PlayerList.Triples = TriplesTable.TriplesLeader
+SELECT PlayerList.playerID, PlayerList.fullName, PlayerList.Triples
+FROM (SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.G, Batting.[3B] AS Triples 
+FROM People 
+INNER JOIN Batting 
+ON People.playerID = Batting.playerID 
+WHERE yearID = 2019 AND Batting.G = 102)  AS PlayerList 
+INNER JOIN 
+(SELECT MAX(Batting.[3B]) AS TriplesLeader 
+FROM Batting 
+WHERE Batting.yearID = 2019)  AS TriplesTable 
+ON PlayerList.Triples = TriplesTable.TriplesLeader;
 
 A: The Royals' Adalberto Mondesi with 10

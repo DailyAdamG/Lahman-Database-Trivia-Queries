@@ -4,7 +4,7 @@ Q: Who was the first NL player to hit at least 50 home runs in a season?
 
 Code:
 
-SELECT Batting.yearID, People.nameFirst & " " & People.nameLast AS fullName, Batting.HR
+SELECT People.playerID, Batting.yearID, People.nameFirst & " " & People.nameLast AS fullName, Batting.HR
 FROM People
 INNER JOIN Batting
 ON People.playerID = Batting.playerID

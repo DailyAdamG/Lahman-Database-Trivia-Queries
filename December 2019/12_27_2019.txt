@@ -4,7 +4,7 @@ Q: Eight players have won league MVP from a losing team. Which winner's team had
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID, Teams.name, ROUND((Teams.W / Teams.G),3) AS WPCT
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID, Teams.name, ROUND((Teams.W / Teams.G),3) AS WPCT
 FROM ((People 
 INNER JOIN BATTING 
 ON People.playerID = Batting.playerID) 

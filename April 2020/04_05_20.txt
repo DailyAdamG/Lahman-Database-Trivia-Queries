@@ -1,0 +1,18 @@
+April 5th, 2020
+
+Q: Who was the MVP of the 1986 National League Championship Series?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Teams.name
+FROM (((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.teamID = Teams.teamID AND Batting.yearID = Teams.yearID)
+INNER JOIN AwardsPlayers
+ON AwardsPlayers.yearID = Teams.yearID AND People.playerID = AwardsPlayers.playerID)
+WHERE AwardsPlayers.awardID = "NLCS MVP" AND AwardsPlayers.yearID = 1986
+
+
+A: Mike Scott, HOU

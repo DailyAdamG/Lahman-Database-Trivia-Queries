@@ -4,7 +4,7 @@ Q: In which season did Travis d'Arnaud record his lone career stolen base?
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.SB
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.SB
 FROM People INNER JOIN Batting 
 ON People.playerID = Batting.playerID
 WHERE People.nameFirst = "Travis" AND People.nameLast = "d'Arnaud" AND Batting.SB > 0;

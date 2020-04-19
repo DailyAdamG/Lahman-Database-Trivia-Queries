@@ -4,7 +4,7 @@ Q: Before Stephen Strasburg this year, who was the most recent pitcher to be nam
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID, Teams.name
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID, Teams.name
 FROM (((People 
 INNER JOIN Pitching 
 ON People.playerID = Pitching.playerID)

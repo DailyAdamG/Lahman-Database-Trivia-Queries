@@ -4,7 +4,7 @@ Q: What is the record for career home runs by a switch-hitter?
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.HR) AS HR
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.HR) AS HR
 FROM People 
 INNER JOIN Batting 
 ON People.playerID = Batting.playerID

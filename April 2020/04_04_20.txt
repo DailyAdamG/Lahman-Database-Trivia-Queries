@@ -1,0 +1,18 @@
+April 4th, 2020
+
+Q: Which two Pirates had double-digit hit totals in the 1971 World Series?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(BattingPost.H) AS WS_Hits
+FROM ((People
+INNER JOIN BattingPost
+ON People.playerID = BattingPost.playerID)
+INNER JOIN Teams
+ON BattingPost.yearID = Teams.yearID AND BattingPost.teamID = Teams.teamID)
+WHERE Teams.name = "Pittsburgh Pirates" AND Teams.yearID = 1971 AND BattingPost.round = "WS"
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+HAVING SUM(BattingPost.H ) >= 10
+ORDER BY SUM(BattingPost.H) DESC
+
+A: Series MVP Roberto Clemente (12 hits) and catcher Manny Sanguillen (11 hits)

@@ -4,7 +4,7 @@ Q: What player, born on this date in 1997(!), led the National League in runs an
 
 Code:
 
-SELECT PlayerList.fullName, PlayerList.R, PlayerList.SB
+SELECT PlayerList.playerID, PlayerList.fullName, PlayerList.R, PlayerList.SB
 FROM(
 SELECT yearID, MAX(Batting.R) AS R, MAX(Batting.SB) AS SB
 FROM Batting
@@ -12,7 +12,7 @@ WHERE Batting.yearID = 2019 AND Batting.lgID = "NL"
 GROUP BY yearID
 HAVING MAX(Batting.R) AND MAX(Batting.SB)) AS Leader
 INNER JOIN
-(SELECT People.nameFirst & " " & People.nameLast AS fullName, Batting.R, Batting.SB
+(SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.R, Batting.SB
 FROM People
 INNER JOIN Batting
 ON People.playerID = Batting.playerID

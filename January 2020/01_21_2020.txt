@@ -4,7 +4,7 @@ Q: What catcher snapped Yadier Molina's run of eight consecutive NL Gold Glove A
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
 FROM People
 INNER JOIN AwardsPlayers
 ON People.playerID = AwardsPlayers.playerID

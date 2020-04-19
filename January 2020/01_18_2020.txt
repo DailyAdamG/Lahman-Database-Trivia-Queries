@@ -4,12 +4,11 @@ Q: Who made the most starts at third base in MLB history?
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, SUM(Fielding.G) AS Games_at_3B
-FROM People
-INNER JOIN Fielding
-ON People.playerID = Fielding.playerID
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Fielding.G) AS Games_at_3B
+FROM People INNER JOIN Fielding ON People.playerID = Fielding.playerID
 WHERE Fielding.POS = "3B"
-GROUP BY People.nameFirst, People.nameLast
-ORDER BY SUM(Fielding.G) DESC
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+ORDER BY SUM(Fielding.G) DESC;
+
 
 A: Hall of Famer Brooks Robinson (2,870 starts for the Orioles in his 23-year career)

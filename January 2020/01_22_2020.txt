@@ -4,7 +4,7 @@ Q: Which Hall of Famer received the most total votes in the year he was elected 
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, HallOfFame.yearID, HallOfFame.votes
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, HallOfFame.yearID, HallOfFame.votes
 FROM People
 INNER JOIN HallOfFame
 ON People.playerID = HallOfFame.playerID

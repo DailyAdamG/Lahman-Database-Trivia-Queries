@@ -4,7 +4,7 @@ Q: Which Hall of Famer is the only player to lead a league in triples, home runs
 
 Code:
 
-SELECT HOFList.fullName, Leaders.yearID
+SELECT HOFList.playerID, HOFList.fullName, Leaders.yearID
 FROM
 (SELECT People.playerID, Batting.yearID, People.nameFirst & " " & People.nameLast AS fullName, Batting.[3B], Batting.HR, Batting.RBI
 FROM ((People

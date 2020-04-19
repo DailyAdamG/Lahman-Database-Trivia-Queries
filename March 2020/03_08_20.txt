@@ -4,7 +4,7 @@ Q: Who are the three Mets pitchers to strike out 250 or more batters in a season
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, Pitching.SO
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, Pitching.SO
 FROM ((People
 INNER JOIN Pitching
 ON People.playerID = Pitching.playerID)

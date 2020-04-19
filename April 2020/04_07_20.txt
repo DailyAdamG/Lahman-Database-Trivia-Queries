@@ -1,0 +1,15 @@
+April 7th, 2020
+
+Q: Al Kaline's best finish in AL MVP voting was second in both 1955 and '63. Which two Yankees won the award those years?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN AwardsPlayers
+ON Batting.playerID = AwardsPlayers.playerID AND Batting.yearID = AwardsPlayers.yearID)
+WHERE (AwardsPlayers.yearID = 1955 OR AwardsPlayers.yearID = 1963) AND AwardsPlayers.awardID = "Most Valuable Player" AND AwardsPlayers.lgID = "AL"
+
+A: Catcher Yogi Berra in '55 and catcher Elston Howard in '63

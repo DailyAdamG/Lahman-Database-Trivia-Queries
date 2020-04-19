@@ -4,7 +4,7 @@ Q: On this date in 1981, which pitcher became the third of eventual four consecu
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
 FROM (((People 
 INNER JOIN Batting 
 ON People.playerID = Batting.playerID) 

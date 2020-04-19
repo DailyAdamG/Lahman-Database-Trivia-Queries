@@ -4,7 +4,7 @@ Q: Which team was the last to win the American League MVP and Cy Young Awards in
 
 Code:
 
-SELECT MVP.yearID, MVP.fullName, CY.fullName, MVP.name
+SELECT MVP.yearID, MVP.playerID, MVP.fullName, Cy.playerID, CY.fullName, MVP.name
 FROM (SELECT AwardsPlayers.yearID, AwardsPlayers.playerID, AwardsPlayers.awardID, People.nameFirst & " " &  People.nameLast AS fullName, Teams.name 
 FROM ((AwardsPlayers 
 INNER JOIN Batting 

@@ -4,7 +4,7 @@ Q: Who leads Major League catchers in all-time RBIs?
 
 Code:
 
-SELECT Catchers.fullName, RBITotals.CareerRBI
+SELECT Catchers.playerID, Catchers.fullName, RBITotals.CareerRBI
 FROM
 (SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
 FROM People

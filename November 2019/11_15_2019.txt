@@ -4,7 +4,7 @@ Q: Who was the last Dodgers position player before Cody Bellinger to win an MVP 
 
 Code:
 
-SELECT People.nameFirst & " " & nameLast AS fullName, AwardsPlayers.yearID
+SELECT People.playerID, People.nameFirst & " " & nameLast AS fullName, AwardsPlayers.yearID
 FROM (((People 
 INNER JOIN Fielding 
 ON People.playerID = Fielding.playerID) 

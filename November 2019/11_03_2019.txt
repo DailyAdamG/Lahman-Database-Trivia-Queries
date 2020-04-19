@@ -4,7 +4,7 @@ Q: Who was the last Nationals player to win a Gold Glove Award?
 
 Code:
 
-SELECT nameFirst & " " & nameLast AS fullName, AwardsPlayers.yearID
+SELECT People.playerID, nameFirst & " " & nameLast AS fullName, AwardsPlayers.yearID
 FROM ((People
 INNER JOIN Fielding 
 ON People.playerID = Fielding.playerID) 

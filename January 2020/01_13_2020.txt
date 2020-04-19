@@ -5,7 +5,7 @@ the only two to be inducted that year via the regular ballot. Who were they?
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
 FROM People
 INNER JOIN HallOfFame
 ON People.playerID = HallOfFame.playerID

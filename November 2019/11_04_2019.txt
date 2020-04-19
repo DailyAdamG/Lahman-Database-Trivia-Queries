@@ -4,7 +4,7 @@ Q: Who won the most consecutive Gold Glove Awards to start a career?
 
 Code:
 
-SELECT TotalGG.fullName, TotalGG.yearID
+SELECT TotalGG.playerID, TotalGG.fullName, TotalGG.yearID
 FROM (SELECT GG.yearID, GG.playerID 
 FROM (SELECT Batting.playerID, MIN(Batting.yearID) AS RookieYear 
 FROM Batting GROUP BY Batting.playerID)  AS RY 

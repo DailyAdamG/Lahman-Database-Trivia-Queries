@@ -4,7 +4,7 @@ Q: Who was the last American League pitcher to win back-to-back Cy Young Awards?
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, FirstCYA.yearID, SecondCYA.yearID
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, FirstCYA.yearID, SecondCYA.yearID
 FROM (AwardsPlayers AS FirstCYA 
 INNER JOIN AwardsPlayers AS SecondCYA 
 ON (FirstCYA.awardID = SecondCYA.awardID) AND (FirstCYA.playerID = SecondCYA.playerID) AND (FirstCYA.yearID = SecondCYA.yearID - 1)) 

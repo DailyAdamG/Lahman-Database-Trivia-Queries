@@ -4,12 +4,12 @@ Q: Who had the most stolen bases from 2010-19?
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.SB) AS TotalSB
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.SB) AS TotalSB
 FROM People
 INNER JOIN Batting
 ON People.playerID = Batting.playerID
 WHERE Batting.yearID >= 2010
-GROUP BY People.nameFirst, People.nameLast
+GROUP BY People.playerID, People.nameFirst, People.nameLast
 ORDER BY SUM(Batting.SB) DESC
 
 A: Dee Gordon (330)

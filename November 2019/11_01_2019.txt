@@ -4,7 +4,7 @@ Q: Who is the only manager other than Mike Matheny to manage both the Cardinals 
 
 Code:
 
-SELECT KC.fullName
+SELECT KC.playerID, KC.fullName
 FROM (SELECT DISTINCT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Teams.name
 FROM (People
 INNER JOIN Managers 

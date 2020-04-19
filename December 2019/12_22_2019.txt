@@ -4,7 +4,7 @@ Q: What is the fewest number of games by a position player in the season he won 
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.G
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.G
 FROM ((People 
 INNER JOIN Batting 
 ON People.playerID = Batting.playerID) 

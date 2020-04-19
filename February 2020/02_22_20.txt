@@ -4,7 +4,7 @@ Q: Who holds the record for most home runs in a season in which he stole 50 or m
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.HR, Batting.SB
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.HR, Batting.SB
 FROM People
 INNER JOIN Batting
 ON People.playerID = Batting.playerID

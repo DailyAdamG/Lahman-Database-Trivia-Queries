@@ -4,7 +4,7 @@ Q: What is the highest ERA for a pitcher who won the Cy Young Award that season?
 
 Code:
 
-SELECT AwardsPlayers.yearID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.ERA
+SELECT AwardsPlayers.yearID, People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.ERA
 FROM (People 
 INNER JOIN Pitching 
 ON People.playerID = Pitching.playerID) 

@@ -4,7 +4,7 @@ Q: Jack McKeon is one of four managers who managed in every decade from the 1970
 
 Code:
 
-SELECT DISTINCT FourDecades.fullName
+SELECT DISTINCT FourDecades.playerID, FourDecades.fullName
 FROM(
 SELECT DISTINCT ThreeDecades.playerID, ThreeDecades.fullName
 FROM(

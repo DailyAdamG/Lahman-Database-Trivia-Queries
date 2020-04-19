@@ -4,12 +4,12 @@ Q: Which pitcher has the most career saves from his age-40 season on?
 
 Code:
 
-SELECT People.nameFirst & " " & People.nameLast AS fullName, SUM (Pitching.SV) AS TotalSaves
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM (Pitching.SV) AS TotalSaves
 FROM People
 INNER JOIN Pitching
 ON People.playerID = Pitching.playerID
 WHERE IIF(People.birthMonth <7 , (Pitching.yearID - People.birthYear), (Pitching.yearID - People.birthYear -1)) >= 40
-GROUP BY People.nameFirst, People.nameLast
+GROUP BY People.playerID, People.nameFirst, People.nameLast
 ORDER BY SUM(Pitching.SV) DESC
 
 A: Hoyt Wilhelm, with 129

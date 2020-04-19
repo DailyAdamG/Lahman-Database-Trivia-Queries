@@ -1,0 +1,23 @@
+April 9th, 2020
+
+Q: Which pitcher holds the record for most MLB ERA titles?
+
+Code:
+
+SELECT Pitchers.playerID, Pitchers.fullName, COUNT(Pitchers.ERA) AS ERA_Titles
+FROM (SELECT Pitching.yearID, MIN(Pitching.ERA) AS ERA_Leader 
+FROM Pitching 
+WHERE Pitching.IPouts >= 486 
+GROUP BY Pitching.yearID)  AS Leaders
+INNER JOIN 
+(SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, Pitching.ERA 
+FROM People 
+INNER JOIN Pitching 
+ON People.playerID = Pitching.playerID 
+WHERE Pitching.IPOUTS >= 486)  AS Pitchers 
+ON (Leaders.ERA_Leader = Pitchers.ERA) AND (Leaders.yearID = Pitchers.yearID)
+GROUP BY Pitchers.playerID, Pitchers.fullName
+ORDER BY COUNT(Pitchers.ERA) DESC;
+
+
+A: Pedro Martinez (Five: 1997, 1999, 2000, 2002, 2003)
