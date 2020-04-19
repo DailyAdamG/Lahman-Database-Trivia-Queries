@@ -1,0 +1,16 @@
+April 13th, 2020
+
+Q: Who holds the Rangers' single-season record for triples?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.[3B]
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+WHERE Teams.name = "Texas Rangers"
+ORDER BY Batting.[3B] DESC
+
+A: Ruben Sierra (14 in 1989)

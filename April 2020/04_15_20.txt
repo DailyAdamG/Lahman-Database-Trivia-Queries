@@ -1,0 +1,16 @@
+April 15th, 2020
+
+Q: Jackie Robinson won Rookie of the Year and finished fifth in NL MVP voting in 1947. Who won NL MVP?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN AwardsPlayers
+ON Batting.playerID = AwardsPlayers.playerID AND Batting.yearID = AwardsPlayers.yearID)
+WHERE AwardsPlayers.yearID = 1947 AND AwardsPlayers.awardID = "Most Valuable Player" AND AwardsPlayers.lgID = "NL"
+
+
+A: Bob Elliott (3B, Boston Braves)

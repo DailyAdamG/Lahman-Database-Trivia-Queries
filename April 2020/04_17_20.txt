@@ -1,0 +1,15 @@
+April 17th, 2020
+
+Q: Name the only two pitchers to ever appear in an MLB game in their 50s.
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+WHERE IIF(People.birthMonth < 7, Pitching.yearID - People.birthYear, (Pitching.yearID - People.birthYear - 1)) >= 50
+
+
+A: Jack Quinn (his last appearance was July 7, 1933, six days after his 50th birthday) and 
+Satchel Paige (he made one appearance for the Kansas City Athletics at 58 years old)

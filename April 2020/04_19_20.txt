@@ -1,0 +1,13 @@
+April 19th, 2020
+
+Q: Who won the National League Most Valuable Player Award in 2000 before Barry Bonds began his run of four straight MVPs?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.yearID = 2000 AND AwardsPlayers.awardID = "Most Valuable Player" AND AwardsPlayers.lgID = "NL"
+
+A: Jeff Kent, SF
