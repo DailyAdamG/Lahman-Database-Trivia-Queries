@@ -1,0 +1,16 @@
+April 23rd, 2020
+
+Q: Ken Griffey Jr.'s first home run with the White Sox was a big one, tying him for fifth on the all-time list. How many homers did Griffey hit with Chicago?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.HR) AS CHA_HR
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+WHERE People.nameFirst = "Ken" AND People.nameLast = "Griffey" AND Teams.name = "Chicago White Sox"
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+
+A: Three

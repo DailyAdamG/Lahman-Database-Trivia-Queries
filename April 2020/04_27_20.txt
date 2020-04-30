@@ -1,0 +1,11 @@
+April 27th, 2020
+
+Q: Who emerged victorious in the lone postseason matchup between the White Sox and Red Sox?
+
+Code:
+
+SELECT SeriesPost.yearID, SeriesPost.round, SeriesPost.teamIDwinner, SeriesPost.teamIDloser
+FROM SeriesPost
+WHERE (SeriesPost.teamIDwinner = "BOS" OR SeriesPost.teamIDwinner = "CHA") AND (SeriesPost.teamIDloser = "BOS" OR SeriesPost.teamIDloser = "CHA")
+
+A: The White Sox, with a three-game sweep of the defending world champs in the 2005 AL Division Series

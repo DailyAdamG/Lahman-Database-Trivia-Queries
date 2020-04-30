@@ -1,0 +1,15 @@
+April 22nd, 2020
+
+Q: Who made the most appearances at shortstop in the 20th century?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Fielding.G) AS CareerGamesSS
+FROM People
+INNER JOIN Fielding
+ON People.playerID = Fielding.playerID
+WHERE Fielding.POS = "SS" AND Fielding.yearID >= 1901 AND Fielding.yearID < 2000
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+ORDER BY SUM(Fielding.G) DESC
+
+A: Luis Aparicio (2,583 games)

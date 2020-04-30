@@ -1,0 +1,13 @@
+April 25th, 2020
+
+Q: Reggie Jackson led the AL in homers four times in his career. Of those four years, he hit the most in 1980. How many did he tally?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE People.nameFirst = "Reggie" AND People.nameLast = "Jackson" AND Batting.yearID = 1980
+
+A: 41

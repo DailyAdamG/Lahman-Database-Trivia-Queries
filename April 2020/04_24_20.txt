@@ -1,0 +1,17 @@
+April 24th, 2020
+
+Q: Which franchise has had the most Rookie of the Year winners since the award became a national honor in 1947?
+
+Code:
+
+SELECT TeamsFranchises.franchName, COUNT(AwardsPlayers.awardID) AS ROYs
+FROM ((AwardsPlayers INNER JOIN Batting ON (AwardsPlayers.yearID = Batting.yearID) AND (AwardsPlayers.playerID = Batting.playerID)) 
+INNER JOIN Teams 
+ON (Batting.teamID = Teams.teamID) AND (Batting.yearID = Teams.yearID)) 
+INNER JOIN TeamsFranchises 
+ON Teams.franchID = TeamsFranchises.franchID
+WHERE AwardsPlayers.awardID = "Rookie of the Year"
+GROUP BY TeamsFranchises.franchName
+ORDER BY COUNT(AwardsPlayers.awardID) DESC;
+
+A: The Dodgers with 18, twice as many as the Yankees
