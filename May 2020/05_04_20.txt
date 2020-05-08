@@ -1,0 +1,15 @@
+May 4th, 2020
+
+Q: Who was named World Series MVP when the Reds swept the Yankees in the 1976 Fall Classic?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN AwardsPlayers
+ON Batting.playerID = AwardsPlayers.playerID AND Batting.yearID = AwardsPlayers.yearID)
+WHERE AwardsPlayers.awardID = "World Series MVP" AND AwardsPlayers.yearID = 1976
+
+A: Johnny Bench

@@ -1,0 +1,16 @@
+May 2nd, 2020
+
+Q: Which Hall of Fame second baseman, born today and inducted in 1939, was the sixth person to join the 3,000 hit club?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.H) AS CareerHits
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN HallOfFame
+ON Batting.playerID = HallOfFame.playerID)
+WHERE HallOfFame.yearID = 1939 AND HallOfFame.inducted = "Y" AND People.birthMonth = 5 AND People.birthDay = 2
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+
+A: Eddie Collins (active 1906-1930)

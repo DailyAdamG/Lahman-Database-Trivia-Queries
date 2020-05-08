@@ -1,0 +1,15 @@
+May 7th, 2020
+
+Q: Which player scored the most runs in the 2010s?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.R) AS Runs_Scored
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.yearID >= 2010
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+ORDER BY SUM(Batting.R) DESC
+
+A: Mike Trout (903 runs, 24 more than Ian Kinsler)

@@ -1,0 +1,21 @@
+May 6th, 2020
+
+Q: In 1955, Willie Mays led the NL in home runs and triples and Mickey Mantle did the same in the AL. 
+Who is the only player since then to lead a league in both categories in the same season?
+
+Code:
+
+SELECT Leaders.yearID, Players.playerID, Players.fullName
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.[3B], Batting.HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID) AS Players
+INNER JOIN(
+SELECT Batting.yearID, Batting.lgID, MAX(Batting.[3B]) AS TripleLeader, MAX(Batting.HR) AS HRLeader
+FROM Batting
+WHERE Batting.yearID >= 1956
+GROUP BY Batting.yearID, Batting.lgID) AS Leaders
+ON (Players.yearID = Leaders.yearID) AND (Players.yearID AND Leaders.TripleLeader = Players.[3B]) AND (Leaders.HRLeader = Players.HR)
+
+A: Jim Rice of the Red Sox, 1978
