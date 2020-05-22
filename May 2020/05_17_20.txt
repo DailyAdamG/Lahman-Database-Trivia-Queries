@@ -1,0 +1,13 @@
+May 17th, 2020
+
+Q: Barry Bonds won his first three NL MVP Awards in 1990, '92 and '93. Who was the winner in '91?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.yearID = 1991 AND AwardsPlayers.lgID = "NL" AND AwardsPlayers.awardID = "Most Valuable Player"
+
+A: The Braves' Terry Pendleton

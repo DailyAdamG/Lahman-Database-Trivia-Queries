@@ -1,0 +1,16 @@
+May 12th, 2020
+
+Q: 
+Yogi Berra would have turned 95 years old today.
+The legendary Yankees catcher is the all-time leader in World Series hits (71).
+Who is second on the list?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(BattingPost.H) AS WS_Hits
+FROM People INNER JOIN BattingPost ON People.playerID = BattingPost.playerID
+WHERE BattingPost.round = "WS"
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+ORDER BY SUM(BattingPost.H) DESC;
+
+A: Mickey Mantle with 59

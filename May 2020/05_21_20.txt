@@ -1,0 +1,15 @@
+May 21st, 2020
+
+Q: With CC Sabathia's retirement, who is the active leader in career strikeouts among left-handed hurlers?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Pitching.SO) AS CareerStrikeouts
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+WHERE (People.finalGame BETWEEN 01-01-2019 AND 12-31-2019) AND People.throws = "L"
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+ORDER BY SUM(Pitching.SO) DESC
+
+A: Atlanta's Cole Hamels (2,558 K's)

@@ -1,0 +1,14 @@
+May 18th, 2020
+
+Q: Who finished second to Tigers reliever Willie Hernandez in 1984 American League MVP voting?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsSharePlayers.pointsWon
+FROM People
+INNER JOIN AwardsSharePlayers
+ON People.playerID = AwardsSharePlayers.playerID
+WHERE AwardsSharePlayers.yearID = 1984 AND AwardsSharePlayers.awardID = "MVP" AND AwardsSharePlayers.lgID = "AL"
+ORDER BY AwardsSharePlayers.pointsWon DESC
+
+A: Kent Hrbek, MIN

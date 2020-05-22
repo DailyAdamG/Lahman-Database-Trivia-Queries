@@ -1,0 +1,14 @@
+May 13th, 2020
+
+Q: Which pitcher finished with the highest innings total in a single season since 2000?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, ROUND((Pitching.IPouts/3),2) AS IP
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+WHERE Pitching.yearID >= 2000
+ORDER BY ROUND((Pitching.IPouts/3),2) DESC
+
+A: Roy Halladay (266 innings in 2003)

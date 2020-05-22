@@ -1,0 +1,34 @@
+May 15th, 2020
+
+Q: 
+What right fielder (who also spent time in center field and at first base) played his entire 22-year career with the same NL club and won three MVP Awards?
+
+Code:
+
+SELECT OneTeamThreeMVPs.playerID, OneTeamThreeMVPs.fullName
+FROM(
+SELECT OneTeam.playerID, OneTeam.fullName
+FROM(
+SELECT Teams.playerID, Teams.fullName, COUNT(Teams.teamID) AS No_Teams
+FROM(
+SELECT DISTINCT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.teamID
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID) AS Teams
+GROUP BY Teams.playerID, Teams.fullName
+HAVING COUNT(Teams.teamID) = 1) AS OneTeam
+INNER JOIN(
+SELECT AwardsPlayers.playerID, COUNT(AwardsPlayers.yearID) AS MVPs
+FROM AwardsPlayers
+WHERE AwardsPlayers.awardID = "Most Valuable Player" AND AwardsPlayers.lgID = "NL"
+GROUP BY AwardsPlayers.playerID) AS MVPs
+ON OneTeam.playerID = MVPs.playerID
+WHERE MVPs.MVPs = 3) AS OneTeamThreeMVPs
+INNER JOIN(
+SELECT Batting.playerID, COUNT(Batting.yearID) AS Seasons
+FROM Batting
+GROUP BY Batting.playerID
+HAVING COUNT(Batting.yearID) = 22) AS TotalSeasons
+ON OneTeamThreeMVPs.playerID = TotalSeasons.playerID
+
+A: St. Louis Cardinals Hall of Famer Stan Musial

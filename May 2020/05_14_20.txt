@@ -1,0 +1,15 @@
+May 14th, 2020
+
+Q: Which two players share the American League record for most All-Star Games started at third base?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, COUNT(AllstarFull.GP) AS ASG_Starts
+FROM People
+INNER JOIN AllstarFull
+ON People.playerID = AllstarFull.playerID
+WHERE AllstarFull.startingPos = 5 AND AllstarFull.lgID = "AL"
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+ORDER BY COUNT(AllstarFull.GP) DESC
+
+A: Brooks Robinson (Orioles) and Wade Boggs (Red Sox), 11 starts each

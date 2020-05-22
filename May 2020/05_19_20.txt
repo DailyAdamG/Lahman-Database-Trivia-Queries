@@ -1,0 +1,17 @@
+May 19th, 2020
+
+Q: The age-defying wonder Bartolo Colon is considering an MLB comeback.
+Colon has the most wins of any Latin American-born pitcher in Major League history.
+Which pitcher did he pass on the list in 2018?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, People.birthCountry, SUM(Pitching.W) AS CareerWins
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+WHERE People.birthCountry <> "USA"
+GROUP BY People.playerID, People.nameFirst, People.nameLast, People.birthCountry
+ORDER BY SUM(Pitching.W) DESC
+
+A: Dennis Martinez (Born in Nicaragua, he finished his career with 245 wins.)
