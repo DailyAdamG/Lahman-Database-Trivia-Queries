@@ -1,0 +1,23 @@
+May 25th, 2020
+
+Q: Who has the most career MLB wins by a pitcher to come from Duke University?
+
+Code:
+
+SELECT DukePlayers.playerID, DukePlayers.fullName, CareerWins.CareerWins
+FROM(
+SELECT DISTINCT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+INNER JOIN CollegePlaying
+ON People.playerID = CollegePlaying.playerID
+WHERE CollegePlaying.schoolID = "Duke") AS DukePlayers
+INNER JOIN(
+SELECT People.playerID, SUM(Pitching.W) AS CareerWins
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+GROUP BY People.playerID) AS CareerWins
+ON DukePlayers.playerID = CareerWins.playerID
+ORDER BY CareerWins.CareerWins DESC
+
+A: Chris Capuano (77)

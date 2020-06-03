@@ -1,0 +1,13 @@
+May 30th, 2020
+
+Q: In 2014, Hunter Pence played a full 162 game season and led the NL in at-bats. What was his at-bat total that year?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.AB
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE People.nameFirst = "Hunter" AND People.nameLast = "Pence" AND Batting.yearID = 2014
+
+A: 650 (third overall in MLB)

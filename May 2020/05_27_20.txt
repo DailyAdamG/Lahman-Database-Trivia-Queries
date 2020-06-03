@@ -1,0 +1,67 @@
+May 27th, 2020
+
+Q: Who holds the record for most consecutive 40-homer seasons?
+
+Code:
+
+SELECT FirstSixTables.playerID, FirstSixTables.fullName, FirstSixTables.Year1, FirstSixTables.Year2, FirstSixTables.Year3, FirstSixTables.Year4, FirstSixTables.Year5, FirstSixTables.Year6, SeventhYear.yearID AS Year7
+FROM(
+SELECT FirstFiveTables.playerID, FirstFiveTables.fullName, FirstFiveTables.Year1, FirstFiveTables.Year2, FirstFiveTables.Year3, FirstFiveTables.Year4, FirstFiveTables.Year5, SixthYear.yearID AS Year6
+FROM(
+SELECT FirstFourTables.playerID, FirstFourTables.fullName, FirstFourTables.Year1, FirstFourTables.Year2, FirstFourTables.Year3, FirstFourTables.Year4, FifthYear.yearID AS Year5
+FROM(
+SELECT FirstThreeTables.playerID, FirstThreeTables.fullName, FirstThreeTables.Year1, FirstThreeTables.Year2, FirstThreeTables.Year3, FourthYear.yearID AS Year4
+FROM(
+SELECT FirstTwoTables.playerID, FirstTwoTables.fullName, FirstTwoTables.Year1, FirstTwoTables.Year2, ThirdYear.yearID AS Year3
+FROM(
+SELECT FirstYear.playerID, FirstYear.fullName, FirstYear.yearID AS Year1, SecondYear.yearID AS Year2
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.HR >= 40) AS FirstYear
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.HR >= 40) AS SecondYear
+ON (FirstYear.playerID = SecondYear.playerID) AND (FirstYear.yearID = SecondYear.yearID - 1)) AS FirstTwoTables
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.HR >= 40) AS ThirdYear
+ON (FirstTwoTables.playerID = ThirdYear.playerID) AND (FirstTwoTables.Year2 = ThirdYear.yearID - 1)) AS FirstThreeTables
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.HR >= 40) AS FourthYear
+ON (FirstThreeTables.playerID = FourthYear.playerID) AND (FirstThreeTables.Year3 = FourthYear.yearID - 1)) AS FirstFourTables
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.HR >= 40) AS FifthYear
+ON (FirstFourTables.playerID = FifthYear.playerID) AND (FirstFourTables.Year4 = FifthYear.yearID - 1)) AS FirstFiveTables
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.HR >= 40) AS SixthYear
+ON (FirstFiveTables.playerID = SixthYear.playerID) AND (FirstFiveTables.Year5 = SixthYear.yearID - 1)) AS FirstSixTables
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.HR >= 40) AS SeventhYear
+ON (FirstSixTables.playerID = SeventhYear.playerID) AND (FirstSixTables.Year6 = SeventhYear.yearID - 1)
+
+A: Babe Ruth, with seven (1926-32)

@@ -1,0 +1,19 @@
+June 3rd, 2020
+
+Q: How many of the 83 pitchers inducted in the Hall of Fame are left-handers?
+
+Code:
+
+SELECT COUNT(PlayerList.playerID) AS lhpHOF
+FROM(
+SELECT DISTINCT People.playerID
+FROM ((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN HallOfFame
+ON Pitching.playerID = HallOfFame.playerID)
+WHERE People.throws = "L" AND HallOfFame.inducted = "Y" AND HallOfFame.category = "Player" AND Pitching.IPouts >= 100) AS PlayerList
+
+*Query includes Ruth and Sisler, but excludes Negro League Hall of Famers.
+
+A: 17 (20.5%)
