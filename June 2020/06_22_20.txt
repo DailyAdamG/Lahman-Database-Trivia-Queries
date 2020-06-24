@@ -1,0 +1,13 @@
+June 22nd, 2020
+
+Q: Who are the three players to hit 20 or more home runs before their age-20 season?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS nameFull, Batting.yearID, Batting.HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.HR >= 20 AND IIF(People.birthMonth <7, (Batting.yearID - People.birthYear), (Batting.yearID - People.birthYear - 1)) < 20
+
+A: Tony Conigliaro, BOS (24 in 1964), Bryce Harper, WSH (22 in 2012) and Juan Soto, WSH (22 in 2018)

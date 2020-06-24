@@ -1,0 +1,17 @@
+June 19th, 2020
+
+Q: Which player had the most seasons hitting 10 or more doubles, triples and home runs?
+
+Code:
+
+SELECT Hitters.playerID, Hitters.nameFull, COUNT(Hitters.nameFull) AS Total_Seasons
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS nameFull, Batting.yearID, Batting.[2B], Batting.[3B], Batting.HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.[2B] >= 10 AND Batting.[3B] >= 10 AND Batting.HR >= 10) AS Hitters
+GROUP BY Hitters.playerID, Hitters.nameFull
+ORDER BY COUNT(Hitters.nameFull) DESC
+
+A: Lou Gehrig (9 such seasons)

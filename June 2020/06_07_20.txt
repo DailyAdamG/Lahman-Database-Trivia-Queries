@@ -1,0 +1,17 @@
+June 7th, 2020
+
+Q: Who is the leader among active pitchers for career stolen bases?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast as nameFull, SUM(Batting.SB) AS CareerSB
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Pitching
+ON Batting.playerID = Pitching.playerID AND Batting.yearID = Pitching.yearID AND Batting.stint = Pitching.stint)
+WHERE People.finalGame >= "2019-01-01" AND Pitching.IPouts >= 300
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+ORDER BY SUM(Batting.SB) DESC
+
+A: Zack Greinke (nine)

@@ -1,0 +1,15 @@
+June 18th, 2020
+
+Q: Who holds the record for most RBIs by a switch-hitter in a season?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS nameFull, Batting.yearID, SUM(Batting.RBI) AS RBI
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE People.bats = "B"
+GROUP BY People.playerID, People.nameFirst, People.nameLast, Batting.yearID
+ORDER BY SUM(Batting.RBI) DESC
+
+A: Mark Teixeira, who had 144 for the Rangers in 2005

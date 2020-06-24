@@ -1,0 +1,13 @@
+June 15th, 2020
+
+Q: Who are the only two players in Major League history to steal 30 or more bases in a season after turning 40 years old?
+
+Code:
+
+SELECT  DISTINCT People.playerID, People.nameFirst & " " & People.nameLast AS nameFull
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE (Batting.yearID - birthYear >= 40) AND Batting.SB >= 30
+
+A: Rickey Henderson and Davey Lopes
