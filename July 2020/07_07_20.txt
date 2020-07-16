@@ -1,0 +1,31 @@
+July 7th, 2020
+
+Q: Who are the only two pitchers to win three consecutive Cy Young Awards?
+
+Code:
+
+SELECT FirstTwoAwards.playerID, FirstTwoAwards.fullName, FirstTwoAwards.FirstYear, FirstTwoAwards.SecondYear, ThirdAward.yearID AS ThirdYear
+FROM(
+SELECT FirstAward.playerID, FirstAward.fullName, FirstAward.yearID AS FirstYear, SecondAward.yearID AS SecondYear
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE awardID = "Cy Young Award") AS FirstAward
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE awardID = "Cy Young Award") AS SecondAward
+ON FirstAward.playerID = SecondAward.playerID AND FirstAward.yearID = SecondAward.yearID - 1) AS FirstTwoAwards
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE awardID = "Cy Young Award") AS ThirdAward
+ON FirstTwoAwards.playerID = ThirdAward.playerID AND FirstTwoAwards.SecondYear = ThirdAward.yearID - 1
+
+A: Greg Maddux (1992-95) and Randy Johnson (1999-2002), who each won four in a row

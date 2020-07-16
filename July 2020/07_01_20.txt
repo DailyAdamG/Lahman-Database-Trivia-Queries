@@ -1,0 +1,14 @@
+July 1st, 2020
+
+Q: Who was the first switch-hitter elected to the Hall of Fame?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, HallOfFame.yearid
+FROM People
+INNER JOIN HallOfFame
+ON People.playerID = HallOfFame.playerID
+WHERE HallOfFame.inducted = "Y" AND People.bats = "B"
+ORDER BY HallOfFame.yearid ASC
+
+A: Frankie Frisch (elected 1947)

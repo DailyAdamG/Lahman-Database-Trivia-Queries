@@ -1,0 +1,15 @@
+July 6th, 2020
+
+Q: Which pitcher has the highest career strikeouts per nine innings (minimum 1,000 IP) in MLB history?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, ROUND((SUM(Pitching.SO) / (SUM(Pitching.IPouts)/3)) * 9, 2)AS K_9
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+HAVING SUM(Pitching.IPouts) >= 3000
+ORDER BY ROUND((SUM(Pitching.SO) / (SUM(Pitching.IPouts)/3)) * 9, 2) DESC
+
+A: Yu Darvish (11.1237)

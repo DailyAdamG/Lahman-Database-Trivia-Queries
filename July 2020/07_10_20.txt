@@ -1,0 +1,17 @@
+July 10th, 2020
+
+Q: Who are the six Hall of Famers who played in the 1995 World Series between Atlanta and Cleveland?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Teams.name
+FROM (((People
+INNER JOIN BattingPost
+ON People.playerID = BattingPost.playerID)
+INNER JOIN HallOfFame
+ON BattingPost.playerID = HallOfFame.playerID)
+INNER JOIN Teams
+ON BattingPost.yearID = Teams.yearID AND BattingPost.teamID = Teams.teamID)
+WHERE BattingPost.round = "WS"AND HallOfFame.inducted = "Y" AND BattingPost.yearID = 1995 AND (Teams.name = "Cleveland Indians" OR Teams.name = "Atlanta Braves")
+
+A: Tom Glavine, Chipper Jones, Greg Maddux, John Smoltz (Braves); Eddie Murray, Jim Thome (Indians)

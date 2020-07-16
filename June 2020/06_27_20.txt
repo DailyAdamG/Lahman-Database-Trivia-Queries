@@ -1,0 +1,15 @@
+June 27th, 2020
+
+Q: John Paciorek only played in one Major League game. But his brother, Tom Paciorek, played for how many teams over an 18-year career?
+
+Code:
+
+SELECT DISTINCT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Teams.name
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.teamID = Teams.teamID)
+WHERE People.nameFirst = "Tom" AND People.nameLast = "Paciorek"
+
+A: 6 (Dodgers, Braves, Mariners, White Sox, Mets, Rangers)

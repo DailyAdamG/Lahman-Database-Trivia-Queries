@@ -1,0 +1,17 @@
+July 3rd, 2020
+
+Q: Who was the only shortstop to hit .300 with at least 30 homers and 100 RBIs in 2019?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.HR) AS HR, SUM(Batting.RBI) AS RBI, ROUND(SUM(Batting.H / Batting.AB),3) AS BA
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Fielding
+ON Batting.yearID = Fielding.yearID AND Batting.playerID = Fielding.playerID AND Batting.stint = Fielding.stint)
+WHERE Fielding.POS = "SS" AND Fielding.GS >= 10 AND Batting.yearID = 2019
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+HAVING SUM(Batting.HR) >= 30 AND SUM(Batting.RBI) >= 100 AND ROUND(SUM(Batting.H / Batting.AB),3) >= .3
+
+A: Boston's Xander Bogaerts (.309, 33, 117)

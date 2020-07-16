@@ -1,0 +1,15 @@
+July 2nd, 2020
+
+Q: Who are the only two pitchers to retire with at least 300 wins, 3,000 strikeouts and an ERA below 3.00?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Pitching.W) AS CareerW, SUM(Pitching.SO) AS CareerK, ROUND(((SUM(Pitching.ER) * 9) / (SUM(IPouts)/3)),2) AS CareerERA
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+HAVING SUM(Pitching.W) >= 300 AND SUM(Pitching.SO) >= 3000 AND ((SUM(Pitching.ER) * 9) / (SUM(IPouts)/3)) < 3
+ORDER BY SUM(Pitching.W) DESC
+
+A: Walter Johnson (417 W, 3,509 SO, 2.17 ERA) and Tom Seaver (311 W, 3,640 SO, 2.86 ERA)

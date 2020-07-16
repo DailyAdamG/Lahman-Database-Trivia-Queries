@@ -1,0 +1,17 @@
+June 28th, 2020
+
+Q: Who accounted for the most home runs by a pitcher during the 2019 season?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.HR) AS PitcherHR
+FROM ((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN Batting
+ON Pitching.playerID = Batting.playerID AND Pitching.yearID = Batting.yearID AND Batting.stint = Pitching.stint)
+WHERE Pitching.IPouts >= 30 AND Pitching.yearID = 2019
+GROUP BY People.playerID, People.nameFirst, People.nameLast, Batting.HR
+ORDER BY Batting.HR DESC
+
+A: Zack Greinke (three)

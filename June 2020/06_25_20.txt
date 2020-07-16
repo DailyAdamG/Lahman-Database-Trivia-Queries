@@ -1,0 +1,15 @@
+June 25th, 2020
+
+Q: Who has the highest batting average among players in the 500 Home Run Club?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.HR) AS CareerHR, ROUND(SUM(Batting.H) / SUM(Batting.AB),3) AS CareerBA
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+HAVING SUM(Batting.HR) >= 500
+ORDER BY SUM(Batting.H) / SUM(Batting.AB) DESC
+
+A: Ted Williams (.344)

@@ -1,0 +1,15 @@
+July 13th, 2020
+
+Q: Which team had the most players hit 30 or more home runs in the same season?
+
+Code:
+
+SELECT Teams.name, Teams.yearID, COUNT(Batting.HR) AS ThirtyHRHitters
+FROM Batting
+INNER JOIN Teams
+ON Batting.teamID = Teams.teamID AND Batting.yearID = Teams.yearID
+WHERE Batting.HR >= 30
+GROUP BY Teams.name, Teams.yearID
+ORDER BY COUNT(Batting.HR) DESC
+
+A: 2019 Twins, 5 (Nelson Cruz, Mitch Garver, Max Kepler, Eddie Rosario, Miguel Sanó)

@@ -1,0 +1,15 @@
+July 5th, 2020
+
+Q: Who tallied the most RBIs in MLB from 2010-19?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.RBI) AS RBI
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.yearID >= 2010
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+ORDER BY SUM(Batting.RBI) DESC
+
+A: Albert Pujols (963)
