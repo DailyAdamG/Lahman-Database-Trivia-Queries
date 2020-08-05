@@ -1,0 +1,32 @@
+
+August 1, 2020
+
+Q: Which team was the last to have back-to-back MVP Award winners -- but won by different players?
+
+Code:
+
+SELECT FirstTable.fullName AS FirstWinner, FirstTable.yearID AS FirstYear, SecondTable.fullName AS SecondWinner, SecondTable.yearID AS SecondYear, FirstTable.name AS Team
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Teams.name
+FROM (((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+INNER JOIN AwardsPlayers
+ON Batting.playerID = AwardsPlayers.playerID AND Batting.yearID = AwardsPlayers.yearID)
+WHERE AwardsPlayers.awardID = "Most Valuable Player") AS FirstTable
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Teams.name
+FROM (((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+INNER JOIN AwardsPlayers
+ON Batting.playerID = AwardsPlayers.playerID AND Batting.yearID = AwardsPlayers.yearID)
+WHERE AwardsPlayers.awardID = "Most Valuable Player") AS SecondTable
+ON FirstTable.yearID = SecondTable.yearID - 1 AND FirstTable.name = SecondTable.name AND FirstTable.playerID <> SecondTable.playerID
+ORDER BY SecondTable.yearID DESC
+
+A: The Detroit Tigers (Justin Verlander in 2011, Miguel Cabrera in 2012)

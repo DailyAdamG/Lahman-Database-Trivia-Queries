@@ -1,0 +1,15 @@
+July 27th, 2020
+
+Q: Who finished second to Nelson Cruz (40 HRs) for the 2014 American League home run crown?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.HR) AS HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.yearID = 2014 AND Batting.lgID = "AL"
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+ORDER BY SUM(Batting.HR) DESC
+
+A: Chris Carter, HOU (37)

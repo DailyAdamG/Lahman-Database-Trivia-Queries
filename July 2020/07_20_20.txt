@@ -1,0 +1,16 @@
+July 20th, 2020
+
+Q: Who led the Dodgers in home runs when they won their first of seven consecutive NL West crowns in 2013?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.HR
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+WHERE Teams.name = "Los Angeles Dodgers" AND Batting.yearID = 2013
+ORDER BY Batting.HR DESC
+
+A: Adrián González (22)

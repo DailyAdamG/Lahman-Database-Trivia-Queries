@@ -1,0 +1,16 @@
+July 17th, 2020
+
+Q: Who is the last player with a 40-homer season for the Pirates?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.HR
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+WHERE Batting.HR >= 40 AND Teams.name = "Pittsburgh Pirates"
+ORDER BY Batting.yearID DESC
+
+A: Willie Stargell (44 home runs in 1973)
