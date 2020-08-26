@@ -1,0 +1,23 @@
+
+August 21st, 2020
+
+Q: Which two players with the same name -- one of them a Hall of Famer -- hit the most combined homers?
+
+Code:
+
+SELECT HRTable.fullName, HRTable.HR
+FROM(
+SELECT People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.HR) AS HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+GROUP BY People.nameFirst, People.nameLast) AS HRTable
+INNER JOIN(
+SELECT People.nameFirst & " " & People.nameLast AS fullName, COUNT(People.playerID) AS Players
+FROM People
+GROUP BY People.nameFirst, People.nameLast
+HAVING COUNT(People.playerID) = 2) AS ComboTable
+ON HRTable.fullName = ComboTable.fullName
+ORDER BY HRTable.HR DESC
+
+A: Hall of Famer Frank E. Thomas (521 HRs from 1990-2008) and Frank J. Thomas (286 HRs from 1951-66) combined for 807 home runs

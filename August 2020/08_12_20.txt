@@ -1,0 +1,24 @@
+
+August 12th, 2020
+
+Q: Who is the only Padre to lead the NL in home runs in a season?
+
+Code:
+
+SELECT PadresHRTable.playerID, PadresHRTable.fullName, PadresHRTable.yearID, PadresHRTable.HR
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.HR
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.teamID = Teams.teamID AND Batting.yearID = Teams.yearID)
+WHERE Batting.lgID = "NL" AND Teams.name = "San Diego Padres") AS PadresHRTable
+INNER JOIN(
+SELECT Batting.yearID, MAX(Batting.HR) AS HR
+FROM Batting
+WHERE Batting.lgID = "NL"
+GROUP BY Batting.yearID) AS LeaderTable
+ON PadresHRTable.yearID = LeaderTable.yearID AND PadresHRTable.HR = LeaderTable.HR
+
+A: Fred McGriff (35 homers in 1992)

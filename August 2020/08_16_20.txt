@@ -1,0 +1,17 @@
+
+August 16th, 2020
+
+Q: Satchel Paige made his big league debut with the Indians in 1948. Which team did he make his final MLB appearance with, in 1965?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Teams.name
+FROM ((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN Teams
+ON Pitching.teamID = Teams.teamID AND Pitching.yearID = Teams.yearID)
+WHERE Pitching.yearID = 1965 AND People.nameFirst = "Satchel" AND People.nameLast = "Paige"
+
+
+A: The Kansas City Athletics (Paige pitched three scoreless innings vs. the Red Sox on Sept. 25.)

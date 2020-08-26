@@ -1,0 +1,40 @@
+
+August 6th, 2020
+
+Q: Two of the 39 hitters elected to the Hall of Fame by the BBWAA on the first ballot hit fewer than 100 career homers. 
+Who are they?
+
+Code:
+
+SELECT DISTINCT FirstThreeTables.playerID, FirstThreeTables.fullName, FirstThreeTables.CareerHR, FirstThreeTables.YearInducted
+FROM(
+SELECT FirstTwoTables.playerID, FirstTwoTables.fullName, FirstTwoTables.CareerHR, FirstTwoTables.YearInducted
+FROM(
+SELECT HRTable.playerID, HRTable.fullName, HRTable.CareerHR, HOFTable.yearid AS YearInducted
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.HR) AS CareerHR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+HAVING SUM(Batting.HR) < 100) AS HRTable
+INNER JOIN(
+SELECT HallOfFame.playerID, HallOfFame.yearid
+FROM HallOfFame
+WHERE HallOfFame.inducted = "Y" AND HallOfFame.category = "Player" AND HallOfFame.votedBy = "BBWAA") AS HOFTable
+ON HRTable.playerID = HOFTable.playerID) AS FirstTwoTables
+INNER JOIN(
+SELECT HallOfFame.playerID, MIN(HallOfFame.yearid) AS FirstBallot
+FROM HallOfFame
+WHERE HallOfFame.votedBy = "BBWAA" 
+GROUP BY HallOfFame.playerID) AS FirstBallotTable
+ON FirstTwoTables.playerID = FirstBallotTable.playerID AND FirstTwoTables.YearInducted = FirstBallotTable.FirstBallot) AS FirstThreeTables
+INNER JOIN(
+SELECT Fielding.playerID, Fielding.POS, SUM(Fielding.GS) AS Games
+FROM Fielding
+WHERE Fielding.POS <> "P"
+GROUP BY Fielding.playerID, Fielding.POS
+HAVING SUM(Fielding.GS) > 20) AS PositionPlayers
+ON FirstThreeTables.playerID = PositionPlayers.playerID
+
+A: Rod Carew (92 home runs) and Ozzie Smith (28)

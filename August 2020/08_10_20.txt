@@ -1,0 +1,18 @@
+
+August 10th, 2020
+
+Q: Who are the three Atlanta Braves players to win MVP Awards?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM (((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN AwardsPlayers
+ON Batting.yearID = AwardsPlayers.yearID AND Batting.playerID = AwardsPlayers.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+WHERE AwardsPlayers.awardID = "Most Valuable Player" AND Teams.name = "Atlanta Braves"
+
+A: Dale Murphy (1982 and '83), Terry Pendleton ('91) and Chipper Jones ('99)

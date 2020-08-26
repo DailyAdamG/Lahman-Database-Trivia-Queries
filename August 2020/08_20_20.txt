@@ -1,0 +1,18 @@
+
+August 20th, 2020
+
+Q: Of the six White Sox AL Rookie of the Year winners, who is the only pitcher?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM (((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN AwardsPlayers
+ON Pitching.playerID = AwardsPlayers.playerID AND Pitching.yearID = AwardsPlayers.yearID)
+INNER JOIN Teams
+ON Pitching.teamID = Teams.teamID AND Pitching.yearID = Teams.yearID)
+WHERE AwardsPlayers.awardID = "Rookie of the Year" AND Teams.name = "Chicago White Sox"
+
+A: Gary Peters (1963)
