@@ -1,0 +1,27 @@
+
+August 25th, 2020
+
+Q: Who led his league in RBIs more, Alex Rodriguez or Albert Pujols?
+
+Code:
+
+SELECT FinalTable.fullName, COUNT(FinalTable.yearID) AS RBILeaders
+FROM(
+SELECT RodriguezPujols.yearID, RodriguezPujols.fullName, RodriguezPujols.RBI
+FROM(
+SELECT Batting.yearID, Batting.lgID, MAX(Batting.RBI) AS RBI
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+GROUP BY Batting.yearID, Batting.lgID) AS Leaders
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.lgID, Batting.RBI
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE (People.nameFirst = "Albert" OR People.nameFirst = "Alex") AND (People.nameLast= "Pujols" OR People.nameLast = "Rodriguez")) AS RodriguezPujols
+ON Leaders.yearID = RodriguezPujols.yearID AND Leaders.lgID = RodriguezPujols.lgID AND Leaders.RBI = RodriguezPujols.RBI) AS FinalTable
+GROUP BY FinalTable.fullName
+ORDER BY COUNT(FinalTable.yearID) DESC
+
+A: Alex Rodriguez, who led MLB in 2002 (142 RBIs) and 2007 (156); Albert Pujols led the NL in 2010 (118)

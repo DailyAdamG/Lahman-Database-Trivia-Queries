@@ -1,0 +1,37 @@
+
+August 22nd, 2020
+
+Q: Who are the two other third basemen with 300 career homers who played for the Giants?
+
+Code:
+
+SELECT TwoTables.playerID, TwoTables.fullName, TwoTables.CareerHR
+FROM(
+SELECT GiantsTable.playerID, GiantsTable.fullName, HomerTable.CareerHR
+FROM(
+SELECT DISTINCT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+WHERE Teams.name = "San Francisco Giants") AS GiantsTable
+INNER JOIN(
+SELECT People.playerID, SUM(Batting.HR) AS CareerHR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+GROUP BY People.playerID
+HAVING SUM(Batting.HR) >= 300) AS HomerTable
+ON GiantsTable.playerID = HomerTable.playerID) AS TwoTables
+INNER JOIN(
+SELECT People.playerID, SUM(Fielding.GS) AS CareerStarts
+FROM People
+INNER JOIN Fielding
+ON People.playerID = Fielding.playerID
+WHERE POS = "3B"
+GROUP BY People.playerID
+HAVING SUM(Fielding.GS) >= 500) AS ThirdBaseMen
+ON TwoTables.playerID = ThirdBaseMen.playerID
+
+A: Darrell Evans (414 HRs, 142 with Giants) and Matt Williams (378 HRs, 247 with Giants)

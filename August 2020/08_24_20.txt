@@ -1,0 +1,16 @@
+
+August 24th, 2020
+
+Q: Who holds the record for the most home runs in a player's age-40 season?
+
+Code:
+
+SELECT People.playerID, Batting.yearID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.HR) AS HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE IIF(People.birthMonth <7, (Batting.yearID - People.birthYear), (Batting.yearID - People.birthYear - 1)) = 40
+GROUP BY People.playerID, Batting.yearID, People.nameFirst, People.nameLast
+ORDER BY SUM(Batting.HR) DESC
+
+A: David Ortiz, BOS (38 in 2016)
