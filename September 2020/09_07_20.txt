@@ -1,0 +1,24 @@
+
+September 7th, 2020
+
+Q: Between 1966 and 1974, who was the only player besides Lou Brock to lead the National League in stolen bases?
+
+Code:
+
+SELECT LeaderTable.yearID, PlayerList.playerID, PlayerList.fullName, LeaderTable.LeaderSB
+FROM(
+SELECT Batting.lgID, Batting.yearID, MAX(Batting.SB) AS LeaderSB
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.yearID BETWEEN 1966 AND 1974 AND Batting.lgID = "NL"
+GROUP BY Batting.lgID, Batting.yearID) AS LeaderTable
+INNER JOIN(
+SELECT People.playerID, Batting.yearID, People.nameFirst & " " & People.nameLast AS fullName, Batting.SB
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.lgID = "NL" AND Batting.yearID BETWEEN 1966 AND 1974 AND People.nameFirst <> "Lou" AND People.nameLast <> "Brock") AS PlayerList
+ON LeaderTable.yearID = PlayerList.yearID AND LeaderTable.LeaderSB = PlayerList.SB
+
+A: Bobby Tolan, CIN (57 in 1970)

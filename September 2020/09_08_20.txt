@@ -1,0 +1,24 @@
+
+September 8th, 2020
+
+Q: Who was the first pitcher to win a Cy Young Award in both leagues?
+
+Code:
+
+SELECT ALCY.playerID, ALCY.fullName, ALCY.yearID AS ALYear, NLCY.yearID AS NLYear
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.awardID = "Cy Young Award" AND AwardsPlayers.lgID = "AL") AS ALCY
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.awardID = "Cy Young Award" AND AwardsPlayers.lgID = "NL") AS NLCY
+ON ALCY.playerID = NLCY.playerID
+ORDER BY ALCY.yearID ASC
+
+A: Gaylord Perry (won AL in 1972 with Cleveland, won NL in '78 with San Diego)

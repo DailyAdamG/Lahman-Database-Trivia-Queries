@@ -1,0 +1,15 @@
+
+September 12th, 2020
+
+Q: Which pitcher holds the record for fewest innings in a season with 100 or more strikeouts?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, ROUND((Pitching.IPouts / 3),2) AS IP, Pitching.SO
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+WHERE Pitching.SO >= 100
+ORDER BY Pitching.IPouts ASC
+
+A: Aroldis Chapman (106 K's in 54 innings for the Reds in 2014)

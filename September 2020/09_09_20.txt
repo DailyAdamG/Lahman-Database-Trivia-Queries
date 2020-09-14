@@ -1,0 +1,16 @@
+
+September 9th, 2020
+
+Q: Roberto Clemente won 12 Gold Glove Awards, which is tied with which other Hall of Famer for most Gold Gloves by an outfielder?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, COUNT(AwardsPlayers.yearID) AS GoldGloves
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.awardID = "Gold Glove" AND (AwardsPlayers.notes = "LF" OR AwardsPlayers.notes = "CF" OR AwardsPlayers.notes = "RF" OR AwardsPlayers.notes = "OF")
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+ORDER BY COUNT(AwardsPlayers.yearID) DESC
+
+A: Willie Mays

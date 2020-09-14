@@ -1,0 +1,27 @@
+
+September 11th, 2020
+
+Q: Who is the only Giants player with more than one batting title?
+
+Code:
+
+SELECT FinalCount.playerID, FinalCount.fullName, COUNT(FinalCount.BA) AS BattingCrowns
+FROM(
+SELECT GiantsPlayers.playerID, GiantsPlayers.fullName, GiantsPlayers.yearID, GiantsPlayers.BA
+FROM(
+SELECT Batting.yearID, ROUND(MAX(Batting.H / Batting.AB),3) AS BA
+FROM Batting
+WHERE (Batting.AB + Batting.BB + Batting.IBB + Batting.HBP + Batting.SH + Batting.SF) >= 502 AND Batting.lgID = "NL"
+GROUP BY Batting.yearID) AS Leaders
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, ROUND((Batting.H / Batting.AB),3) AS BA
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+WHERE Teams.name = "San Francisco Giants" AND (Batting.AB + Batting.BB + Batting.IBB + Batting.HBP + Batting.SH + Batting.SF) >= 502) AS GiantsPlayers
+ON Leaders.yearID = GiantsPlayers.yearID AND Leaders.BA = GiantsPlayers.BA) AS FinalCount
+GROUP BY FinalCount.playerID, FinalCount.fullName
+
+A: Barry Bonds (.370 in 2002, .362 in 2004)
