@@ -1,0 +1,16 @@
+September 21st, 2020
+
+Q: Who led the Padres in triples during their 2006 NL West title season?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.[3B]
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+WHERE Batting.yearID = 2006 AND Teams.name = "San Diego Padres"
+ORDER BY Batting.[3B] DESC
+
+A: Dave Roberts, 13

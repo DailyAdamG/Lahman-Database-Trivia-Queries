@@ -1,0 +1,18 @@
+October 7th, 2020
+
+Q: Who is the last Padres starting pitcher to earn a win in a postseason game?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, PitchingPost.yearID, PitchingPost.round
+FROM (((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN PitchingPost
+ON Pitching.playerID = PitchingPost.playerID AND Pitching.yearID = PitchingPost.yearID AND Pitching.teamID = PitchingPost.teamID)
+INNER JOIN Teams
+ON PitchingPost.yearID = Teams.yearID AND PitchingPost.teamID = Teams.teamID)
+WHERE Teams.name = "San Diego Padres" AND PitchingPost.W >= 1
+ORDER BY PitchingPost.yearID DESC
+
+A: Chris Young (Game 3 of the 2006 NLDS vs. the Cardinals)

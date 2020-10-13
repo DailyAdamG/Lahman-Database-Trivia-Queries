@@ -1,0 +1,15 @@
+October 1st, 2020
+
+Q: Who holds the record for most wins as a relief pitcher in a single postseason, with five?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, PitchingPost.yearID, SUM(PitchingPost.W) AS W
+FROM People
+INNER JOIN PitchingPost
+ON People.playerID = PitchingPost.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast, PitchingPost.yearID
+HAVING SUM(PitchingPost.GS) = 0
+ORDER BY SUM(PitchingPost.W) DESC
+
+A: The Angels' Francisco Rodriguez (2002: 2 ALDS wins, 2 ALCS wins, 1 World Series win)

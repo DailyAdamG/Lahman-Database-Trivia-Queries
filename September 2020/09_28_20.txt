@@ -1,0 +1,40 @@
+September 28th, 2020
+
+Q: Before Yankees DJ LeMahieu and Luke Voit this year, who were the last teammates to claim MLB batting and home run crowns in the same season?
+
+Code:
+
+SELECT AVGTables.yearID, AVGTables.playerID, AVGTables.fullName, HRTables.playerID, HRTables.fullName
+FROM(
+SELECT BAPlayers.playerID, BAPlayers.fullName, BAPlayers.yearID, BAPlayers.teamID, BAPlayers.BA
+FROM(
+SELECT Batting.yearID, MAX(ROUND((Batting.H / Batting.AB),3)) AS BA
+FROM Batting
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID
+WHERE Batting.AB + Batting.BB + Batting.HBP + Batting.SF + Batting.SH >= 502
+GROUP BY Batting.yearID) AS BattingCrown
+INNER JOIN(
+SELECT People.playerID, Batting.yearID, People.nameFirst & " " & People.nameLast AS fullName, Batting.teamID, ROUND((Batting.H / Batting.AB),3) AS BA
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.AB + Batting.BB + Batting.HBP + Batting.SF + Batting.SH >= 502) AS BAPlayers
+ON BattingCrown.yearID = BAPlayers.yearID AND BattingCrown.BA = BAPlayers.BA) AS AVGTables
+INNER JOIN(
+SELECT HRPlayers.playerID, HRPlayers.fullName, HRPlayers.yearID, HRPlayers.teamID, HRPlayers.HR
+FROM(
+SELECT Batting.yearID, MAX(Batting.HR) AS HR
+FROM Batting
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID
+GROUP BY Batting.yearID) AS HRLeaders
+INNER JOIN(
+SELECT People.playerID, Batting.yearID, People.nameFirst & " " & People.nameLast AS fullName, Batting.teamID, Batting.HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID) AS HRPlayers
+ON HRLeaders.yearID = HRPlayers.yearID AND HRLeaders.HR = HRPlayers.HR) AS HRTables
+ON AVGTables.yearID = HRTables.yearID AND AVGTables.teamID = HRTables.teamID AND AVGTables.playerID <> HRTables.playerID
+
+A: Milwaukee Braves Hank Aaron (.355 avg.) and Eddie Mathews (46 HR) in 1959

@@ -1,0 +1,18 @@
+October 10th, 2020
+
+Q: Whitey Ford's 236 wins are the most in Yankees history. Who are the other two pitchers with 200 or more?
+
+Code:
+
+SELECT Pitching.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Pitching.W) AS W
+FROM ((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN Teams
+ON Pitching.yearID = Teams.yearID AND Pitching.teamID = Teams.teamID)
+WHERE Teams.name = "New York Yankees"
+GROUP BY Pitching.playerID, People.nameFirst, People.nameLast
+HAVING SUM(Pitching.W) >= 200
+ORDER BY SUM(Pitching.W) DESC
+
+A: Red Ruffing (231) and Andy Pettitte (219)

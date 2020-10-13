@@ -1,0 +1,14 @@
+October 6th, 2020
+
+Q: Who is the only pitcher to win three games in relief in a single postseason series?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, PitchingPost.yearID, PitchingPost.round
+FROM People
+INNER JOIN PitchingPost
+ON People.playerID = PitchingPost.playerID
+WHERE PitchingPost.W = 3 AND PitchingPost.GS = 0
+ORDER BY PitchingPost.yearID DESC
+
+A: The Mets' Jesse Orosco (3 wins in the 1986 NLCS)

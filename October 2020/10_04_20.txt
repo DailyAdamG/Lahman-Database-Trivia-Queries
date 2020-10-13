@@ -1,0 +1,16 @@
+October 4th, 2020
+
+Q: Who was the last relief pitcher to win a postseason MVP Award?
+
+Code:
+
+SELECT DISTINCT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID, AwardsPlayers.awardID
+FROM ((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN AwardsPlayers
+ON Pitching.playerID = AwardsPlayers.playerID AND Pitching.yearID = AwardsPlayers.yearID)
+WHERE Pitching.GS = 0 AND (AwardsPlayers.awardID = "World Series MVP" OR AwardsPlayers.awardID = "ALCS MVP" OR AwardsPlayers.awardID = "NLCS MVP")
+ORDER BY AwardsPlayers.yearID DESC
+
+A: Andrew Miller, CLE (2016 ALCS)

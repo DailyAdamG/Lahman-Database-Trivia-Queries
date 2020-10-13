@@ -1,0 +1,26 @@
+September 27th, 2020
+
+Q: Who was the last Yankee to win an American League batting title?
+
+Code:
+
+SELECT Yankees.fullName, AVG.yearID, AVG.BA
+FROM(
+SELECT Batting.yearID, MAX(ROUND((Batting.H / Batting.AB),3)) AS BA
+FROM Batting
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID
+WHERE Batting.lgID = "AL" AND (Batting.AB + Batting.BB + Batting.HBP + Batting.SF + Batting.SH) >= 502
+GROUP BY Batting.yearID) AS AVG
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, ROUND((Batting.H / Batting.AB),3) AS BA
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+WHERE Teams.name = "New York Yankees" AND (Batting.AB + Batting.BB + Batting.HBP + Batting.SF + Batting.SH) >= 502) AS Yankees
+ON AVG.yearID = Yankees.yearID AND AVG.BA = Yankees.BA
+ORDER BY AVG.yearID DESC
+
+A: Bernie Williams (.339 in 1998)

@@ -1,0 +1,16 @@
+September 24th, 2020
+
+Q: Who hit the most home runs for the Rays in 2008, when they won their first AL East title?
+
+Code:
+
+SELECT Batting.playerID, Batting.yearID, People.nameFirst & " " & People.nameLast AS fullName, Batting.HR
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+WHERE Teams.name = "Tampa Bay Rays" AND Batting.yearID = 2008
+ORDER BY Batting.HR DESC
+
+A: Carlos Pena (31)

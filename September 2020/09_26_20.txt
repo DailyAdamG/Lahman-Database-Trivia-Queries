@@ -1,0 +1,16 @@
+September 26th, 2020
+
+Q: Which player led the Marlins in home runs and RBIs in 2003, the last time they reached the postseason?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.HR, Batting.RBI
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+WHERE Teams.name = "Florida Marlins" AND Batting.yearID = 2003
+ORDER BY Batting.HR DESC
+
+A: Third baseman Mike Lowell (32 HRs, 105 RBIs)

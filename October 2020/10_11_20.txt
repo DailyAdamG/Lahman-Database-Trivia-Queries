@@ -1,0 +1,13 @@
+October 11th, 2020
+
+Q: Who was MVP of the 2008 American League Championship Series?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.awardID = "ALCS MVP" AND AwardsPlayers.yearID = 2008
+
+A: Matt Garza, TB

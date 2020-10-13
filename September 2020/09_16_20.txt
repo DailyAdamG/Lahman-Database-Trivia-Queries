@@ -1,0 +1,14 @@
+September 16th, 2020
+
+Q: Freddie Freeman finished second in 2011 NL Rookie of the Year Award voting. Who won?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.awardID = "Rookie of the Year" AND AwardsPlayers.yearID = 2011 AND AwardsPlayers.lgID = "NL"
+
+
+A: His Atlanta teammate, closer Craig Kimbrel

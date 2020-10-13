@@ -1,0 +1,15 @@
+September 29th, 2020
+
+Q: Just nine pitchers have thrown multiple shutouts in a single postseason. Who was the most recent to do it?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, PitchingPost.yearID, SUM(PitchingPost.SHO) AS SHO
+FROM People
+INNER JOIN PitchingPost
+ON People.playerID = PitchingPost.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast, PitchingPost.yearID
+HAVING SUM(PitchingPost.SHO) > 1
+ORDER BY PitchingPost.yearID DESC
+
+A: Madison Bumgarner (2014 NL Wild Card Game and World Series Game 5)

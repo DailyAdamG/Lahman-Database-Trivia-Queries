@@ -1,0 +1,18 @@
+September 20th, 2020
+
+Q: Who was the last Brewers pitcher to win a Cy Young Award?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID
+FROM (((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN Teams
+ON Pitching.yearID = Teams.yearID AND Pitching.teamID = Teams.teamID)
+INNER JOIN AwardsPlayers
+ON Pitching.playerID = AwardsPlayers.playerID AND Pitching.yearID = AwardsPlayers.yearID)
+WHERE Teams.name = "Milwaukee Brewers" AND AwardsPlayers.awardID = "Cy Young Award"
+ORDER BY Pitching.yearID DESC
+
+A: Pete Vuckovich (1982)

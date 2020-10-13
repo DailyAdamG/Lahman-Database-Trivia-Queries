@@ -1,0 +1,14 @@
+September 30th, 2020
+
+Q: Three players share the record with 8 home runs in a single postseason: Barry Bonds (2002), Carlos Beltrán (2004) and which active player?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, BattingPost.yearID, SUM(BattingPost.HR) AS HR
+FROM People
+INNER JOIN BattingPost
+ON People.playerID = BattingPost.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast, BattingPost.yearID
+ORDER BY SUM(BattingPost.HR) DESC, BattingPost.yearID DESC
+
+A: The Twins' Nelson Cruz (2011, when he was with the Rangers)

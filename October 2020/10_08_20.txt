@@ -1,0 +1,14 @@
+October 8th, 2020
+
+Q: Which two sluggers share the record for most home runs in a Division Series, with five?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, BattingPost.HR
+FROM People
+INNER JOIN BattingPost
+ON People.playerID = BattingPost.playerID
+WHERE BattingPost.round = "NLDS1" OR BattingPost.round = "NLDS2" OR BattingPost.round = "ALDS1" OR BattingPost.round = "ALDS2"
+ORDER BY BattingPost.HR DESC
+
+A: The Mariners' Ken Griffey Jr. (1995) and the Rangers' Juan González (1996)

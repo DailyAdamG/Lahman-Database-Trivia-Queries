@@ -1,0 +1,16 @@
+
+September 15th, 2020
+
+Q: Which two players share the record for most home runs by a right-handed hitter in his age-40 season or older?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, SUM(Batting.HR) AS HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE IIF(People.birthMonth < 7, (Batting.yearID - People.birthYear), (Batting.yearID - People.birthYear - 1)) >= 40 AND People.bats = "R"
+GROUP BY People.playerID, People.nameFirst, People.nameLast, Batting.yearID
+ORDER BY SUM(Batting.HR) DESC
+
+A: Dave Winfield (26 HRs at age 40 for the Blue Jays in 1992) and Hank Sauer (26 HRs, also at 40, for the Giants in 1957)

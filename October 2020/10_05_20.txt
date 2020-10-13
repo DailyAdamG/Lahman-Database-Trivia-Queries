@@ -1,0 +1,15 @@
+October 5th, 2020
+
+Q: Which player holds the record for the most all-time home runs in the Division Series?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(BattingPost.HR) AS DivisionHR
+FROM People
+INNER JOIN BattingPost
+ON People.playerID = BattingPost.playerID
+WHERE BattingPost.round = "ALDS1" OR BattingPost.round = "ALDS2" OR BattingPost.round = "NLDS1" OR BattingPost.round = "NLDS2"
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+ORDER BY SUM(BattingPost.HR) DESC
+
+A: Manny Ramirez (12)

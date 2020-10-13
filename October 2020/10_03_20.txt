@@ -1,0 +1,14 @@
+October 3rd, 2020
+
+Q: Whose 1.60 ERA led the American League in 1968, the year Bob Gibson's 1.12 mark led the National League?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.ERA
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+WHERE Pitching.lgID = "AL" AND Pitching.yearID = 1968 AND Pitching.IPOuts >= 486
+ORDER BY Pitching.ERA ASC
+
+A: Cleveland's Luis Tiant

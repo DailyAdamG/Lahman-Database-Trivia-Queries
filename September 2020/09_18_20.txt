@@ -1,0 +1,22 @@
+September 18th, 2020
+
+Q: Which Hall of Famer holds the Modern Era record for runs scored as a rookie?
+
+Code:
+
+SELECT RookieYear.playerID, RookieYear.fullName, RunsScored.yearID, RunsScored.R
+FROM(
+SELECT Batting.playerID, People.nameFirst & " " & People.nameLast AS fullName, MIN(Batting.yearID) AS rookieSeason
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+GROUP BY Batting.playerID, People.nameFirst, People.nameLast) AS RookieYear
+INNER JOIN(
+SELECT Batting.playerID, Batting.yearID, SUM(Batting.R) AS R
+FROM Batting
+WHERE Batting.yearID >= 1901
+GROUP BY Batting.playerID, Batting.yearID) AS RunsScored
+ON RookieYear.playerID = RunsScored.playerID AND RookieYear.rookieSeason = RunsScored.yearID
+ORDER BY RunsScored.R DESC
+
+A: The Pirates' Lloyd Waner (133 runs in 1927)

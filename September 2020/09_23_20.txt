@@ -1,0 +1,23 @@
+September 23rd, 2020
+
+Q: Who is the most recent rookie to be named World Series MVP?
+
+Code:
+
+SELECT Rookies.fullName, Rookies.RookieYear
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, MIN(Batting.YearID) AS RookieYear
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast) AS Rookies
+INNER JOIN(
+SELECT AwardsPlayers.playerID, AwardsPlayers.yearID
+FROM AwardsPlayers
+WHERE AwardsPlayers.awardID = "World Series MVP") AS WSList
+ON Rookies.playerID = WSList.playerID AND (Rookies.RookieYear + 1) = WSList.yearID
+ORDER BY Rookies.RookieYear DESC
+
+A: The Marlins' Liván Hernández (1997)
+
+*Needed to add RookieYear + 1, since Livan Hernandez debuted in 1996 and was still rookie eligible in 1997.
