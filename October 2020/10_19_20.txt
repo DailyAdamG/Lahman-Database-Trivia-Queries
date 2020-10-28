@@ -1,0 +1,15 @@
+October 19th, 2020
+
+Q: Corey Seager is just the second shortstop to be named NLCS MVP. Who is the other one?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM ((People
+INNER JOIN Fielding
+ON People.playerID = Fielding.playerID)
+INNER JOIN AwardsPlayers
+ON Fielding.playerID = AwardsPlayers.playerID AND Fielding.yearID = AwardsPlayers.yearID)
+WHERE AwardsPlayers.awardID = "NLCS MVP" AND Fielding.POS = "SS" AND Fielding.GS >= 81
+
+A: The Cardinals' Ozzie Smith (1985)

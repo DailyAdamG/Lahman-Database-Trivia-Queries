@@ -1,0 +1,14 @@
+October 24th, 2020
+
+Q: Who holds the record for most hits in a single postseason?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, BattingPost.yearID, SUM(BattingPost.H) AS H
+FROM People
+INNER JOIN BattingPost
+ON People.playerID = BattingPost.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast, BattingPost.yearID
+ORDER BY SUM(BattingPost.H) DESC
+
+A: The Giants' Pablo Sandoval (26 hits in 2014)

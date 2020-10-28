@@ -1,0 +1,15 @@
+October 20th, 2020
+
+Q: Which pitcher picked up the Rays' only win in the 2008 World Series?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM ((People
+INNER JOIN PitchingPost
+ON People.playerID = PitchingPost.playerID)
+INNER JOIN Teams
+ON PitchingPost.yearID = Teams.yearID AND PitchingPost.teamID = Teams.teamID)
+WHERE Teams.name = "Tampa Bay Rays" AND PitchingPost.round = "WS" AND PitchingPost.yearID = 2008 AND PitchingPost.W = 1
+
+A: James Shields, who pitched 5 2/3 scoreless innings against the Phillies in Game 2

@@ -1,0 +1,17 @@
+October 12th, 2020
+
+Q: Jose Altuve now has 16 career postseason home runs. Who holds the record for most postseason homers by a middle infielder?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(BattingPost.HR) AS HR
+FROM ((People
+INNER JOIN BattingPost
+ON People.playerID = BattingPost.playerID)
+INNER JOIN Fielding
+ON BattingPost.playerID = Fielding.playerID AND BattingPost.yearID = Fielding.yearID)
+WHERE (Fielding.POS = "SS" OR Fielding.POS = "2B") AND Fielding.GS >= 10
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+ORDER BY SUM(BattingPost.HR) DESC
+
+A: Derek Jeter (20)

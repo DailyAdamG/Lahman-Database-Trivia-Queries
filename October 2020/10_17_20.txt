@@ -1,0 +1,19 @@
+October 17th, 2020
+
+Q: Corey Seager's 5 home runs in the playoffs are tied for the most in Dodgers history for a single postseason. With whom is he tied?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, BattingPost.yearID, SUM(BattingPost.HR) AS HR
+FROM (((People
+INNER JOIN BattingPost
+ON People.playerID = BattingPost.playerID)
+INNER JOIN Teams
+ON BattingPost.yearID = Teams.yearID AND BattingPost.teamID = Teams.teamID)
+INNER JOIN TeamsFranchises
+ON Teams.franchID = TeamsFranchises.franchID)
+WHERE TeamsFranchises.franchName = "Los Angeles Dodgers"
+GROUP BY People.playerID, People.nameFirst, People.nameLast, BattingPost.yearID
+ORDER BY SUM(BattingPost.HR) DESC
+
+A: Davey Lopes (5 home runs in the 1978 postseason)

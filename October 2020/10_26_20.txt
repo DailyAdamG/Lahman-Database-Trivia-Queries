@@ -1,0 +1,13 @@
+October 26th, 2020
+
+Q: Who are the only players to score 10 runs in a single World Series?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, BattingPost.yearID, BattingPost.R
+FROM People
+INNER JOIN BattingPost
+ON People.playerID = BattingPost.playerID
+WHERE BattingPost.R = 10 AND BattingPost.round = "WS" AND BattingPost.yearID >= 1903
+
+A: Reggie Jackson (1977) and Paul Molitor (1993)

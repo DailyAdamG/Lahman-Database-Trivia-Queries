@@ -1,0 +1,13 @@
+October 13th, 2020
+
+Q: Joe Morgan won back-to-back NL MVP Awards with the Reds in 1975 and '76. Which Reds player was named NL MVP in 1977?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.awardID = "Most Valuable Player" AND AwardsPlayers.yearID = 1977 AND AwardsPlayers.lgID = "NL"
+
+A: George Foster
