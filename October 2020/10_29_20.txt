@@ -1,0 +1,20 @@
+October 29th, 2020
+
+Q: Who is the last switch-hitter to lead the NL in home runs in a season?
+
+Code:
+
+SELECT PlayerList.playerID, PlayerList.fullName, HRTotals.yearID, HRTotals.HR
+FROM (SELECT Batting.yearID, MAX(Batting.HR) AS HR 
+FROM Batting 
+WHERE Batting.lgID ="NL" GROUP BY Batting.yearID)  AS HRTotals 
+INNER JOIN (
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.HR 
+FROM People 
+INNER JOIN Batting 
+ON People.playerID = Batting.playerID 
+WHERE Batting.lgID = "NL" AND People.bats = "B")  AS PlayerList 
+ON (HRTotals.HR = PlayerList.HR) AND (HRTotals.yearID = PlayerList.yearID)
+ORDER BY HRTotals.yearID DESC;
+
+A: The Mets' Howard Johnson (38 homers in 1991)

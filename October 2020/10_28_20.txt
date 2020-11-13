@@ -1,0 +1,22 @@
+October 28th, 2020
+
+Q: Who was the first shortstop to be named World Series MVP?
+
+Code:
+
+SELECT WSMVP.playerID, WSMVP.fullName, WSMVP.yearID
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.awardID = "World Series MVP") AS WSMVP
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, FieldingPost.yearID, FieldingPost.POS
+FROM People
+INNER JOIN FieldingPost
+ON People.playerID = FieldingPost.playerID
+WHERE FieldingPost.POS = "SS" AND FieldingPost.round = "WS") AS SSTable
+ON WSMVP.playerID = SSTable.playerID AND WSMVP.yearID = SSTable.yearID
+
+A: The Yankees' Bucky Dent (1978)

@@ -1,0 +1,34 @@
+October 31st, 2020
+
+Q: Who is the only player in MLB history with three straight seasons reaching both 35 home runs and 200 hits?
+
+Code:
+
+SELECT FirstTwoTables.playerID, FirstTwoTables.fullName, FirstTwoTables.FirstYear, FirstTwoTables.SecondYear, ThirdYear.yearID
+FROM(
+SELECT FirstYear.playerID, FirstYear.fullName, FirstYear.yearID AS FirstYear, SecondYear.yearID AS SecondYear
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, SUM(Batting.H) AS H, SUM(Batting.HR) AS HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast, Batting.yearID
+HAVING SUM(Batting.H) >= 200 AND SUM(Batting.HR) >= 35) AS FirstYear
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, SUM(Batting.H) AS H, SUM(Batting.HR) AS HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast, Batting.yearID
+HAVING SUM(Batting.H) >= 200 AND SUM(Batting.HR) >= 35) AS SecondYear
+ON FirstYear.playerID = SecondYear.playerID AND FirstYear.yearID = SecondYear.yearID - 1) AS FirstTwoTables
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, SUM(Batting.H) AS H, SUM(Batting.HR) AS HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast, Batting.yearID
+HAVING SUM(Batting.H) >= 200 AND SUM(Batting.HR) >= 35) AS ThirdYear
+ON FirstTwoTables.playerID = ThirdYear.playerID AND FirstTwoTables.SecondYear = ThirdYear.yearID - 1
+
+A: Jim Rice (1977-79)

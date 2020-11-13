@@ -1,0 +1,23 @@
+October 27th, 2020
+
+Q: Who was the last player to be named the MVP of the LCS and the World Series in the same season?
+
+Code:
+
+SELECT WSMVP.playerID, WSMVP.fullName, WSMVP.yearID
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.awardID = "World Series MVP") AS WSMVP
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.awardID = "ALCS MVP" OR AwardsPlayers.awardID = "NLCS MVP") AS LCSMVP
+ON WSMVP.playerID = LCSMVP.playerID AND WSMVP.yearID = LCSMVP.yearID
+ORDER BY WSMVP.yearID DESC
+
+A: Madison Bumgarner (2014)

@@ -1,0 +1,28 @@
+October 30th, 2020
+
+Q: How many future Hall of Famers did Tony La Russa manage with the White Sox from 1979-86?
+
+Code:
+
+SELECT DISTINCT HOF.playerID, HOF.fullName
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+INNER JOIN HallOfFame
+ON People.playerID = HallOfFame.playerID
+WHERE HallOfFame.inducted = "Y" AND HallOfFame.category = "Player") AS HOF
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.teamID = Teams.teamID AND Batting.yearID = Teams.yearID)
+WHERE Teams.name = "Chicago White Sox" AND Teams.yearID BETWEEN 1979 AND 1986) AS WhiteSoxPlayers
+ON HOF.playerID = WhiteSoxPlayers.playerID
+
+A: Three: Harold Baines (1980-86), Carlton Fisk (1981-86) and Tom Seaver (1984-86)
+
+*Note Lahman Database does not include Harold Baines as an inducted member. 
+Steve Carlton was acquired by the White Sox in the LaRussa's final year, but after Tony LaRussa was relieved
+of his managerial duties.
