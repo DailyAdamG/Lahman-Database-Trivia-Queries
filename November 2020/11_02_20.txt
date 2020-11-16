@@ -1,0 +1,21 @@
+November 2nd, 2020
+
+Q: Who are the last three Red Sox players to lead the Major Leagues in RBIs?
+
+Code:
+
+SELECT SoxPlayers.playerID, SoxPlayers.fullName, SoxPlayers.yearID, RBILeaders.RBI
+FROM (SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.RBI
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.teamID = Teams.teamID AND Batting.yearID = Teams.yearID)
+WHERE Teams.name = "Boston Red Sox")  AS SoxPlayers 
+INNER JOIN (SELECT Batting.yearID, MAX(Batting.RBI) AS RBI
+FROM Batting
+GROUP BY Batting.yearID)  AS RBILeaders 
+ON SoxPlayers.RBI = RBILeaders.RBI AND SoxPlayers.yearID = RBILeaders.yearID
+ORDER BY SoxPlayers.yearID DESC;
+
+A: J.D. Martinez (130 in 2018), David Ortiz (148 in 2005) and Tony Armas (123 in 1984)

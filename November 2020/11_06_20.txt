@@ -1,0 +1,35 @@
+November 6th, 2020
+
+Q: Who is the last Angels player besides Mike Trout to win consecutive Silver Slugger Awards?
+
+Code:
+
+SELECT FirstYear.playerID, FirstYear.fullName, FirstYear.yearID, SecondYear.yearID
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM ((((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN AwardsPlayers
+ON Batting.playerID = AwardsPlayers.playerID AND Batting.yearID = AwardsPlayers.yearID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+INNER JOIN TeamsFranchises
+ON Teams.franchID = TeamsFranchises.franchID)
+WHERE TeamsFranchises.franchName = "Los Angeles Angels of Anaheim" AND AwardsPlayers.awardID = "Silver Slugger" AND (People.nameFirst <> "Mike" AND People.nameLast <> "Trout")) AS FirstYear
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM ((((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN AwardsPlayers
+ON Batting.playerID = AwardsPlayers.playerID AND Batting.yearID = AwardsPlayers.yearID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+INNER JOIN TeamsFranchises
+ON Teams.franchID = TeamsFranchises.franchID)
+WHERE TeamsFranchises.franchName = "Los Angeles Angels of Anaheim" AND AwardsPlayers.awardID = "Silver Slugger" AND (People.nameFirst <> "Mike" AND People.nameLast <> "Trout")) AS SecondYear
+ON FirstYear.playerID = SecondYear.playerID AND FirstYear.yearID = SecondYear.yearID - 1
+ORDER BY SecondYear.yearID DESC
+
+A: Vladimir Guerrero (2004-07)

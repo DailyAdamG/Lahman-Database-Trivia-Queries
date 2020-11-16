@@ -1,0 +1,25 @@
+November 8th, 2020
+
+Q: Who was the first player to win three MVP Awards?
+
+Code:
+
+SELECT MVPCounts.playerID, MVPCounts.fullName, MVPSeason.LastMVP
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, COUNT(AwardsPlayers.awardID) AS MVPs
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.awardID = "Most Valuable Player"
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+HAVING COUNT(AwardsPlayers.awardID) >= 3
+ORDER BY COUNT(AwardsPlayers.awardID) DESC) AS MVPCounts
+INNER JOIN(
+SELECT AwardsPlayers.playerID, MAX(AwardsPlayers.yearID) AS LastMVP
+FROM AwardsPlayers
+WHERE AwardsPlayers.awardID = "Most Valuable Player"
+GROUP BY AwardsPlayers.playerID) AS MVPSeason
+ON MVPCounts.playerID = MVPSeason.playerID
+ORDER BY MVPSeason.LastMVP ASC
+
+A: Jimmie Foxx (1932, '33 and '38)

@@ -1,0 +1,15 @@
+November 5th, 2020
+
+Q: Which pitcher has won the most Silver Slugger Awards?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, COUNT(AwardsPlayers.awardID) AS SilverSluggers
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.awardID = "Silver Slugger" AND notes = "P"
+GROUP BY People.playerID, People.nameFirst & " " & People.nameLast
+ORDER BY COUNT(AwardsPlayers.awardID) DESC
+
+A: Mike Hampton (five)

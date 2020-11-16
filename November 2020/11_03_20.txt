@@ -1,0 +1,13 @@
+November 3rd, 2020
+
+Q: Frank Robinson was named the NL MVP in 1961 and the AL MVP in '66. Who were the AL and NL winners those years?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM People 
+INNER JOIN AwardsPlayers 
+ON People.playerID = AwardsPlayers.playerID
+WHERE awardID = "Most Valuable Player" AND ((AwardsPlayers.yearID = 1961 AND AwardsPlayers.lgID = "AL") OR (AwardsPlayers.yearID = 1966 AND AwardsPlayers.lgID = "NL"))
+
+A: Roger Maris won the AL MVP Award in '61. Roberto Clemente was the NL winner in '66.
