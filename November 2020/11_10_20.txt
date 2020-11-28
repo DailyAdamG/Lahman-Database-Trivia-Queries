@@ -1,0 +1,18 @@
+November 10th, 2020
+
+Q: Who are the two previous Brewers to win Rookie of the Year?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM (((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+INNER JOIN AwardsPlayers
+ON Batting.yearID = AwardsPlayers.yearID AND Batting.playerID = AwardsPlayers.playerID)
+WHERE Teams.name LIKE "*Brewers" AND AwardsPlayers.awardID = "Rookie of the Year"
+ORDER BY AwardsPlayers.yearID DESC
+
+A: Ryan Braun (2007) and Pat Listach (1992)

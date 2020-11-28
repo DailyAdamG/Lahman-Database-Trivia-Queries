@@ -1,0 +1,27 @@
+November 13th, 2020
+
+Q: Before this year, when was the last time both MVPs were first basemen?
+
+Code:
+
+SELECT AL.yearID, AL.fullName, NL.fullName
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM ((People
+INNER JOIN Fielding
+ON People.playerID = Fielding.playerID)
+INNER JOIN AwardsPlayers
+ON Fielding.yearID = AwardsPlayers.yearID AND Fielding.playerID = AwardsPlayers.playerID)
+WHERE Fielding.POS = "1B" AND Fielding.GS >= 25 AND AwardsPlayers.lgID = "AL" AND AwardsPlayers.awardID = "Most Valuable Player") AS AL
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM ((People
+INNER JOIN Fielding
+ON People.playerID = Fielding.playerID)
+INNER JOIN AwardsPlayers
+ON Fielding.yearID = AwardsPlayers.yearID AND Fielding.playerID = AwardsPlayers.playerID)
+WHERE Fielding.POS = "1B" AND Fielding.GS >= 25 AND AwardsPlayers.lgID = "NL" AND AwardsPlayers.awardID = "Most Valuable Player") AS NL
+ON AL.yearID = NL.yearID
+ORDER BY AL.yearID DESC
+
+A: 2006: The Twins' Justin Morneau and the Phillies' Ryan Howard

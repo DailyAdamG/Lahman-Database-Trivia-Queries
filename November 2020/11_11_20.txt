@@ -1,0 +1,27 @@
+November 11th, 2020
+
+Q: Before Don Mattingly, who most recently won Manager of the Year after winning an MVP award as a player?
+
+Code:
+
+SELECT MOY.playerID, MOY.fullName, MOY.yearID AS MOY, MVP.yearID AS MVP
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsManagers.yearID
+FROM ((People
+INNER JOIN Managers
+ON People.playerID = Managers.playerID)
+INNER JOIN AwardsManagers
+ON Managers.playerID = AwardsManagers.playerID AND Managers.yearID = AwardsManagers.yearID)
+WHERE AwardsManagers.awardID = "BBWAA Manager of the Year") AS MOY
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN AwardsPlayers
+ON Batting.playerID = AwardsPlayers.playerID AND Batting.yearID = AwardsPlayers.yearID)
+WHERE AwardsPlayers.awardID = "Most Valuable Player") AS MVP
+ON MOY.playerID = MVP.playerID
+ORDER BY MOY.yearID DESC
+
+A: Kirk Gibson (2011 Manager of the Year for the D-backs; 1988 MVP for the Dodgers)

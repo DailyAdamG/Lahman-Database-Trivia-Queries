@@ -1,0 +1,26 @@
+November 12th, 2020
+
+Q: Which three pitchers have been unanimous Cy Young Award winners in back-to-back seasons?
+
+Code:
+
+SELECT FirstYear.playerID, FirstYear.fullName, FirstYear.yearID AS FirstYear, SecondYear.yearID AS SecondYear
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsSharePlayers.yearID
+FROM ((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN AwardsSharePlayers
+ON Pitching.yearID = AwardsSharePlayers.yearID AND Pitching.playerID = AwardsSharePlayers.playerID)
+WHERE AwardsSharePlayers.awardID = "Cy Young" AND AwardsSharePlayers.pointsWon = AwardsSharePlayers.pointsMax) AS FirstYear
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsSharePlayers.yearID
+FROM ((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN AwardsSharePlayers
+ON Pitching.yearID = AwardsSharePlayers.yearID AND Pitching.playerID = AwardsSharePlayers.playerID)
+WHERE AwardsSharePlayers.awardID = "Cy Young" AND AwardsSharePlayers.pointsWon = AwardsSharePlayers.pointsMax) AS SecondYear
+ON FirstYear.playerID = SecondYear.playerID AND FirstYear.yearID = SecondYear.yearID - 1
+
+A: Sandy Koufax (1965-66), Greg Maddux (1994-95) and Pedro Martinez (1999-2000)

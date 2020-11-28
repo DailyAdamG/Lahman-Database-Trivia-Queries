@@ -1,0 +1,16 @@
+November 15th, 2020
+
+Q: Who were the 2017 National League Gold Glove Award winners in the outfield?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.notes
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN AwardsPlayers
+ON Batting.playerID = AwardsPlayers.playerID AND Batting.yearID = AwardsPlayers.yearID)
+WHERE AwardsPlayers.awardID = "Gold Glove" AND AwardsPlayers.lgID = "NL" AND AwardsPlayers.yearID = 2017 AND 
+(AwardsPlayers.notes = "LF" OR AwardsPlayers.notes = "CF" OR AwardsPlayers.notes = "RF")
+
+A: LF Marcell Ozuna, MIA; CF Ender Inciarte, ATL and RF Jason Heyward, CHC

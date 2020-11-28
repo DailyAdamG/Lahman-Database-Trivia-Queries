@@ -1,0 +1,35 @@
+November 16th, 2020
+
+Q: Who was the last catcher to be a first-ballot Hall of Famer?
+
+Code:
+
+SELECT FirstBallot.playerID, FirstBallot.fullName, FirstBallot.yearID
+FROM(
+SELECT FirstBallot.playerID, FirstBallot.fullName, HOF.yearID
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, MIN(HallOfFame.yearID) AS FirstYear
+FROM People
+INNER JOIN HallOfFame
+ON People.playerID = HallOfFame.playerID
+WHERE HallOfFame.votedBy = "BBWAA"
+GROUP BY People.playerID, People.nameFirst, People.nameLast) AS FirstBallot
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, HallOfFame.yearID
+FROM People
+INNER JOIN HallOfFame
+ON People.playerID = HallOfFame.playerID
+WHERE HallOfFame.votedBy = "BBWAA" AND HallOfFame.inducted = "Y") AS HOF
+ON FirstBallot.playerID = HOF.playerID AND FirstBallot.FirstYear = HOF.yearID) AS FirstBallot
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Fielding.GS) AS GS
+FROM People
+INNER JOIN Fielding
+ON People.playerID = Fielding.playerID
+WHERE Fielding.POS = "C"
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+HAVING SUM(Fielding.GS) >= 500) AS Catchers
+ON FirstBallot.playerID = Catchers.playerID
+ORDER BY FirstBallot.yearID DESC
+
+A: Ivan Rodriguez (2017)
