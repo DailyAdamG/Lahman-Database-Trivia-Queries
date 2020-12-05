@@ -1,0 +1,24 @@
+November 22nd, 2020
+
+Q: Who was the last Cleveland reliever before Brad Hand to lead the American League in saves?
+
+Code:
+
+SELECT Indians.playerID, Indians.fullName, Indians.yearID, Indians.SV
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, Pitching.SV
+FROM ((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN Teams
+ON Pitching.yearID = Teams.yearID AND Pitching.teamID = Teams.teamID)
+WHERE Teams.name = "Cleveland Indians") AS Indians
+INNER JOIN(
+SELECT Pitching.yearID, MAX(Pitching.SV) AS SV
+FROM Pitching
+WHERE Pitching.lgID = "AL"
+GROUP BY Pitching.yearID) AS Leaders
+ON Indians.yearID = Leaders.yearID AND Indians.SV = Leaders.SV
+ORDER BY Indians.yearID DESC
+
+A: Joe Borowski (45 in 2007)

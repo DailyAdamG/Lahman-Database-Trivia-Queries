@@ -1,0 +1,28 @@
+November 19th, 2020
+
+Q: Which two players are the only switch-hitters to win multiple batting titles?
+
+Code:
+
+SELECT PlayerList.playerID, PlayerList.fullName, COUNT(PlayerList.yearID) AS BattingCrowns
+FROM(
+SELECT PlayerList.playerID, PlayerList.fullName, PlayerList.lgID, PlayerList.yearID, PlayerList.BA
+FROM(
+SELECT Batting.yearID, Batting.lgID, MAX(ROUND(Batting.H/Batting.AB,3)) AS BA 
+FROM People 
+INNER JOIN Batting 
+ON People.playerID = Batting.playerID 
+WHERE (Batting.AB + Batting.BB + Batting.HBP + Batting.SF + Batting.SH) >= 502
+GROUP BY Batting.yearID, Batting.lgID) AS BALeaders
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.lgID, Batting.yearID, ROUND(Batting.H/Batting.AB,3) AS BA
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE (Batting.AB + Batting.BB + Batting.HBP + Batting.SF + Batting.SH) >= 502 AND People.bats = "B") AS PlayerList
+ON BALeaders.yearID = PlayerList.yearID AND BALeaders.BA = PlayerList.BA AND BALeaders.lgID = PlayerList.lgID) AS BothTables
+GROUP BY PlayerList.playerID, PlayerList.fullName
+HAVING COUNT(PlayerList.yearID) >= 2
+ORDER BY COUNT(PlayerList.yearID) DESC
+
+A: Pete Rose (1968, '69, '73) and Willie McGee (1985, '90)

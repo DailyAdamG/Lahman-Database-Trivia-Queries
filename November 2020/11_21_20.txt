@@ -1,0 +1,19 @@
+November 21st, 2020
+
+Q: Who has the most 30-homer seasons in Orioles history?
+
+Code:
+
+SELECT Orioles.playerID, Orioles.fullName, COUNT(Orioles.yearID) AS Seasons
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.HR
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+WHERE Batting.HR >= 30 AND Teams.name = "Baltimore Orioles") AS Orioles
+GROUP BY Orioles.playerID, Orioles.fullName
+ORDER BY COUNT(Orioles.yearID) DESC
+
+A: Eddie Murray (5 seasons with 30 or more home runs)

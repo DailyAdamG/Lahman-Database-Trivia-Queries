@@ -1,0 +1,20 @@
+November 18th, 2020
+
+Q: Yadier Molina has 15 seasons with 100 or more games at catcher for the Cardinals. Who is the only other player with 10 such seasons for St. Louis?
+
+Code:
+
+SELECT Catchers.playerID, Catchers.fullName, COUNT(Catchers.G) AS Seasons
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Fielding.yearID, Fielding.G
+FROM ((People
+INNER JOIN Fielding
+ON People.playerID = Fielding.playerID)
+INNER JOIN Teams
+ON Fielding.yearID = Teams.yearID AND Fielding.teamID = Teams.teamID)
+WHERE Fielding.POS = "C" AND Fielding.G >= 100 AND Teams.name = "St. Louis Cardinals") AS Catchers
+WHERE Catchers.fullName <> "Yadier Molina"
+GROUP BY Catchers.playerID, Catchers.fullName
+HAVING COUNT(Catchers.G) >= 10
+
+A: Hall of Famer Ted Simmons (10 seasons with 100 or more games)
