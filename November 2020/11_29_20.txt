@@ -1,0 +1,11 @@
+November 29th, 2020
+
+Q: Which Hall of Fame pitcher, born on this day in 1969, was the last active player to be born in the '60s?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+WHERE People.birthYear = 1969 AND People.birthMonth = 11 AND People.birthDay = 29
+
+A: Mariano Rivera

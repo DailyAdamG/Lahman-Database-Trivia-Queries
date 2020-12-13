@@ -1,0 +1,13 @@
+November 28th, 2020
+
+Q: Which Hall of Fame lefty won his only Cy Young Award on this date in 1957?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.awardID = "Cy Young Award" AND AwardsPlayers.yearID = 1957
+
+A: Warren Spahn

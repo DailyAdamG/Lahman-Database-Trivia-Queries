@@ -1,0 +1,15 @@
+November 30th, 2020
+
+Q: When Babe Ruth hit 60 home runs in 1927, the NL co-leaders hit that many combined. Which 2 players tied for the NL lead that year?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.HR) AS HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.yearID = 1927 AND Batting.lgID = "NL"
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+HAVING SUM(Batting.HR) = 30
+
+A: The Phillies' Cy Williams and the Cubs' Hack Wilson hit 30 homers each

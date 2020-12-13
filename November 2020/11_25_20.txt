@@ -1,0 +1,13 @@
+November 25th, 2020
+
+Q: In which year was Negro Leagues star Norman "Turkey" Stearnes inducted to the Baseball Hall of Fame?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, HallOfFame.yearID
+FROM People
+INNER JOIN HallOfFame
+ON People.playerID = HallOfFame.playerID
+WHERE HallOfFame.inducted = "Y" AND People.nameFirst = "Turkey" AND People.nameLast = "Stearnes"
+
+A: 2000

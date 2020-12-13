@@ -1,0 +1,30 @@
+December 12th, 2020
+
+Q: Which manager holds the record for most wins without a World Series?
+
+Code:
+
+SELECT CareerWins.playerID, CareerWins.fullName, CareerWins.CareerWins
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Managers.W) AS CareerWins
+FROM ((People
+INNER JOIN Managers
+ON People.playerID = Managers.playerID)
+INNER JOIN Teams
+ON Managers.yearID = Teams.yearID AND Managers.teamID = Teams.teamID)
+GROUP BY People.playerID, People.nameFirst, People.nameLast) AS CareerWins
+LEFT JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM ((People
+INNER JOIN Managers
+ON People.playerID = Managers.playerID)
+INNER JOIN Teams
+ON Managers.yearID = Teams.yearID AND Managers.teamID = Teams.teamID)
+WHERE Teams.WSWin = "Y"
+GROUP BY People.playerID, People.nameFirst, People.nameLast) AS WSWins
+ON CareerWins.playerID = WSWins.playerID
+WHERE WSWins.playerID IS NULL
+ORDER BY CareerWins.CareerWins DESC
+
+A: Gene Mauch, who went 1,902-2,037 as a manager from 1960-87.
+

@@ -1,0 +1,17 @@
+December 9th, 2020
+
+Q: Only two pitchers born in the past 50 years have been inducted into the Hall of Fame. Who are they?
+
+Code:
+
+SELECT DISTINCT People.playerID, People.nameFirst, People.nameLast
+FROM ((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN HallOfFame
+ON Pitching.playerID = HallOfFame.playerID)
+WHERE People.birthYear >= 1970 AND HallOfFame.inducted = "Y"
+
+A: Pedro Martinez (born 1971) and Roy Halladay (born 1977)
+
+*Roy Halladay does not appear, because the Hall Of Fame Class is only up to date through 2018 at the moment.

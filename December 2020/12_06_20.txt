@@ -1,0 +1,13 @@
+December 6th, 2020
+
+Q: Ted Williams hit .406 during the 1941 season. He also finished with the most homers in the Majors that year. How many did he hit?
+
+Code:
+
+SELECT SUM(Batting.HR) AS HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE People.nameFirst = "Ted" AND People.nameLast = "Williams" AND Batting.yearID = 1941
+
+A: 37

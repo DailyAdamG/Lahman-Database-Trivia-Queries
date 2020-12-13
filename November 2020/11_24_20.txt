@@ -1,0 +1,15 @@
+November 24th, 2020
+
+Q: Who is the last pitcher to start 40 games in a season?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, SUM(Pitching.GS) AS GS
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast, Pitching.yearID
+HAVING SUM(Pitching.GS) >= 40
+ORDER BY Pitching.yearID DESC
+
+A: Charlie Hough (40 starts for the Rangers in 1987)

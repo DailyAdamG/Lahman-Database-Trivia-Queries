@@ -1,0 +1,13 @@
+November 27th, 2020
+
+Q: Which other player was inducted into the Hall of Fame in 1990 alongside Joe Morgan?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+INNER JOIN HallOfFame
+ON People.playerID = HallOfFame.playerID
+WHERE HallOfFame.yearID = 1990 AND HallOfFame.inducted = "Y" AND (People.nameFirst <> "Joe" OR People.nameLast <> "Morgan")
+
+A: Orioles pitcher Jim Palmer

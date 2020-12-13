@@ -1,0 +1,25 @@
+December 10th, 2020
+
+Q: Who was the last Cubs pitcher to lead the NL in strikeouts?
+
+Code:
+
+SELECT Cubs.fullName, Leaders.yearID, Leaders.SO
+FROM(
+SELECT Pitching.yearID, MAX(Pitching.SO) AS SO
+FROM Pitching
+WHERE Pitching.lgID = "NL"
+GROUP BY Pitching.yearID) AS Leaders
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, Pitching.SO
+FROM ((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN Teams
+ON Pitching.teamID = Teams.teamID AND Pitching.yearID = Teams.yearID)
+WHERE Teams.name = "Chicago Cubs") AS Cubs
+ON Leaders.yearID = Cubs.YearID AND Leaders.SO = Cubs.SO
+ORDER BY Leaders.yearID DESC
+
+A: Kerry Wood (266 K's in 2003)
+

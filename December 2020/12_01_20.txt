@@ -1,0 +1,16 @@
+December 1st, 2020
+
+Q: Who was the first shortstop with at least 200 hits, 30 home runs and 40 doubles in a season?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.H, Batting.[2B], Batting.HR
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Fielding
+ON Batting.playerID = Fielding.playerID AND Batting.yearID = Fielding.yearID)
+WHERE Fielding.POS = "SS" AND Fielding.GS >= 20 AND Batting.H >= 200 AND Batting.[2B] >= 40 AND Batting.HR >= 30
+ORDER BY Batting.yearID ASC
+
+A: The Orioles' Cal Ripken Jr. (210 hits, 34 HR, 46 2B in 1991)
