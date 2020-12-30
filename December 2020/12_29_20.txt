@@ -1,0 +1,17 @@
+December 29th, 2020
+
+Q: Who currently has the highest career strikeouts-per-nine-innings rate (minimum 1,000 career IP)?
+
+Code:
+
+SELECT Table2.playerID, Table2.fullName, ROUND(Table2.SO/IP*9,2) AS K_9
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Pitching.SO) AS SO, SUM(Pitching.IPouts)/3.0 AS IP
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+HAVING  SUM(Pitching.IPouts) >= 3000) AS Table2
+ORDER BY ROUND(Table2.SO/IP*9,2) DESC
+
+A: Yu Darvish (11.1 strikeouts per 9 IP)

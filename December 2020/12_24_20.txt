@@ -1,0 +1,14 @@
+December 24th, 2020
+
+Q: Happy Holidays! Seven-time All-Star Matt Holliday was the runner-up for the 2007 NL MVP Award. Who was the winner?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE awardID = "Most Valuable Player" AND AwardsPlayers.yearID = 2007 AND AwardsPlayers.lgID = "NL"
+
+A: Jimmy Rollins (Phillies)
+

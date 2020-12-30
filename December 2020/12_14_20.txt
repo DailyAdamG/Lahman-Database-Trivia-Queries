@@ -1,0 +1,12 @@
+December 14th, 2020
+
+Q: Bobby Thomson is famous for the "Shot Heard 'Round the World." He's also the leading home run hitter from his country. Which country?
+
+Code:
+
+SELECT People.birthCountry
+FROM People
+WHERE People.nameFirst = "Bobby" AND People.nameLast = "Thomson"
+
+A: The United Kingdom
+

@@ -1,0 +1,15 @@
+December 28th, 2020
+
+Q: Phil Niekro reached the 300-inning mark four times in his career. Who is the most recent pitcher to throw 300 innings in a season?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+WHERE Pitching.IPouts >= 900
+ORDER BY Pitching.yearID DESC
+
+A: Steve Carlton in 1980
+

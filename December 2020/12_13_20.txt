@@ -1,0 +1,15 @@
+December 13th, 2020
+
+Q: Who did Blake Snell edge in balloting to win the 2018 AL Cy Young Award?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsSharePlayers.pointsWon
+FROM People
+INNER JOIN AwardsSharePlayers
+ON People.playerID = AwardsSharePlayers.playerID
+WHERE AwardsSharePlayers.awardID = "Cy Young" AND AwardsSharePlayers.yearID = 2018
+ORDER BY pointsWon DESC
+
+A: Justin Verlander, 169 votes to 154
+

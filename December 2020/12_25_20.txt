@@ -1,0 +1,24 @@
+December 25th, 2020
+
+Q: Rickey Henderson holds the Modern Era record (post-1900) for steals in a season with 130 in 1982. 
+Which player had the fewest steals when leading his league (not including 2020)?
+
+Code:
+
+SELECT Leaders.playerID, Leaders.fullName, SBs.yearID, SBs.SBLeader
+FROM(
+SELECT Batting.yearID, Batting.lgID, MAX(Batting.SB) AS SBLeader
+FROM Batting
+WHERE Batting.yearID > 1900
+GROUP BY Batting.yearID, Batting.lgID) AS SBs
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.lgID, SUM(Batting.SB) AS SB
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast, Batting.yearID, Batting.lgID) AS Leaders
+ON SBs.yearID = Leaders.yearID AND SBs.lgID = Leaders.lgID AND Leaders.SB = SBs.SBLeader
+ORDER BY SBs.SBLeader ASC
+
+A: Dom DiMaggio with 15, 1950 Red Sox
+

@@ -1,0 +1,16 @@
+December 26th, 2020
+
+Q: Nine pitchers have won 20 games while finishing in last place, but only one did it for a team that lost 100 games. Who was it? (No peeking!)
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, Teams.name
+FROM ((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN Teams
+ON Pitching.yearID = Teams.yearID AND Pitching.teamID = Teams.teamID)
+WHERE Pitching.W >= 20 AND Teams.L >= 100 AND Teams.Rank >= 8
+
+A: Ned Garver, 1951 St. Louis Browns (Orioles)
+

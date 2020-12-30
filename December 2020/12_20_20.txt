@@ -1,0 +1,23 @@
+December 20th, 2020
+
+Q: Which player has the most stolen bases without getting into the Hall of Fame?
+
+Code:
+
+SELECT StolenBaseTotals.playerID, StolenBaseTotals.fullName, StolenBaseTotals.CareerSB
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.SB) AS CareerSB
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast) AS StolenBaseTotals
+LEFT JOIN(
+SELECT HallOfFame.playerID
+FROM HallOfFame
+WHERE HallOfFame.inducted = "Y") AS HOF
+ON StolenBaseTotals.playerID = HOF.playerID
+WHERE HOF.playerID IS NULL
+ORDER BY StolenBaseTotals.CareerSB DESC
+
+A: Vince Coleman, 752, sixth on the all-time list.
+
