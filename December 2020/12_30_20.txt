@@ -1,0 +1,52 @@
+December 30th, 2020
+
+Q: Trevor Bauer and Shane Bieber became the third pair of former teammates to win the Cy Young Award in the same year. Who are the other two?
+
+Code:
+
+SELECT DISTINCT Table3.FirstPlayer, Table3.SecondPlayer, Table3.Player1Name, Table3.Player2Name, Table6.yearID AS AwardYear, Table3.name
+FROM(
+SELECT Table1.playerID AS FirstPlayer, Table2.playerID AS SecondPlayer, Table1.fullName AS Player1Name, Table2.fullName AS Player2Name, Table1.yearID, Table1.teamID, Table1.name
+FROM(
+SELECT DISTINCT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, Teams.teamID, Teams.name
+FROM (((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN AwardsPlayers
+ON Pitching.playerID = AwardsPlayers.playerID)
+INNER JOIN Teams
+ON Pitching.teamID = Teams.teamID AND Pitching.yearID = Teams.yearID)
+WHERE AwardsPlayers.awardID = "Cy Young Award") AS Table1
+INNER JOIN(
+SELECT DISTINCT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, Teams.teamID, Teams.name
+FROM (((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN AwardsPlayers
+ON Pitching.playerID = AwardsPlayers.playerID)
+INNER JOIN Teams
+ON Pitching.teamID = Teams.teamID AND Pitching.yearID = Teams.yearID)
+WHERE AwardsPlayers.awardID = "Cy Young Award") AS Table2
+ON Table1.playerID <> Table2.playerID AND Table1.yearID = Table2.yearID AND Table1.teamID = Table2.teamID) AS Table3
+INNER JOIN(
+SELECT Table4.playerID AS FirstWinner, Table5.playerID AS SecondWinner, Table5.yearID
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID
+FROM ((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN AwardsPlayers
+ON Pitching.playerID = AwardsPlayers.playerID AND Pitching.yearID = AwardsPlayers.yearID)
+WHERE AwardsPlayers.awardID = "Cy Young Award") AS Table4
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID
+FROM ((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN AwardsPlayers
+ON Pitching.playerID = AwardsPlayers.playerID AND Pitching.yearID = AwardsPlayers.yearID)
+WHERE AwardsPlayers.awardID = "Cy Young Award") AS Table5
+ON Table4.yearID = Table5.yearID AND Table4.playerID <> Table5.playerID) AS Table6
+ON Table3.FirstPlayer = Table6.FirstWinner AND Table3.SecondPlayer = Table6.SecondWinner AND Table6.yearID > Table3.yearID
+
+A: Max Scherzer and Rick Porcello in 2016 (Tigers teammates, 2010-14) and Greg Maddux and Dennis Eckersley in 1992 (Cubs, 1986)
