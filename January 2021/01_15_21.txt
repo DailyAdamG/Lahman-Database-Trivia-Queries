@@ -1,0 +1,18 @@
+January 15th, 2021
+
+Q: Which three Hall of Famers share the record with 20 seasons of 10 or more wins and 100 or more strikeouts?
+
+Code:
+
+SELECT Seasons.playerID, Seasons.fullName, COUNT(Seasons.yearID) AS Seasons
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, SUM(Pitching.W) AS W, SUM(Pitching.SO) AS SO
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast, Pitching.yearID
+HAVING SUM(Pitching.W) >= 10 AND SUM(Pitching.SO) >= 100) AS Seasons
+GROUP BY Seasons.playerID, Seasons.fullName
+HAVING COUNT(Seasons.yearID) >= 20
+
+A: Greg Maddux, Nolan Ryan and Don Sutton

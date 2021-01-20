@@ -1,0 +1,14 @@
+January 14th, 2021
+
+Q: Vince Coleman stole 752 bases in his career. Where does he rank all-time?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.SB) AS CareerSB
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+ORDER BY SUM(Batting.SB) DESC
+
+A: Coleman is sixth, behind Rickey Henderson, Lou Brock, Billy Hamilton, Ty Cobb and Tim Raines.

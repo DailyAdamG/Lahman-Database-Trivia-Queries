@@ -1,0 +1,18 @@
+January 8th, 2021
+
+Q: Who was the last Mets shortstop to win a Gold Glove Award?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM (((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+INNER JOIN AwardsPlayers
+ON Batting.playerID = AwardsPlayers.playerID AND Batting.yearID = AwardsPlayers.yearID)
+WHERE Teams.name = "New York Mets" AND AwardsPlayers.awardID = "Gold Glove" AND AwardsPlayers.notes = "SS"
+ORDER BY AwardsPlayers.yearID DESC
+
+A: Rey Ordonez, who won three in a row from 1997 to 1999

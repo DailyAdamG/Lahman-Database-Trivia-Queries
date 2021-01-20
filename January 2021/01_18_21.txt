@@ -1,0 +1,16 @@
+January 18th, 2021
+
+Q: CC Sabathia is one of three left-handed pitchers to record 3,000 career strikeouts. Who are the other two?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Pitching.SO) AS CareerK
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+WHERE People.throws = "L"
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+HAVING SUM(Pitching.SO) >= 3000
+ORDER BY SUM(Pitching.SO) DESC
+
+A: Randy Johnson (4,875) and Steve Carlton (4,136). Sabathia finished with 3,093 career strikeouts.

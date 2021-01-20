@@ -1,0 +1,17 @@
+January 1st, 2021
+
+Q: Josh Donaldson became the second Blue Jays player to win an MVP Award in 2015. Who was the first?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM (((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN AwardsPlayers
+ON Batting.playerID = AwardsPlayers.playerID AND Batting.yearID = AwardsPlayers.yearID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+WHERE AwardsPlayers.awardID = "Most Valuable Player" AND Teams.name = "Toronto Blue Jays"
+
+A: George Bell (1987)

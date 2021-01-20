@@ -1,0 +1,15 @@
+January 5th, 2021
+
+Q: Which Modern Era pitcher collected the most wins from his age-30 season onward?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Pitching.W) AS Wins
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+WHERE Pitching.yearID >= 1901 AND IIF(People.birthMonth < 7, Pitching.yearID - People.birthYear, Pitching.yearID - People.birthYear - 1) >= 30
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+ORDER BY SUM(Pitching.W) DESC
+
+A: Phil Niekro (287 wins)

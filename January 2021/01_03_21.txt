@@ -1,0 +1,24 @@
+January 3rd, 2021
+
+Q: How many Rockies players won a National League batting title in the past decade?
+
+Code:
+
+SELECT Rockies.playerID, Rockies.fullName, Rockies.yearID, Rockies.BA
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, ROUND(Batting.H / Batting.AB, 3) AS BA
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+WHERE Teams.name = "Colorado Rockies" AND Batting.yearID >= 2010 AND (Batting.AB + Batting.BB + Batting.HBP + Batting.SF + Batting.SH) >= 502) AS Rockies
+INNER JOIN(
+SELECT Batting.yearID, MAX(ROUND(Batting.H / Batting.AB, 3)) AS BA
+FROM Batting
+WHERE Batting.yearID >= 2010 AND Batting.lgID = "NL" AND (Batting.AB + Batting.BB + Batting.HBP + Batting.SF + Batting.SH) >= 502
+GROUP BY Batting.yearID) AS Leaders
+ON Rockies.yearID = Leaders.yearID AND Rockies.BA = Leaders.BA
+ORDER BY Rockies.yearID ASC
+
+A: 5 (Carlos Gonzalez, .336 in 2010; Michael Cuddyer, .331 in 2013; Justin Morneau, .319 in 2014; DJ LeMahieu, .348 in 2016; Charlie Blackmon, .331 in 2017)

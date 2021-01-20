@@ -1,0 +1,14 @@
+January 20th, 2021
+
+Q: Only two pitchers in Major League history have made more starts than Don Sutton (756). Who are they?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Pitching.GS) AS CareerGS
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+ORDER BY SUM(Pitching.GS) DESC
+
+A: Cy Young (815) and Nolan Ryan (773)
