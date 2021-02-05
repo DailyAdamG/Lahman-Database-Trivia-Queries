@@ -1,0 +1,16 @@
+February 3rd, 2021
+
+Q: If Nelson Cruz (40 years, nine months old on Opening Day) hits 30 home runs during the 2021 season, he will become the oldest player to have done so. 
+Who is the current record holder?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, IIF(People.birthMonth < 7, Batting.yearID - People.birthYear, Batting.yearID - People.birthYear - 1) AS Age, Batting.yearID, SUM(Batting.HR) AS HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast, IIF(People.birthMonth < 7, Batting.yearID - People.birthYear, Batting.yearID - People.birthYear - 1), Batting.yearID
+HAVING SUM(HR) >= 30
+ORDER BY IIF(People.birthMonth < 7, Batting.yearID - People.birthYear, Batting.yearID - People.birthYear - 1) DESC
+
+A: David Ortiz, who hit his 30th home run of the 2016 season at 40 years, nine months, and six days old.

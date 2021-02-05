@@ -1,0 +1,23 @@
+February 4th, 2021
+
+Q: Kolten Wong has won the past two NL Gold Glove Awards at second base. Who was the last AL second baseman to win two consecutive Gold Gloves?
+
+Code:
+
+SELECT FirstYear.playerID, FirstYear.fullName, FirstYear.yearID, SecondYear.yearID
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.awardID = "Gold Glove" AND AwardsPlayers.lgID = "AL" AND AwardsPlayers.notes = "2B") AS FirstYear
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.awardID = "Gold Glove" AND AwardsPlayers.lgID = "AL" AND AwardsPlayers.notes = "2B") AS SecondYear
+ON FirstYear.playerID = SecondYear.playerID AND FirstYear.yearID = SecondYear.yearID - 1
+ORDER BY SecondYear.yearID DESC
+
+A: Dustin Pedroia in 2013 and 2014

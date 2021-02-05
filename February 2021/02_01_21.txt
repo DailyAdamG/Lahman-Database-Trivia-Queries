@@ -1,0 +1,14 @@
+February 1st, 2021
+
+Q: Who was the first recipient of the Cy Young Award?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Awardsplayers.yearID
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.awardID = "Cy Young Award"
+ORDER BY Awardsplayers.yearID ASC
+
+A: The Brooklyn Dodgers' Don Newcombe, in 1956.
