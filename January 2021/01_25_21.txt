@@ -1,0 +1,23 @@
+January 25th, 2021
+
+Q: Who is the only Nationals pitcher to lead the National League in saves?
+
+Code:
+
+SELECT Players.playerID, Players.fullName, Players.yearID, Players.SV
+FROM(
+SELECT Pitching.yearID,  MAX(Pitching.SV) AS SV
+FROM Pitching
+WHERE Pitching.lgID = "NL"
+GROUP BY Pitching.yearID) AS Leaders
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, Pitching.SV
+FROM ((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN Teams
+ON Pitching.yearID = Teams.yearID AND Pitching.teamID = Teams.teamID)
+WHERE Teams.name = "Washington Nationals") AS Players
+ON Leaders.SV = Players.SV AND Leaders.yearID = Players.yearID
+
+A: Chad Cordero (47 in 2005)

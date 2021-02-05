@@ -1,0 +1,24 @@
+January 27th, 2021
+
+Q: Which Hall of Famer not elected on the first ballot got the highest percentage in a BBWAA vote?
+
+Code:
+
+SELECT HOF.playerID, HOF.fullName, HOF.yearID, HOF.VotePct
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, MIN(yearID) AS FirstYear
+FROM People
+INNER JOIN HallOfFame
+ON People.playerID = HallOfFame.playerID
+WHERE HallOfFame.votedBy = "BBWAA" AND HallOfFame.inducted = "N" AND HallOfFame.category = "Player"
+GROUP BY People.playerID, People.nameFirst, People.nameLast) AS FirstBallot
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, HallOfFame.yearID, ROUND(HallOfFame.votes / HallOfFame.ballots,3) AS VotePct
+FROM People
+INNER JOIN HallOfFame
+ON People.playerID = HallOfFame.playerID
+WHERE HallOfFame.votedBy = "BBWAA" AND HallOfFame.inducted = "Y" AND HallOfFame.category = "Player") AS HOF
+ON FirstBallot.playerID = HOF.playerID
+ORDER BY VotePct DESC
+
+A: 

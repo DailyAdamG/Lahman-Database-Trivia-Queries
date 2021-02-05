@@ -1,0 +1,14 @@
+January 28th, 2021
+
+Q: George Springer is tied for fourth all-time with 19 career postseason homers. Who is first?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(BattingPost.HR) AS PostHR
+FROM People
+INNER JOIN BattingPost
+ON People.playerID = BattingPost.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+ORDER BY SUM(BattingPost.HR) DESC
+
+A: Manny Ramirez, who hit 29 in 111 postseason games
