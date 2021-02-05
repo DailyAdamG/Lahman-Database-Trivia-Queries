@@ -21,4 +21,4 @@ WHERE HallOfFame.votedBy = "BBWAA" AND HallOfFame.inducted = "Y" AND HallOfFame.
 ON FirstBallot.playerID = HOF.playerID
 ORDER BY VotePct DESC
 
-A: 
+A: Vladimir Guerrero (92.9% in 2018)
