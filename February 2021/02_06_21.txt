@@ -1,0 +1,31 @@
+February 6th, 2021
+
+Q: Trevor Bauer will look to repeat as the NL Cy Young Award winner with a new team. 
+Only one pitcher in history has ever won back-to-back Cy Youngs with different teams. Who is he?
+
+Code:
+
+SELECT FirstAward.fullName, FirstAward.yearID, FirstAward.name, SecondAward.yearID, SecondAward.name
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID, Teams.teamID, Teams.name
+FROM (((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN Teams
+ON Pitching.teamID = Teams.teamID AND Pitching.yearID = Teams.yearID)
+INNER JOIN AwardsPlayers
+ON Pitching.playerID = AwardsPlayers.playerID AND Pitching.yearID = AwardsPlayers.yearID)
+WHERE AwardsPlayers.awardID = "Cy Young Award") AS FirstAward
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID, Teams.teamID, Teams.name
+FROM (((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN Teams
+ON Pitching.teamID = Teams.teamID AND Pitching.yearID = Teams.yearID)
+INNER JOIN AwardsPlayers
+ON Pitching.playerID = AwardsPlayers.playerID AND Pitching.yearID = AwardsPlayers.yearID)
+WHERE AwardsPlayers.awardID = "Cy Young Award") AS SecondAward
+ON FirstAward.playerID = SecondAward.playerID AND FirstAward.yearID = SecondAward.yearID - 1 AND FirstAward.teamID <> SecondAward.teamID
+
+A: Greg Maddux with the Cubs in 1992 and the Braves in 1993.

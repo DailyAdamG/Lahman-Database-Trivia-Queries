@@ -1,0 +1,15 @@
+February 10th, 2021
+
+Q: Who was the youngest player ever in Major League Baseball?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, MIN(Batting.yearID) AS debutYear, IIF(People.birthMonth <  7, Batting.yearID - People.birthYear,  Batting.yearID - People.birthYear - 1) AS Age
+FROM People 
+INNER JOIN Batting 
+ON People.playerID = Batting.playerID
+WHERE People.birthYear <> NULL
+GROUP BY People.playerID, People.nameFirst, People.nameLast, IIF(People.birthMonth <  7, Batting.yearID - People.birthYear,  Batting.yearID - People.birthYear - 1)
+ORDER BY IIF(People.birthMonth <  7, Batting.yearID - People.birthYear,  Batting.yearID - People.birthYear - 1)
+
+A: Pitcher Joe Nuxhall, who was 15 years, 10 months old when he debuted with the Reds on June 10, 1944.

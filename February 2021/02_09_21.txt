@@ -1,0 +1,17 @@
+February 9th, 2021
+
+Q: Yadier Molina holds the record for most games caught for one team (2,025 and counting). Who was the previous record holder?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Fielding.teamID, Teams.name, SUM(Fielding.G) AS GamesCaught
+FROM ((People
+INNER JOIN Fielding
+ON People.playerID = Fielding.playerID)
+INNER JOIN Teams
+ON Fielding.teamID = Teams.teamID AND Fielding.yearID = Teams.yearID)
+WHERE Fielding.POS = "C"
+GROUP BY People.playerID, People.nameFirst, People.nameLast, Fielding.teamID, Teams.name
+ORDER BY SUM(Fielding.G) DESC
+
+A: Hall of Famer Gabby Hartnett (Cubs)

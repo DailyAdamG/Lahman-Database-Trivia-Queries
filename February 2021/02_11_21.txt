@@ -1,0 +1,28 @@
+February 11th, 2021
+
+Q: Yadier Molina leads all active catchers with 932 RBIs. Who is second?
+
+Code:
+
+SELECT Catchers.playerID, Catchers.fullName, Catchers.CareerRBI
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.RBI) AS CareerRBI, SUM(Fielding.G) AS GamesCaught
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Fielding
+ON Batting.playerID = Fielding.playerID AND Batting.yearID = Fielding.yearID AND Batting.teamID = Fielding.teamID)
+WHERE Fielding.POS = "C"
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+HAVING SUM(Fielding.G) >= 500) AS Catchers
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, MAX(Batting.yearID) AS LastYear
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+HAVING MAX(Batting.yearID) = 2020) AS ActivePlayers
+ON Catchers.playerID = ActivePlayers.playerID
+ORDER BY Catchers.CareerRBI DESC
+
+A: Kurt Suzuki (699)

@@ -1,0 +1,13 @@
+February 7th, 2021
+
+Q: When Elvis Andrus finished second in American League Rookie of the Year voting in 2009, who won the honor?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.yearID = 2009 AND AwardsPlayers.lgID = "AL" AND AwardsPlayers.awardID = "Rookie of the Year"
+
+A: Andrew Bailey, OAK

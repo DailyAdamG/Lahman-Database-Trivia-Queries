@@ -1,0 +1,15 @@
+February 8th, 2021
+
+Q: Dee Strange-Gordon is the active leader in career stolen bases (333). What is his career high for stolen bases in a single season?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, SUM(Batting.SB) AS SB
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE People.nameFirst = "Dee" AND People.nameLast = "Gordon"
+GROUP BY People.playerID, People.nameFirst, People.nameLast, Batting.yearID
+ORDER BY SUM(Batting.SB) DESC
+
+A: 64, with the Dodgers in 2014
