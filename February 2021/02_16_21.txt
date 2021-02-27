@@ -1,0 +1,13 @@
+February 16th, 2021
+
+Q: The 1999 Hall of Fame class featured three first-ballot inductees, the most since the inaugural class of 1936. Who were they?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+INNER JOIN HallOfFame
+ON People.playerID = HallOfFame.playerID
+WHERE HallOfFame.yearid = 1999 AND HallOfFame.inducted = "Y" AND votedBy = "BBWAA"
+
+A: George Brett, Nolan Ryan and Robin Yount.

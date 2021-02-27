@@ -1,0 +1,17 @@
+February 18th, 2021
+
+Q: Which player started the most games at shortstop in Padres history?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Fielding.GS) AS SS_GS
+FROM ((People
+INNER JOIN Fielding
+ON People.playerID = Fielding.playerID)
+INNER JOIN Teams
+ON Fielding.teamID = Teams.teamID AND Fielding.yearID = Teams.yearID)
+WHERE Teams.name = "San Diego Padres" AND Fielding.POS = "SS"
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+ORDER BY SUM(Fielding.GS) DESC
+
+A: Garry Templeton (1,190 starts)

@@ -1,0 +1,15 @@
+February 26th, 2021
+
+Q: Who led the Majors in stolen bases during the 2020 season?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.SB) AS SB
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.yearID = 2020
+GROUP BY People.playerID, People.nameFirst & " " & People.nameLast
+ORDER BY SUM(Batting.SB) DESC
+
+A: Royals SS Adalberto Mondesi (24)

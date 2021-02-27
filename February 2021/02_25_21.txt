@@ -1,0 +1,15 @@
+February 25th, 2021
+
+Q: Who holds the record for most home runs hit before turning 25?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.HR) AS HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE IIF(People.birthMonth < 7, Batting.yearID - People.birthYear, (Batting.yearID - People.birthYear - 1)) <25
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+ORDER BY SUM(Batting.HR) DESC
+
+A: Hall of Famer Eddie Mathews (190 HRs)

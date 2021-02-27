@@ -1,0 +1,15 @@
+February 27th, 2021
+
+Q: Who is the only Triple Crown winner to hit zero triples in his Triple Crown season?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, batting.yearID
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN AwardsPlayers
+ON Batting.playerID = AwardsPlayers.playerID AND Batting.yearID = AwardsPlayers.yearID)
+WHERE AwardsPlayers.awardID = "Triple Crown" AND Batting.[3B] = 0
+
+A: Miguel Cabrera (2012)

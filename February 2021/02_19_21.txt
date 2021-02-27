@@ -1,0 +1,15 @@
+February 19th, 2021
+
+Q: Who are the only two pitchers in the Live Ball Era (since 1920) to win 20 or more games and lose 20 or more in the same season?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, SUM(Pitching.W) AS Wins, SUM(Pitching.L) AS L
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+WHERE Pitching.yearID >= 1920
+GROUP BY People.playerID, People.nameFirst, People.nameLast, Pitching.yearID
+HAVING SUM(Pitching.W) >= 20 AND SUM(Pitching.L) >= 20
+
+A: Phil Niekro (21-20 for the Braves in 1979) and Wilbur Wood (24-20 for the White Sox in 1973)
