@@ -1,0 +1,17 @@
+March 3rd, 2021
+
+Q: Who is the only Pirates player to win the BBWAA's NL Rookie of the Year Award?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Teams.name
+FROM (((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN AwardsPlayers
+ON Batting.playerID = AwardsPlayers.playerID AND Batting.yearID = AwardsPlayers.yearID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+WHERE Teams.name = "Pittsburgh Pirates" AND AwardsPlayers.awardID = "Rookie of the Year"
+
+A: Jason Bay (2004)

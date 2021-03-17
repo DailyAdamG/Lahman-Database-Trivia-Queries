@@ -1,0 +1,13 @@
+March 11th, 2021
+
+Q: Pete Alonso became the first rookie to lead the Majors outright in homers in 2019. How many did he hit?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE Batting.yearID = 2019 AND People.nameFirst = "Pete" AND People.nameLast = "Alonso"
+
+A: 53

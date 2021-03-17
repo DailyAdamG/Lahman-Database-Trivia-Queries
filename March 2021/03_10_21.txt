@@ -1,0 +1,30 @@
+March 10th, 2021
+
+Q: Who is the only player to win an AL Rookie of the Year Award and an AL MVP Award as a Yankee in his career?
+
+Code:
+
+SELECT ROY.playerID, ROY.fullName, ROY.yearID AS ROY, MVP.yearID AS MVP
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Teams.name
+FROM (((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+INNER JOIN AwardsPlayers
+ON Batting.playerID = AwardsPlayers.playerID AND Batting.yearID = AwardsPlayers.yearID)
+WHERE Teams.name = "New York Yankees" AND AwardsPlayers.awardID = "Rookie of the Year") AS ROY
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Teams.name
+FROM (((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+INNER JOIN AwardsPlayers
+ON Batting.playerID = AwardsPlayers.playerID AND Batting.yearID = AwardsPlayers.yearID)
+WHERE Teams.name = "New York Yankees" AND AwardsPlayers.awardID = "Most Valuable Player") AS MVP
+ON ROY.playerID = MVP.playerID
+
+A: Catcher Thurman Munson (1970 ROY, 1976 MVP)

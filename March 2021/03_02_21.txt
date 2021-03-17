@@ -1,0 +1,32 @@
+March 2nd, 2021
+
+Q: Of the 30 current franchises, only one never has had a player lead its league in home runs. Which one?
+
+Code:
+
+SELECT Franchises.franchName
+FROM(
+SELECT DISTINCT Leaders.franchName
+FROM(
+SELECT Batting.yearID, Batting.lgID, MAX(Batting.HR) AS HR
+FROM Batting
+GROUP BY Batting.yearID, Batting.lgID) AS HR
+INNER JOIN(
+SELECT People.playerID, Batting.yearID, Batting.lgID, TeamsFranchises.franchName, Batting.HR
+FROM (((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.yearID = Teams.yearID AND Batting.teamID = Teams.teamID)
+INNER JOIN TeamsFranchises
+ON Teams.franchID = TeamsFranchises.franchID)
+WHERE TeamsFranchises.active = "Y") AS Leaders
+ON HR.yearID = Leaders.yearID AND HR.HR = Leaders.HR AND HR.lgID = Leaders.lgID) AS FranchiseLeaders
+RIGHT JOIN(
+SELECT TeamsFranchises.franchName
+FROM TeamsFranchises
+WHERE TeamsFranchises.active = "Y") AS Franchises
+ON FranchiseLeaders.franchName = Franchises.franchName
+WHERE FranchiseLeaders.franchName IS NULL
+
+A: The Houston Astros

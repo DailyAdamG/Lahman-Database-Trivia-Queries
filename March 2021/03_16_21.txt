@@ -1,0 +1,23 @@
+March 16th, 2021
+
+Q: Who was the last player to lead a league in stolen bases the year his team won the World Series?
+
+Code:
+
+SELECT WSPlayers.playerID, WSPlayers.fullName, WSPlayers.yearID, WSPlayers.SB
+FROM(
+SELECT Batting.yearID, Batting.lgID, MAX(Batting.SB) AS SB
+FROM Batting
+GROUP BY Batting.yearID, Batting.lgID) Leaders
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, Batting.lgID, Batting.SB
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.teamID = Teams.teamID AND Batting.yearID = Teams.yearID)
+WHERE Teams.WSWin = "Y") AS WSPlayers
+ON Leaders.yearID = WSPlayers.yearID AND Leaders.lgID = WSPlayers.lgID AND Leaders.SB = WSPlayers.SB
+ORDER BY WSPlayers.yearID DESC
+
+A: Jacoby Ellsbury of the Red Sox (52 SB led AL in 2013)

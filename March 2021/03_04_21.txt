@@ -1,0 +1,32 @@
+March 4th, 2021
+
+Q: Who was the first manager to lead two different teams to a World Series title?
+
+Code:
+
+SELECT FirstWin.playerID, FirstWin.fullName, FirstWin.yearID AS FirstYear, FirstWin.franchName AS FirstTeam, SecondWin.yearID AS SecondYear, SecondWin.franchName AS SecondTeam
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Managers.yearID, TeamsFranchises.franchName
+FROM (((People
+INNER JOIN Managers
+ON People.playerID = Managers.playerID)
+INNER JOIN Teams
+ON Managers.yearID = Teams.yearID AND Managers.teamID = Teams.teamID)
+INNER JOIN TeamsFranchises
+ON Teams.franchID = TeamsFranchises.franchID)
+WHERE Teams.WSWin = "Y") AS FirstWin
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Managers.yearID, TeamsFranchises.franchName
+FROM (((People
+INNER JOIN Managers
+ON People.playerID = Managers.playerID)
+INNER JOIN Teams
+ON Managers.yearID = Teams.yearID AND Managers.teamID = Teams.teamID)
+INNER JOIN TeamsFranchises
+ON Teams.franchID = TeamsFranchises.franchID)
+WHERE Teams.WSWin = "Y") AS SecondWin
+ON FirstWin.playerID = SecondWin.playerID AND FirstWin.yearID <> SecondWin.yearID AND FirstWin.franchName <> SecondWin.franchName
+WHERE FirstWin.yearID < SecondWin.yearID
+ORDER BY SecondWin.yearID ASC
+
+A: Bill McKechnie (1925 Pirates, 1940 Reds)

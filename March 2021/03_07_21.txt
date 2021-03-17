@@ -1,0 +1,17 @@
+March 7th, 2021
+
+Q: Who finished second to Dodgers lefty Fernando Valenzuela in 1981 NL Cy Young Award voting?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsSharePlayers.pointsWon
+FROM ((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN
+AwardsSharePlayers
+ON Pitching.playerID = AwardsSharePlayers.playerID AND Pitching.yearID = AwardsSharePlayers.yearID)
+WHERE AwardsSharePlayers.yearID = 1981 AND AwardsSharePlayers.lgID = "NL" AND AwardsSharePlayers.awardID = "Cy Young"
+ORDER BY AwardsSharePlayers.pointsWon DESC
+
+A: Tom Seaver, CIN

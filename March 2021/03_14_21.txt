@@ -1,0 +1,24 @@
+March 14th, 2021
+
+Q: Who are the five Padres pitchers to lead the National League in saves?
+
+Code:
+
+SELECT Padres.playerID, Padres.fullName, Leaders.yearID, Padres.SV
+FROM(
+SELECT Pitching.yearID, MAX(Pitching.SV) AS SV
+FROM Pitching
+WHERE Pitching.lgID = "NL"
+GROUP BY Pitching.yearID) AS Leaders
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, Pitching.SV
+FROM ((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN Teams
+ON Pitching.teamID = Teams.teamID AND Pitching.yearID = Teams.yearID)
+WHERE Teams.name = "San Diego Padres") AS Padres
+ON Leaders.yearID = Padres.yearID AND Leaders.SV = Padres.SV
+ORDER BY Leaders.yearID ASC
+
+A: Rollie Fingers (1977, '78), Mark Davis (1989), Trevor Hoffman (1998, 2006), Heath Bell (2009), Kirby Yates (2019)

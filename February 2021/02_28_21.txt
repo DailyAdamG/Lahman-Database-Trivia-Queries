@@ -1,0 +1,22 @@
+February 28th, 2021
+
+Q: Who was the last Padres pitcher to lead the Major Leagues in strikeouts?
+
+Code:
+
+SELECT Padres.playerID, Padres.fullName, Padres.yearID, Padres.SO
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, Pitching.SO
+FROM ((People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID)
+INNER JOIN Teams
+ON Pitching.teamID = Teams.teamID AND Pitching.yearID = Teams.yearID)
+WHERE name = "San Diego Padres") AS Padres
+INNER JOIN(
+SELECT Pitching.yearID, MAX(Pitching.SO) AS SO
+FROM Pitching
+GROUP BY Pitching.yearID) AS Leaders
+ON Padres.yearID = Leaders.yearID AND Padres.SO = Leaders.SO
+
+A: Jake Peavy (240 in 2007)

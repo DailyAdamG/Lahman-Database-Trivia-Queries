@@ -1,0 +1,22 @@
+March 9th, 2021
+
+Q: Six of the last seven NL batting titles have been won by left-handed hitters. Who was the lone right-hander in that group?
+
+Code:
+
+SELECT Players.fullName, Players.bats, Players.yearID, Leaders.BA
+FROM(
+SELECT Batting.yearID, MAX(ROUND(Batting.H/Batting.AB,4)) AS BA
+FROM Batting
+WHERE IIF(Batting.yearID < 2020, (Batting.AB + Batting.BB + Batting.HBP + Batting.SF + Batting.SH) >= 501, (Batting.AB + Batting.BB + Batting.HBP + Batting.SF + Batting.SH) >= 186) AND Batting.lgID = "NL" AND Batting.yearID >= 2014
+GROUP BY Batting.yearID) AS Leaders
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, People.bats, Batting.yearID, ROUND(Batting.H/Batting.AB,4) AS BA
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE IIF(Batting.yearID < 2020, (Batting.AB + Batting.BB + Batting.HBP + Batting.SF + Batting.SH) >= 501, (Batting.AB + Batting.BB + Batting.HBP + Batting.SF + Batting.SH) >= 186) AND Batting.lgID = "NL" AND Batting.yearID >= 2014) AS Players
+ON Leaders.yearID = Players.yearID AND Leaders.BA = Players.BA
+ORDER BY Players.yearID DESC
+
+A: The Rockies' DJ LeMahieu (.348 in 2016)
