@@ -1,0 +1,15 @@
+March 24th, 2021
+
+Q: Who is the only player born in the United Kingdom to hit more than 100 career home runs?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.HR) AS CareerHR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE People.birthCountry = "United Kingdom"
+GROUP BY People.playerID, People.nameFirst & " " & People.nameLast
+HAVING SUM(Batting.HR) >= 100
+
+A: Bobby Thomson (264 HRs; born in Glasgow, Scotland)

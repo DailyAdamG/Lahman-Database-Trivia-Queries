@@ -1,0 +1,13 @@
+March 26th, 2021
+
+Q: Gio González announced his retirement after 13 seasons. The best season of his career came in 2012, when he finished 3rd in the NL Cy Young voting. Who was the winner?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.yearID = 2012 AND AwardsPlayers.awardID = "Cy Young Award" AND AwardsPlayers.lgID = "NL"
+
+A: R.A. Dickey (Mets)

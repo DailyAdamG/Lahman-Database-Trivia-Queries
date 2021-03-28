@@ -1,0 +1,13 @@
+March 19th, 2021
+
+Q: Clayton Kershaw, who turns 33 years old today, won his most recent NL Cy Young Award in 2014. Who was the winner in the AL that year?
+
+Code:
+
+SELECT People.nameFirst & " " & People.nameLast AS fullName
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.awardID = "Cy Young Award" AND AwardsPlayers.lgID = "AL" AND AwardsPlayers.yearID = 2014
+
+A: Corey Kluber (Cleveland)

@@ -1,0 +1,19 @@
+March 18th, 2021
+
+Q: Who has the most seasons with 200+ innings pitched and 200+ strikeouts since 2000?
+
+Code:
+
+SELECT Stats.playerID, Stats.fullName, COUNT(Stats.yearID) AS Seasons
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, SUM(Pitching.IPouts) AS IPouts, SUM(Pitching.SO) AS SO
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+WHERE Pitching.yearID >= 2000
+GROUP BY People.playerID, People.nameFirst & " " & People.nameLast, Pitching.yearID) AS Stats
+WHERE IPouts >= 600 AND SO >= 200
+GROUP BY Stats.playerID, Stats.fullName
+ORDER BY COUNT(Stats.yearID) DESC
+
+A: Justin Verlander (9 such seasons)

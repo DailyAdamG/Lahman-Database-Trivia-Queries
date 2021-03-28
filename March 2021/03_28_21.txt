@@ -1,0 +1,24 @@
+March 28th, 2021
+
+Q: Who was the last Pirates player to win a National League batting title?
+
+Code:
+
+SELECT Pirates.playerID, Pirates.fullName, Pirates.yearID, Pirates.BA
+FROM(
+SELECT Batting.yearID, Batting.lgID, MAX(ROUND(Batting.H / Batting.AB,3)) AS BA
+FROM Batting
+WHERE Batting.lgID = "NL" AND Batting.AB + Batting.BB + Batting.HBP + Batting.SF + Batting.SH >= 502
+GROUP BY Batting.yearID, Batting.lgID) AS BattingCrown
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Batting.yearID, ROUND(Batting.H / Batting.AB,3) AS BA
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.teamID = Teams.teamID AND Batting.yearID = Teams.yearID)
+WHERE Teams.name = "Pittsburgh Pirates" AND Batting.AB + Batting.BB + Batting.HBP + Batting.SF + Batting.SH >= 502) AS Pirates
+ON BattingCrown.yearID = Pirates.yearID AND BattingCrown.BA = Pirates.BA
+ORDER BY Pirates.yearID DESC
+
+A: Freddy Sanchez (.344 in 2006)
