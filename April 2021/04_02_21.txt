@@ -1,0 +1,18 @@
+April 2nd, 2021
+
+Q: Miguel Cabrera became the third player with 350 home runs with the Tigers. Who are the other two?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Batting.HR) AS TigersHR
+FROM ((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.teamID = Teams.teamID AND Batting.yearID = Teams.yearID)
+WHERE Teams.name = "Detroit Tigers"
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+HAVING SUM(Batting.HR) >= 350
+ORDER BY SUM(Batting.HR) DESC
+
+A: Al Kaline (399) and Norm Cash (373)

@@ -1,0 +1,26 @@
+April 8th, 2021
+
+Q: Who are the only two catchers to hit 20 or more home runs in their age-38 season or older?
+
+Code:
+
+SELECT Catchers.playerID, Catchers.fullName, HRTable.SeasonAge, HRTable.yearID, HRTable.HR
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Fielding.GS) AS Starts
+FROM People
+INNER JOIN Fielding
+ON People.playerID = Fielding.playerID
+WHERE Fielding.POS = "C"
+GROUP BY People.playerID, People.nameFirst & " " & People.nameLast
+HAVING SUM(Fielding.GS) >= 1000) AS Catchers
+INNER JOIN(
+SELECT People.playerID, IIF(People.birthMonth < 7, Batting.yearID - People.birthYear, Batting.yearID - People.birthYear - 1) AS SeasonAge, Batting.yearID, SUM(Batting.HR) AS HR 
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+WHERE IIF(People.birthMonth < 7, Batting.yearID - People.birthYear, Batting.yearID - People.birthYear - 1)  >= 38
+GROUP BY People.playerID, IIF(People.birthMonth < 7, Batting.yearID - People.birthYear, Batting.yearID - People.birthYear - 1), Batting.yearID
+HAVING SUM(Batting.HR) >= 20) AS HRTable
+ON Catchers.playerID = HRTable.playerID
+
+A: Carlton Fisk (23 HRs at age 39 in 1987) and Jorge Posada (22 HRs at age 38 in 2009)

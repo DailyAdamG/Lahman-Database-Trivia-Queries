@@ -1,0 +1,24 @@
+April 9th, 2021
+
+Q: Which two players share the Cardinals' single-season record for home runs by a third baseman (minimum 51% of games played at the position)?
+
+Code:
+
+SELECT Cardinals.playerID, Cardinals.fullName, Cardinals.yearID, HRTotals.HR
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Fielding.yearID
+FROM ((People
+INNER JOIN Fielding
+ON People.playerID = Fielding.playerID)
+INNER JOIN Teams
+ON Fielding.teamID = Teams.teamID AND Fielding.yearID = Teams.yearID)
+WHERE Fielding.POS = "3B" AND Fielding.GS >= 80 AND Teams.name = "St. Louis Cardinals") AS Cardinals
+INNER JOIN(
+SELECT People.playerID, Batting.yearID, Batting.HR
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID) AS HRTotals
+ON Cardinals.playerID = HRTotals.playerID AND Cardinals.yearID = HRTotals.yearID
+ORDER BY HRTotals.HR DESC
+
+A: Scott Rolen (2004) and Fernando Tatis (1999)

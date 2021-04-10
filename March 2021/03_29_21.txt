@@ -1,0 +1,18 @@
+March 29th, 2021
+
+Q: Who is the most recent Royals player to win the AL Rookie of the Year Award?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.yearID
+FROM (((People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID)
+INNER JOIN Teams
+ON Batting.teamID = Teams.teamID AND Batting.yearID = Teams.yearID)
+INNER JOIN AwardsPlayers
+ON Batting.playerID = AwardsPlayers.playerID AND Batting.yearID = AwardsPlayers.yearID)
+WHERE Teams.name = "Kansas City Royals" AND AwardsPlayers.awardID = "Rookie of the Year"
+ORDER BY AwardsPlayers.yearID DESC
+
+A: Angel Berroa (2003)

@@ -1,0 +1,22 @@
+April 6th, 2021
+
+Q: Who is the oldest player to lead MLB in home runs?
+
+Code:
+
+SELECT HRLeaders.playerID, HRLeaders.fullName, HRLeaders.SeasonAge, HRLeaders.yearID, HRLeaders.HR
+FROM(
+SELECT Batting.yearID, MAX(Batting.HR) AS HR
+FROM Batting
+GROUP BY Batting.yearID) AS HRTotal
+INNER JOIN(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, IIF(People.birthMonth < 7, Batting.yearID - People.birthYear, Batting.yearID - birthYear - 1) AS SeasonAge, Batting.yearID, SUM(Batting.HR) AS HR
+FROM
+People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+GROUP BY People.playerID, People.nameFirst, People.nameLast, IIF(People.birthMonth < 7, Batting.yearID - People.birthYear, Batting.yearID - birthYear - 1), Batting.yearID) AS HRLeaders
+ON HRTotal.yearID = HRLeaders.yearID AND HRTotal.HR = HRLeaders.HR
+ORDER BY HRLeaders.SeasonAge DESC
+
+A: 38-year-old Darrell Evans (40 HR in 1985, the only year he ever led the Majors)
