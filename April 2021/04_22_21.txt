@@ -1,0 +1,25 @@
+April 22nd, 2021
+
+Q: Who is the career leader in batting average by a catcher (minimum 1,000 career games)?
+
+Code:
+
+SELECT Catchers.playerID, Catchers.fullName, Stats.BA
+FROM(
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, SUM(Fielding.G) AS CareerG
+FROM People
+INNER JOIN Fielding
+ON People.playerID = Fielding.playerID
+WHERE Fielding.POS = "C"
+GROUP BY People.playerID, People.nameFirst, People.nameLast
+HAVING SUM(Fielding.G) >= 1000) AS Catchers
+INNER JOIN(
+SELECT People.playerID, ROUND(SUM(H) / SUM(AB), 3) AS BA
+FROM People
+INNER JOIN Batting
+ON People.playerID = Batting.playerID
+GROUP BY People.playerID) AS Stats
+ON Catchers.playerID = Stats.playerID
+ORDER BY Stats.BA DESC
+
+A: Hall of Famer Mickey Cochrane (.320 in 1,482 games)

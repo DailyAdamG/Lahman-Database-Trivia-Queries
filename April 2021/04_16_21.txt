@@ -1,0 +1,14 @@
+April 16th, 2021
+
+Q: When Fernando Valenzuela won the 1981 NL Cy Young and Rookie of the Year awards, which future Hall of Famers finished second in each vote?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsSharePlayers.awardID, AwardsSharePlayers.pointsWon
+FROM People
+INNER JOIN AwardsSharePlayers
+ON People.playerID = AwardsSharePlayers.playerID
+WHERE (awardID = "Cy Young" OR awardID = "Rookie of the Year") AND AwardsSharePlayers.yearID = 1981 AND AwardsSharePlayers.lgID = "NL"
+ORDER BY AwardsSharePlayers.awardID, AwardsSharePlayers.pointsWon DESC
+
+A: The Reds' Tom Seaver was second in Cy Young voting, and the Expos' Tim Raines was second in the ROY vote

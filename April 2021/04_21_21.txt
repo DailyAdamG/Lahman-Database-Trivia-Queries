@@ -1,0 +1,14 @@
+April 21st, 2021
+
+Q: Who holds the single-season record for strikeout-to-walk ratio?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, Pitching.yearID, ROUND(Pitching.SO/Pitching.BB,1) AS KperBB
+FROM People
+INNER JOIN Pitching
+ON People.playerID = Pitching.playerID
+WHERE Pitching.IPouts >= 486 AND Pitching.yearID >= 1901
+ORDER BY ROUND(Pitching.SO/Pitching.BB,1) DESC
+
+A: The Yankees' Phil Hughes (11.6 K's per BB in 2014)

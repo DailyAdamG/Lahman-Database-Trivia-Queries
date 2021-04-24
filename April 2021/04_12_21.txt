@@ -1,0 +1,13 @@
+April 12th, 2021
+
+Q: Who were the two Cy Young Award winners in 2013?
+
+Code:
+
+SELECT People.playerID, People.nameFirst & " " & People.nameLast AS fullName, AwardsPlayers.lgID
+FROM People
+INNER JOIN AwardsPlayers
+ON People.playerID = AwardsPlayers.playerID
+WHERE AwardsPlayers.yearID = 2013 AND AwardsPlayers.awardID = "Cy Young Award"
+
+A: Max Scherzer, DET and Clayton Kershaw, LAD
